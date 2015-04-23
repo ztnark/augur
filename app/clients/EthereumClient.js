@@ -277,4 +277,25 @@ EthereumClient.prototype.addMarket = function(params) {
     return newMarketId;
 };
 
+EthereumClient.prototype.dispatch = function(params) {
+
+  var contract = this.getContract('dispatch');
+  // relationship between branchId and branchNumber = ?
+  var branchId = 1010101;
+
+  try {
+
+    var nextStep = contract.call({gas: 100000}).dispatch(branchId);
+    
+    contract.sendTransaction({from: this.account, gas: 100000}).dispatch(branchId);
+
+  } catch (err) {
+
+    utilities.error(err);
+    return false;
+  }
+
+  return nextStep;
+};
+
 module.exports = EthereumClient;
