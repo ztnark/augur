@@ -1,33 +1,38 @@
-// basic node-static server wrapper for app
+// express server wrapper for augur app
 
-var static = require('node-static'),
-    http = require('http'),
+var express = require('express'),
+    app = express(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http),
+    NeDB = require('nedb'),
     util = require('util');
 
-var webroot = './app',
- 	port = process.env.PORT || 8080 
+var webroot = __dirname + '/app';
+var port = process.env.PORT || 8080;
 
-var file = new(static.Server)(webroot, { cache: 600 });
+var local = new NeDB({ filename: 'augur.local', autoload: true });
 
-http.createServer(function(req, res) {
+app.use(express.static(webroot));
 
-    if (req.url == '/') req.url = '/augur.html';
+app.get('/', function (req, res) {
+    res.sendFile(webroot + '/augur.html');
+});
 
-	file.serve(req, res, function(err, result) {
+io.on('connection', function (socket) {
+    socket.on('load-assets', function (assets) {
+        var which = { account: assets.account };
+        local.update(which, assets, { upsert: true }, function (err) {
+            local.find(which, function (err, res) {
+                if (err) return console.error(err);
+                console.log(res);
+            });
+        });
+    });
+    socket.on('disconnect', function () {
+        console.log('[augur] websocket connection lost');
+    });
+});
 
-		if (err) {
-
-    		console.error('Error serving %s - %s', req.url, err.message);
-
-  			res.writeHead(err.status, err.headers);
-  			res.end();
-
-  		} else {
-
-    		console.log('%s', req.url); 
-  		}
-	});
-
-}).listen(port);
-
-console.log('node-static running at http://localhost:%d', port);
+http.listen(port, function () {
+    console.log('[augur] http://localhost:' + port.toString());
+});
