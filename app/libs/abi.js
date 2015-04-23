@@ -6,6 +6,7 @@ module.exports = {
   createBranch: require('./abi/createBranch.js'),
   createEvent: require('./abi/createEvent.js'),
   createMarket: require('./abi/createMarket.js'),
+  dispatch: require('./abi/dispatch.js'),
   events: require('./abi/events.js'),
   expiringEvents: require('./abi/expiringEvents.js'),
   info: require('./abi/info.js'),
