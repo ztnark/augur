@@ -12,6 +12,18 @@ var port = process.env.PORT || 8080;
 
 var local = new NeDB({ filename: 'augur.local', autoload: true });
 
+function log(msg) {
+    var output = "[augur] ";
+    if (msg) {
+        if (msg.constructor == Object || msg.constructor == Array) {
+            output += JSON.stringify(msg, null, 2);
+        } else {
+            output += msg.toString();
+        }
+        console.log(output);
+    }
+}
+
 app.use(express.static(webroot));
 
 app.get('/', function (req, res) {
@@ -19,20 +31,64 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
+
+    function ok(err) {
+        if (err) {
+            console.error(err);
+            socket.emit('not-ok', { error: err });
+            return false;
+        }
+        return true;
+    }
+
     socket.on('load-assets', function (assets) {
-        var which = { account: assets.account };
-        local.update(which, assets, { upsert: true }, function (err) {
-            local.find(which, function (err, res) {
-                if (err) return console.error(err);
-                console.log(res);
+        if (assets && assets.account) {
+            local.update({ account: assets.account }, assets, { upsert: true }, function (err) {
+                if (ok(err)) {
+                    log("saved local assets for " + assets.account.toString());
+                }
             });
-        });
+        }
     });
+
+    socket.on('load-markets', function (data) {
+        if (data && data.branch) {
+            log(data);
+            local.update({ branch: data.branch }, data, { upsert: true }, function (err) {
+                if (ok(err)) {
+                    log("saved market data for branch " + data.branch.toString());
+                }
+            });
+        }
+    });
+
+    socket.on('get-assets', function (data) {
+        if (data && data.account) {
+            local.find({ account: data.account }, function (err, assets) {
+                if (ok(err)) {
+                    log(assets);
+                    socket.emit('got-assets', assets);
+                }
+            });
+        }
+    });
+
+    socket.on('get-markets', function (data) {
+        if (data && data.branch) {
+            local.find({ branch: data.branch }, function (err, markets) {
+                if (ok(err)) {
+                    log(markets);
+                    socket.emit('got-markets', markets);
+                }
+            });
+        }
+    });
+
     socket.on('disconnect', function () {
-        console.log('[augur] websocket connection lost');
+        log('websocket connection lost');
     });
 });
 
 http.listen(port, function () {
-    console.log('[augur] http://localhost:' + port.toString());
+    log('http://localhost:' + port.toString());
 });

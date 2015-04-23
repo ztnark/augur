@@ -14,8 +14,6 @@ var AssetActions = {
     var reputation = ethereumClient.getRepBalance();
     var gas = utilities.formatGas(web3.eth.getBalance(account));
 
-    console.log("loadAssets");
-
     socket.emit('load-assets', {
       account: account,
       balance: balance,

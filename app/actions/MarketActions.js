@@ -12,6 +12,11 @@ var MarketActions = {
     var ethereumClient = configState.ethereumClient;
     var markets = ethereumClient.getMarkets(branchId);
 
+    socket.emit('load-markets', {
+        branch: branchId,
+        markets: markets
+    });
+
     this.dispatch(constants.market.LOAD_MARKETS_SUCCESS, {markets: markets});
   }
 };
