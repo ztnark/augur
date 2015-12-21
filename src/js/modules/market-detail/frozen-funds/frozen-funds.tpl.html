@@ -1,0 +1,89 @@
+<%@ taglib prefix="cms" uri="http://intrade.com/tags/cms" %>
+<h2>Frozen Funds
+    <a class="helpPopover" data-toggle="modal" data-target="#help-markets-frozen-funds" ng-include="'question-icon'"></a>
+</h2>
+
+<jsp:include page="../../include/help-popover.jsp">
+    <jsp:param name="contentCmsName" value="help-markets-frozen-funds"/>
+    <jsp:param name="labelCmsName" value="help-markets-frozen-funds-label"/>
+    <jsp:param name="labelDefaultValue" value="Frozen Funds"/>
+</jsp:include>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Outcome</th>
+                <th style="width: 10%;" class="text-right">Position</th>
+                <th style="width: 12%;" class="text-right">Avg. Price</th>
+                <th style="width: 12%;" class="text-right">Open Buys</th>
+                <th style="width: 12%;" class="text-right">Open Sells</th>
+                <th style="width: 12%;" class="text-right">$0 Expiry</th>
+                <th style="width: 12%;" class="text-right">$10 Expiry</th>
+                <th style="width: 12%;" class="text-right"
+                    ng-if="!userFrozenFunds.marginContainer.linked">
+                    Margin
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="!userFrozenFunds.marginContainer">
+                <td colspan="8" class="text-center">
+                    There are currently no funds frozen to cover positions or open orders in this
+                    market.
+                </td>
+            </tr>
+            <tr ng-repeat="prediction in userFrozenFunds.marginContainer.predictions track by prediction.contractId">
+                <td class="media">
+                                            <span class="media-left">
+                                                <span class="media-object contractImage contractImage--small"
+                                                      ng-style="{'background-image': 'url(\'' + prediction.imageUrl + '\')'}"></span>
+                                            </span>
+                                            <span class="media-body media-middle">
+                                                {{prediction.name}}
+                                            </span>
+                </td>
+                <td class="text-right">
+                                    <span in-pos-neg="{{prediction.quantity}}" ng-bind="prediction.quantityFormatted"
+                                          in-highlight></span>
+                </td>
+                <td class="text-right">
+                                    <span ng-bind="prediction.myCostPerShareFormatted"
+                                          in-highlight="prediction.myCostPerShare"></span>
+                </td>
+                <td class="text-right">
+                                            <span in-pos-neg="{{prediction.bidQuantity}}"
+                                                  ng-bind="prediction.bidQuantityFormatted"
+                                                  in-highlight="prediction.bidQuantity"></span>
+                </td>
+                <td class="text-right">
+                                    <span in-pos-neg="{{prediction.offerQuantity}}"
+                                          ng-bind="prediction.offerQuantityFormatted" in-highlight></span>
+                </td>
+                <td class="text-right">
+                                    <span in-pos-neg="{{prediction.bidRisk}}" ng-bind="prediction.bidRiskStr"
+                                          in-highlight="prediction.bidRisk"></span>
+                </td>
+                <td class="text-right">
+                                    <span in-pos-neg="{{prediction.offerRisk}}" ng-bind="prediction.offerRiskStr"
+                                          in-highlight="prediction.offerRisk"></span>
+                </td>
+                <td class="text-right" ng-if="!userFrozenFunds.marginContainer.linked">
+                    <span ng-bind="prediction.totalIMStr" in-highlight="prediction.totalIM"></span>
+                </td>
+            </tr>
+            <tr class="highlighted" ng-if="userFrozenFunds.marginContainer">
+                <td colspan="{{userFrozenFunds.marginContainer.linked ? 6 : 7}}" class="text-left">
+                    <strong>
+                        Funds frozen to cover all positions and open orders for this market:
+                    </strong>
+                </td>
+                <td class="text-right">
+                    <strong in-highlight="userFrozenFunds.marginContainer.eventMargin">
+                        {{userFrozenFunds.marginContainer.eventMarginStr}}
+                    </strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

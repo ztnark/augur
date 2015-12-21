@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="AppController as app">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title _ng-bind="app.title">Augur Client</title>
+
+        <link rel="stylesheet" href="/dist/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/dist/gsdk/css/gsdk.css">
+        <link rel="stylesheet" href="/css/index.css">
+    </head>
+    <body>
+        <div class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".topMenu"
+                            aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" ui-sref="home()">Augur</a>
+                </div>
+
+                <div class="collapse navbar-collapse topMenu">
+                    <ul class="nav navbar-nav">
+                        <li class="" ui-sref-active="active">
+                            <a ui-sref="markets.listing()">Markets</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ui-view class="container">
+            Initializing...
+        </div>
+        <div class="container">
+            Created with <a href="http://www.creative-tim.com">www.creative-tim.com</a>
+        </div>
+
+        <!-- this shouldn't be here -->
+        <script src="/dist/augur/augur.js"></script>
+        <script src="/dist/requirejs/require.js"></script>
+        <script src="/config/requirejs-main-config.js"></script>
+
+        <script>
+            require(["app.module"]);
+        </script>
+    </body>
+</html>

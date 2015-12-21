@@ -1,0 +1,153 @@
+<h2>Charts</h2>
+
+<h3>
+    <span style="font-style: italic;" ng-if="contractInfo.chart.chartToDisplay === 'closingPrices'">Closing Price History</span>
+    <span style="font-style: italic;" ng-if="contractInfo.chart.chartToDisplay === 'trades'">Time and Sales Chart</span>
+    <span class="pull-right chartSwitch">
+        <label class="radio radio-inline"
+               ng-class="{checked: contractInfo.chart.chartToDisplay === 'closingPrices'}">
+            <span class="icons">
+                <span class="first-icon fa fa-circle-o"></span>
+                <span class="second-icon fa fa-dot-circle-o"></span>
+            </span>
+            <input type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2"
+                   ng-model="contractInfo.chart.chartToDisplay" value="closingPrices">
+            <i></i>Closing Prices
+        </label>
+        <label class="radio radio-inline"
+               ng-class="{checked: contractInfo.chart.chartToDisplay === 'trades'}">
+            <span class="icons">
+                <span class="first-icon fa fa-circle-o"></span>
+                <span class="second-icon fa fa-dot-circle-o"></span>
+            </span>
+            <input type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1"
+                   ng-model="contractInfo.chart.chartToDisplay" value="trades"/>
+            <i></i>Time & Sales (Trades)
+        </label>
+    </span>
+</h3>
+
+<div class="chart--header">
+    <h4>{{app.contract.antiName}}</h4>
+    <span in-date-with-timezone class="chart-lastUpdatedTime"
+          data-in-timeToFormat="app.currentTime"
+          data-in-datePattern="'h:mm:ss a zz, ddd MMM D'">{{app.currentTime}}</span>
+</div>
+
+<in-chart class="chart" chart-data="contractInfo.chart.closingPrices"
+          tick-size="app.contract.tickSize"
+          tick-value="app.contract.tickValue"
+          chart-type="contractInfo.chart.chartToDisplay"
+          ng-show='contractInfo.chart.chartToDisplay === "closingPrices"'></in-chart>
+<in-chart class="chart" chart-data="contractInfo.chart.trades"
+          display-points-in-chart="true" tick-size="app.contract.tickSize"
+          tick-value="app.contract.tickValue"
+          chart-type="contractInfo.chart.chartToDisplay"
+          ng-show='contractInfo.chart.chartToDisplay === "trades"'></in-chart>
+
+<div class="chart--footer">
+    <span class="downloadCsvData">
+        <a href="/markets/contract/assets/csv/time-and-sales?contractId=${contract.contractId}"
+           ng-if="contractInfo.chart.chartToDisplay === 'trades'">
+            Download Data
+        </a>
+        <a href="/markets/contract/assets/csv/close-prices?contractId=${contract.contractId}"
+           ng-if="contractInfo.chart.chartToDisplay === 'closingPrices'">
+            Download Data
+        </a>
+    </span>
+    <span class="pull-right">
+        &copy; 2015 Intrade - Predicting the Future
+    </span>
+</div>
+<div class="row contractInfo">
+    <div class="col-sm-12">
+        <h2 style="margin-bottom: 0;">Stats</h2>
+    </div>
+
+    <div class="col-sm-12" ng-if="!app.contract.expired">
+        <div class="col-sm-6 row">
+
+            <h3>Today's Stats</h3>
+
+            <table class="table table-dotted-border-lines">
+                <tr>
+                    <td><strong>Open interest</strong></td>
+                    <td class="text-right">{{app.contract.lastOpenInterest}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Previous close price</strong></td>
+                    <td class="text-right">{{app.contract.closingPrice |
+                        costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Last trade price</strong></td>
+                    <td class="text-right">{{app.contract.lastTradePrice |
+                        costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Time of last trade</strong></td>
+                    <td class="text-right" in-date-with-timezone
+                        data-in-timeToFormat="app.contract.lastTradeTime"
+                        data-in-datePattern="'h:mm:ssa zz, ddd MMM D'">
+                        {{app.contract.lastTradeTimeFormatted}}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Today's high</strong></td>
+                    <td class="text-right">{{app.contract.sessionHiPrice |
+                        costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Today's low</strong></td>
+                    <td class="text-right">{{app.contract.sessionLoPrice |
+                        costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div ng-class="::{'col-sm-6': !app.contract.expired, 'col-sm-12': app.contract.expired}">
+        <h3>Lifetime Stats</h3>
+
+        <table class="table table-dotted-border-lines">
+            <tr>
+                <td><strong>Opened for trading</strong></td>
+                <td class="text-right" in-date-with-timezone
+                    data-in-timeToFormat="app.contract.contractStartDate"
+                    data-in-datePattern="'MMM D YYYY'">
+                    {{app.contract.contractStartDateFormatted}}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Lifetime low</strong></td>
+                <td class="text-right">{{app.contract.lifeLoPrice |
+                    costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Lifetime high</strong></td>
+                <td class="text-right">{{app.contract.lifeHiPrice |
+                    costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Total volume</strong></td>
+                <td class="text-right">{{app.contract.totalVolume}}</td>
+            </tr>
+            <tr>
+                <td><strong>Number of traders * </strong></td>
+                <td class="text-right">{{app.contract.tradersCount}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    * The maximum number of traders permitted to trade this outcome is 10,000
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

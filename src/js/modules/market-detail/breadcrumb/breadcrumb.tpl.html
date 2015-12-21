@@ -1,0 +1,43 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/markets">
+                Markets
+            </a>
+        </li>
+        <li>
+            <a href="/markets/event/${contract.eventId}" ng-href="/markets/event/{{app.contract.eventId}}"
+               ng-bind="app.contract.eventName">
+                ${contract.eventName}
+            </a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">
+                <span ng-bind="app.contract.name">${contract.name}</span>
+                <span class="caret"></span>
+            </a>
+
+            <table class="dropdown-menu table table-hover" role="menu"
+                   style="max-width: none; width: auto;">
+                <tbody in-contract-navigation></tbody>
+            </table>
+            <script type="text/ng-template" id="contract-navigation">
+                <tr ng-repeat="contract in contracts" ng-class="{highlighted: contract.id === app.contract.contractId}">
+                    <td class="text-nowrap">
+                        <a href="{{'/markets/contract?contractId=' + contract.id}}"
+                           ng-if="contract.id !== app.contract.contractId">
+                            {{contract.name}}
+                        </a>
+                                    <span ng-if="contract.id === app.contract.contractId">
+                                        {{contract.name}}
+                                    </span>
+                    </td>
+                    <td class="text-nowrap text-right">
+                        Last: <strong>{{contract.lastTradeCostPerShareFormatted}}
+                        ({{contract.lastTradePriceFormatted}}%)</strong>
+                    </td>
+                </tr>
+            </script>
+        </li>
+    </ul>
+</div>

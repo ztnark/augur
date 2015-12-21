@@ -1,0 +1,13 @@
+<div class="title" ng-show="list.parent._id != 'rootnode'">
+    <h2>{{list.parent.description}}</h2>
+    <a ui-sref="{{list.parent.uiSref}}" class="markets-upAction visible-xs-inline-block">Go up</a>
+</div>
+<div class="list-group list-group--dotted" ng-if="list.items">
+    <a ng-repeat="item in list.items track by item._id" class="markets-contract list-group-item"
+            ui-sref="{{item.uiSref}}">
+        {{item.description}}
+    </a>
+</div>
+<div class="list-group list-group--dotted" ng-if="!list.items">
+    No items to display
+</div>

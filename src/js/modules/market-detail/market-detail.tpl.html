@@ -1,0 +1,71 @@
+<breadcrumb/>
+<main-info/>
+<div role="tabpanel" style="margin-top: 15px;">
+    <div class="row submenu">
+        <a class="collapsed" data-toggle="collapse" href="#collapseSubmenu"
+           aria-expanded="false"
+           aria-controls="collapseSubmenu">
+            <h2>Navigation</h2>
+        </a>
+
+        <div id="collapseSubmenu" class="collapse" aria-expanded="false">
+            <ul class="list-group" role="tablist" id="tabpanel">
+                <c:if test="${!contract.isExpired()}">
+                    <li role="presentation" class="list-group-item">
+                        <a role="tab" ui-sref="contract.trade({contractId: app.contract.contractId})"
+                           ui-sref-active="active">Trade</a>
+                    </li>
+                </c:if>
+                <c:if test="${contract.isExpired()}">
+                    <li role="presentation" class="list-group-item" ng-if="app.isUserLoggedIn">
+                        <a role="tab" ui-sref="contract.userTrades({contractId: app.contract.contractId})"
+                           ui-sref-active="active">My
+                            Trades</a>
+                    </li>
+                </c:if>
+                <li role="presentation" class="list-group-item">
+                    <a role="tab" ui-sref="contract.stats({contractId: app.contract.contractId})"
+                       ui-sref-active="active">Stats & Charts</a>
+                </li>
+                <li role="presentation" class="list-group-item">
+                    <a role="tab" ui-sref="contract.rules({contractId: app.contract.contractId})"
+                       ui-sref-active="active">Rules</a>
+                </li>
+                <c:if test="${!contract.isExpired()}">
+                    <li role="presentation" class="list-group-item" ng-if="app.isUserLoggedIn">
+                        <a role="tab" ui-sref="contract.userTrades({contractId: app.contract.contractId})"
+                           ui-sref-active="active">
+                            My Trades
+                        </a>
+                    </li>
+                    <li role="presentation" class="list-group-item" ng-if="app.isUserLoggedIn">
+                        <a role="tab" ui-sref="contract.userFrozenFunds({contractId: app.contract.contractId})"
+                           ui-sref-active="active">
+                            Frozen Funds
+                                        <span ng-show="app.balance.eventMargin != null">
+                                            (<span ng-bind="app.balance.eventMarginFormatted"></span>)
+                                        </span>
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content" ui-view>
+        <div id="trade" role="tabpanel" class="tab-pane" ng-cloak>
+            <trade-interface/>
+        </div>
+        <div id="stats" role="tabpanel" class="tab-pane">
+            <stats-and-charts/>
+        </div>
+        <div id="rules" role="tabpanel" class="tab-pane">
+            <rules/>
+        </div>
+        <div id="userTrades" role="tabpanel" class="tab-pane" ng-if="app.isUserLoggedIn">
+            <user-trades/>
+        </div>
+        <div id="frozenFunds" class="tab-pane" role="tabpanel" ng-if="app.isUserLoggedIn">
+            <frozen-funds/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+
+// footer setup
+.footer {
+    background-color: @color-dark-bg;
+    color: @white-color;
+    & .title {
+        font-size: @font-size-footer-title;
+        color: @white-color;
+        font-weight: @font-weight-bolder;
+    }
+    & .copyright {
+        font-size: @font-size-small;
+        color: @white-color;
+    }
+    & nav > ul > li {
+        & a,
+        & a:not(.btn) {
+            font-size: @font-size-small;
+            color: @color-footer-text;
+        }
+        &.active a {
+            color: @info-color
+        }
+    }
+}
+
+.footer-big nav > ul .btn-social.btn-simple {
+    padding: 0;
+    font-size: @font-size-small;
+    .font-render-smooth();
+}

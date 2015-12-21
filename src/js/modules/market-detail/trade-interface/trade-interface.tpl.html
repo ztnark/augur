@@ -1,0 +1,602 @@
+<div class="row collapsibleAccordion" role="tablist" aria-multiselectable="true">
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-sm-7 col-md-6">
+                <div ng-controller="PositionController as position">
+                    <h4>
+                        <span class="hidden-xs">My Position</span>
+                        <a class="visible-xs-inline-block collapsibleTitle collapsed" data-toggle="collapse"
+                           href="#myPositionCollapse" aria-expanded="true" aria-controls="myPositionCollapse">
+                            My Position
+                        </a>
+                        <a class="helpPopover" data-toggle="modal" data-target="#help-markets-my-positions" ng-include="'question-icon'">
+                        </a>
+                    </h4>
+
+                    <jsp:include page="../../include/help-popover.jsp">
+                        <jsp:param name="contentCmsName" value="help-markets-my-positions"/>
+                        <jsp:param name="labelCmsName" value="help-markets-my-positions-label"/>
+                        <jsp:param name="labelDefaultValue" value="My Position"/>
+                    </jsp:include>
+
+                    <div id="myPositionCollapse" class="collapse collapsedOnMobile">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-right">Position</th>
+                                    <th class="text-right">Avg. Price</th>
+                                    <th class="text-right">Last Trade</th>
+                                    <th class="text-right">Profit/Loss</th>
+                                </tr>
+                            </thead>
+                            <tr ng-if="!position.position">
+                                <td class="text-right">
+                                    0
+                                </td>
+                                <td class="text-right">
+                                    -
+                                </td>
+                                <td class="text-right">
+                                                            <span ng-bind="app.contract.lastTradeCostPerShareFormatted"
+                                                                  in-highlight="app.contract.lastTradeCostPerShare"></span>
+                                </td>
+                                <td class="text-right">
+                                    -
+                                </td>
+                            </tr>
+                            <tr ng-if="position.position">
+                                <td class="text-right" ng-click="position.onQuantityClicked(position.position.quantity)"
+                                    title="Fill in this quantity to order ticket">
+                                    <strong ng-bind="position.position.quantityFormatted"
+                                            in-pos-neg="{{position.position.quantity}}"
+                                            in-highlight="position.position.quantity"></strong>
+                                </td>
+                                <td class="text-right">
+                                                            <span ng-bind="position.position.averageCostPerShareFormatted"
+                                                                  in-highlight="position.position.averageCostPerShare"></span>
+                                </td>
+                                <td class="text-right">
+                                                            <span ng-bind="app.contract.lastTradeCostPerShareFormatted"
+                                                                  in-highlight="app.contract.lastTradeCostPerShare"></span>
+                                </td>
+                                <td class="text-right">
+                                                            <span ng-bind="position.position.totalProfitLossFormatted"
+                                                                  in-pos-neg="{{position.position.totalProfitLoss}}"
+                                                                  in-highlight="position.position.totalProfitLoss"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <div class="openOrders" ng-controller="OpenOrdersController as openOrders">
+                        <h4>
+                            <span class="hidden-xs">My Open Orders</span>
+                            <a class="visible-xs-inline-block collapsibleTitle collapsed" data-toggle="collapse"
+                               href="#myOpenOrdersCollapse" aria-expanded="true" aria-controls="myOpenOrdersCollapse">
+                                My Open Orders
+                            </a>
+                                                    <span ng-if="openOrders.count.total > openOrders.orders.length">
+                                                        ({{openOrders.count.total}})
+                                                    </span>
+                            <a class="helpPopover" data-toggle="modal" data-target="#help-markets-my-open-orders">
+                                <%@ include file="/assets/svg/question.svg" %>
+                            </a>
+                        </h4>
+
+                        <jsp:include page="../../include/help-popover.jsp">
+                            <jsp:param name="contentCmsName" value="help-markets-my-open-orders"/>
+                            <jsp:param name="labelCmsName" value="help-markets-my-open-orders-label"/>
+                            <jsp:param name="labelDefaultValue" value="My Open Orders"/>
+                        </jsp:include>
+
+                        <div id="myOpenOrdersCollapse" class="collapse collapsedOnMobile">
+                            <div class="table-responsive">
+                                <table class="table table-hover"
+                                       in-top-up-rows="openOrders.orders"
+                                       in-top-up-rows-max="6">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th class="text-right">Qty.</th>
+                                            <th class="text-right">Price</th>
+                                            <th class="text-right">Matched</th>
+                                            <th class="text-right">Unmatched</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="js-emptyRow"
+                                            ng-if="openOrders.orders.length == 0">
+                                            <td colspan="5" class="text-center">You have no <span
+                                                    class="text-uppercase">open orders</span> right
+                                                now
+                                            </td>
+                                        </tr>
+                                        <tr class="openOrder"
+                                            ng-repeat="order in openOrders.orders track by order.orderId"
+                                            ng-class="{'openOrder--cancelled': openOrders.orderCancelation[order.orderId] == 'cancelled'}">
+                                            <td class="text-uppercase">
+                                                <strong ng-class="{'buy': order.isBuy, 'sell': !order.isBuy}"
+                                                        ng-bind="order.isBuy ? 'Buy' : 'Sell'"></strong>
+                                            </td>
+                                            <td class="text-right"
+                                                ng-bind="order.originalQuantityFormatted"></td>
+                                            <td class="text-right"
+                                                ng-bind="order.costPerShareFormatted"></td>
+                                            <td class="text-right">
+                                                                    <span ng-bind="order.matchedQuantityFormatted"
+                                                                          in-highlight></span>
+                                            </td>
+                                            <td class="text-right">
+                                                                    <span ng-bind="order.remainingQuantityFormatted"
+                                                                          in-highlight></span>
+                                                <button class="btn btn-simple btn-xs openOrder-cancelOrderAction btn-danger"
+                                                        in-confirm="Do you want to cancel this order?"
+                                                        in-confirm-title="Cancel Order"
+                                                        in-confirm-placement="right"
+                                                        in-confirm-yes-action="openOrders.cancelOrder(order.orderId)"
+                                                        in-confirm-yes-action-label="Yes, cancel"
+                                                        in-confirm-no-action-label="No"
+                                                        ng-disabled="openOrders.orderCancelation[order.orderId]"
+                                                        title="Cancel Order">
+                                                    <span class="fa fa-times"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+        <span>
+                                    <a href="/my-trading/open-orders#market-"
+                                       ng-style="{visibility: openOrders.count.offers > 0 || openOrders.count.bids > 0 ? 'visible' : 'hidden'}"
+                                       ng-href="/my-trading/open-orders#market-{{app.contract.contractId}}"
+                                       class="openOrders-seeAllAction"
+                                       title="See all open orders">
+                                        <span class="fa fa-search"></span>
+                                        All Open Orders
+                                    </a>
+                                </span>
+                                <span style="float: right;">
+                                    <span>
+                                        <button ng-show="openOrders.count.offers > 0 && openOrders.count.bids > 0"
+                                                class="btn btn-simple btn-danger btn-xs"
+                                                type="button"
+                                                in-confirm="Do you want to cancel all orders?"
+                                                in-confirm-title="Cancel All Orders"
+                                                in-confirm-placement="right"
+                                                in-confirm-yes-action="openOrders.cancelAllOrders()"
+                                                in-confirm-yes-action-label="Yes, cancel"
+                                                in-confirm-no-action-label="No"
+                                                title="Cancel All Orders">
+                                            <span class="fa fa-times"></span>
+                                            All Orders
+                                        </button>
+                                    </span>
+                                    <span>
+                                        <button ng-show="openOrders.count.bids > 0"
+                                                class="btn btn-simple btn-danger btn-xs"
+                                                type="button"
+                                                in-confirm="Do you want to cancel all buys?"
+                                                in-confirm-title="Cancel All Buy Orders"
+                                                in-confirm-placement="right"
+                                                in-confirm-yes-action="openOrders.cancelAllBids()"
+                                                in-confirm-yes-action-label="Yes, cancel"
+                                                in-confirm-no-action-label="No"
+                                                title="Cancel All Buy Orders">
+                                            <span class="fa fa-times"></span>
+                                            All Buys
+                                        </button>
+                                    </span>
+                                    <span>
+                                        <button ng-show="openOrders.count.offers > 0"
+                                                class="btn btn-simple btn-danger btn-xs"
+                                                type="button"
+                                                in-confirm="Do you want to cancel all sells?"
+                                                in-confirm-title="Cancel All Sell Orders"
+                                                in-confirm-placement="right"
+                                                in-confirm-yes-action="openOrders.cancelAllOffers()"
+                                                in-confirm-yes-action-label="Yes, cancel"
+                                                in-confirm-no-action-label="No"
+                                                title="Cancel All Sell Orders">
+                                            <span class="fa fa-times"></span>
+                                            All Sells
+                                        </button>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-6">
+                <div class="orderBook clearfix" ng-controller="OrderBookController as orderBook">
+                    <h4>
+                        <span class="hidden-xs">
+                            Order Book
+                        </span>
+                        <a class="visible-xs-inline-block collapsibleTitle" data-toggle="collapse"
+                           href="#orderBookCollapse" aria-expanded="true" aria-controls="orderBookCollapse">
+                            Order Book
+                        </a>
+                        <a class="helpPopover" data-toggle="modal" data-target="#help-markets-order-book"
+                           ng-include="'question-icon'">
+                        </a>
+                        <span in-date-with-timezone data-in-timeToFormat="app.currentTime"
+                              data-in-datePattern="'h:mm:ss a zz, ddd MMM D'" class="orderBook-lastUpdatedTime pull-right">
+                            {{app.currentTime}}
+                        </span>
+                    </h4>
+
+                    <jsp:include page="../../include/help-popover.jsp">
+                        <jsp:param name="contentCmsName" value="help-markets-order-book"/>
+                        <jsp:param name="labelCmsName" value="help-markets-order-book-label"/>
+                        <jsp:param name="labelDefaultValue" value="Order Book"/>
+                    </jsp:include>
+
+                    <div id="orderBookCollapse" class="collapse in collapsedOnMobile">
+                        <div class="orderBook-bids">
+                            <table class="table table-striped table-hover"
+                                   in-top-up-rows="orderBook.bids" in-top-up-rows-max="${orderBookDepth}">
+                                <thead>
+                                    <tr>
+                                        <th>Qty.</th>
+                                        <th class="text-right">Bid Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="js-emptyRow" ng-if="orderBook.bids.length == 0">
+                                        <td colspan="2" class="orderBook-noOrders text-center">
+                                            There are no <span class="text-uppercase">bid</span> orders
+                                        </td>
+                                    </tr>
+                                    <tr class="orderBook-item" ng-repeat="bid in orderBook.bids track by bid.price"
+                                        in-highlight="bid.quantity"
+                                        ng-class="{'u-isOfCurrentUser': bid.isOfCurrentUser}">
+                                        <td ng-bind="bid.quantityFormatted"
+                                            ng-click="orderBook.onQuantityClicked(bid.quantity)"
+                                            title="Fill in this quantity to order ticket"></td>
+                                        <td class="text-right" ng-bind="bid.costPerShareFormatted"
+                                            ng-click="orderBook.onPriceClicked(bid.price)"
+                                            title="Fill in this price to order ticket"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="orderBook-offers">
+                            <table class="table table-striped table-hover"
+                                   in-top-up-rows="orderBook.offers" in-top-up-rows-max="${orderBookDepth}">
+                                <thead>
+                                    <tr>
+                                        <th>Ask Price</th>
+                                        <th class="text-right">Qty.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="js-emptyRow" ng-if="orderBook.offers.length == 0">
+                                        <td colspan="2" class="orderBook-noOrders text-center">
+                                            There are no <span class="text-uppercase">ask</span> orders
+                                        </td>
+                                    </tr>
+                                    <tr class="orderBook-item"
+                                        ng-repeat="offer in orderBook.offers track by offer.price"
+                                        in-highlight="offer.quantity"
+                                        ng-class="{'u-isOfCurrentUser': offer.isOfCurrentUser}">
+                                        <td ng-bind="offer.costPerShareFormatted"
+                                            ng-click="orderBook.onPriceClicked(offer.price)"
+                                            title="Fill in this price to order ticket"></td>
+                                        <td class="text-right" ng-bind="offer.quantityFormatted"
+                                            ng-click="orderBook.onQuantityClicked(offer.quantity)"
+                                            title="Fill in this quantity to order ticket"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="orderTicket" ng-controller="OrderTicketController as orderTicket">
+            <h4>
+                <span class="hidden-xs">Order Ticket</span>
+                <a class="visible-xs-inline-block collapsibleTitle collapsed" data-toggle="collapse"
+                   href="#orderTicketCollapse" aria-expanded="true" aria-controls="orderTicketCollapse">
+                    Order Ticket
+                </a>
+                <a class="helpPopover" data-toggle="modal" data-target="#help-markets-create-an-order"
+                   ng-include="'question-icon'">
+                </a>
+
+                <small class="disclaimer">
+                    <a class="helpPopover" data-toggle="modal"
+                       data-target="#help-markets-order-book-disclaimer">
+                        Disclaimer
+                    </a>
+                </small>
+            </h4>
+
+            <jsp:include page="../../include/help-popover.jsp">
+                <jsp:param name="contentCmsName" value="help-markets-create-an-order"/>
+                <jsp:param name="labelCmsName" value="help-markets-create-an-order-label"/>
+                <jsp:param name="labelDefaultValue" value="Order Ticket"/>
+            </jsp:include>
+
+            <jsp:include page="../../include/help-popover.jsp">
+                <jsp:param name="contentCmsName" value="help-markets-order-book-disclaimer"/>
+                <jsp:param name="labelCmsName" value="help-markets-order-book-disclaimer-label"/>
+                <jsp:param name="labelDefaultValue" value="Order Book Disclaimer"/>
+            </jsp:include>
+
+            <%-- I'd like to use ng-if but it creates scope and then OTC doesn't see orderTicketForm --%>
+            <div id="orderTicketCollapse" class="orderTicket-step collapse collapsedOnMobile"
+                 ng-show="orderTicket.process.step == 1">
+                <form name="orderTicketForm" novalidate method="post" ng-submit="orderTicket.processOrder()">
+                    <div class="orderTicket-step-content">
+                        <div class="form-group clearfix"
+                             ng-class='{"has-error": (orderTicketForm.$submitted || orderTicketForm.isBuyRadios.$dirty) && orderTicketForm.isBuyRadios.$invalid}'>
+                            <%-- ng-form because https://stackoverflow.com/q/22052729 --%>
+                            <ng-form name="isBuyRadios" novalidate>
+                                <label class="radio orderTicket-buyRadio buy"
+                                       ng-class="{checked: orderTicket.order.isBuy === true}">
+                                    <input class="form-control input-sm" name="isBuy" value="buy" type="radio"
+                                           ng-model="orderTicket.order.side"
+                                           ng-model-options="{getterSetter: true}" required/>
+                                    Buy
+                                </label>
+                                <label class="radio orderTicket-sellRadio sell"
+                                       ng-class="{checked: orderTicket.order.isBuy === false}">
+                                    <input class="form-control input-sm" name="isBuy" value="sell" type="radio"
+                                           ng-model="orderTicket.order.side"
+                                           ng-model-options="{getterSetter: true}" required/>
+                                    Sell
+                                </label>
+                            </ng-form>
+                            <div class="help-block"
+                                 ng-if="(orderTicketForm.$submitted || orderTicketForm.isBuyRadios.$dirty) && orderTicketForm.isBuyRadios.$invalid">
+                                <span ng-if="orderTicketForm.isBuyRadios.$error.required" class="error-message">Please select BUY or SELL</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             ng-class='{"has-error": (orderTicketForm.$submitted || orderTicketForm.quantity.$dirty) && orderTicketForm.quantity.$invalid}'>
+                            <div style="position: relative;">
+                                <label class="u-placeholder control-label" for="orderTicket-quantity">
+                                    Quantity
+                                </label>
+                                <input id="orderTicket-quantity" class="form-control input-sm"
+                                       name="quantity" type="text" ng-model="orderTicket.order.quantity"
+                                       required min="{{orderTicket.constraints.minQuantity}}"
+                                       max="{{orderTicket.constraints.maxQuantity}}"
+                                       in-quantity-input autocomplete="off"/>
+                            </div>
+                            <div class="help-block" ng-messages="orderTicketForm.quantity.$error"
+                                 ng-if="(orderTicketForm.$submitted || orderTicketForm.quantity.$dirty) && orderTicketForm.quantity.$invalid">
+                                <span ng-message="required" class="error-message">Please enter a quantity</span>
+                                <span ng-message="number" class="error-message">Must be a number</span>
+                                <span ng-message="integer" class="error-message">Must be an integer</span>
+                                <span ng-message="min" class="error-message">
+                                    Sorry, you cannot trade 0 shares
+                                </span>
+                                <span ng-message="max" class="error-message">
+                                    The maximum is {{orderTicket.constraints.maxQuantityFormatted}} shares
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             ng-class='{"has-error": (orderTicketForm.$submitted || orderTicketForm.price.$dirty) && orderTicketForm.price.$invalid}'>
+                            <div style="position: relative;">
+                                <label class="u-placeholder control-label" for="orderTicket-price">
+                                    Price
+                                </label>
+                                <input id="orderTicket-price" class="form-control input-sm" name="price" type="text"
+                                       ng-model="orderTicket.order.price" min="{{orderTicket.constraints.minPrice}}"
+                                       max="{{orderTicket.constraints.maxPrice}}"
+                                       step="{{orderTicket.constraints.priceStep}}" required
+                                       in-price-input="app.contract" autocomplete="off"/>
+                            </div>
+                            <div class="help-block" ng-messages="orderTicketForm.price.$error"
+                                 ng-if="(orderTicketForm.$submitted || orderTicketForm.price.$dirty) && orderTicketForm.price.$invalid">
+                                <span ng-message="required" class="error-message">Please enter a price</span>
+                                <span ng-message="number" class="error-message">Must be number</span>
+                                <span ng-message="step" class="error-message">Must be multiple of {{orderTicket.constraints.priceStep | costPerShare:app.contract.tickSize:app.contract.tickValue | number:2}}</span>
+                                <span ng-message="min" class="error-message">
+                                    The price cannot be lower than {{orderTicket.constraints.minPrice | costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                                </span>
+                                <span ng-message="max" class="error-message">
+                                    The price cannot be higher than {{orderTicket.constraints.maxPrice | costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class='{"has-error": orderTicket.process.hasEnoughMoney === false}'>
+                            <table class="table table-condensed table-no-border table--fullWidthRows"
+                                   style="margin-bottom: 0;">
+                                <tr>
+                                    <td>Funds Available:</td>
+                                    <td class="text-right">
+                                        <strong ng-bind="app.balance.fundsAvailableFormatted" ng-if="app.isUserLoggedIn"
+                                                in-highlight="app.balance.fundsAvailable"></strong>
+                                        <strong ng-if="!app.isUserLoggedIn">$0.00</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Funds Required:</td>
+                                    <td class="text-right">
+                                        <strong ng-if="!orderTicket.process.hypotheticalOrder.isTyping && !orderTicket.process.hypotheticalOrder.isInProgress"
+                                                ng-bind="orderTicket.process.fundsRequiredFormatted"></strong>
+                                        <span ng-if="orderTicket.process.hypotheticalOrder.isInProgress"
+                                              class="fa fa-spinner fa-spin"></span>
+                                        <span ng-if="orderTicket.process.hypotheticalOrder.isTyping"
+                                              class="fa fa-pencil"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="help-block error-message"
+                                 ng-show="orderTicket.process.hasEnoughMoney === false">
+                                You don't have enough funds
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong class="u-text--sameSizeAsTableData">What's the reason for this trade?</strong>
+                            <%-- ng-form because https://stackoverflow.com/q/22052729 --%>
+                            <ng-form name="reasonRadios" novalidate>
+                                <label class="radio" ng-repeat="reason in orderTicket.orderReason.values()"
+                                       ng-class="{disabled: !orderTicketForm.isBuyRadios.$dirty || !(reason.isForBuySide && reason.isForSellSide)
+                                                                    && ((reason.isForBuySide && !orderTicket.order.isBuy) || (reason.isForSellSide && orderTicket.order.isBuy)),
+                                                                    checked: orderTicket.order.reason == reason.id}"
+                                       title="{{!orderTicketForm.isBuyRadios.$dirty ? 'Select side (buy or sell) first' : ''}}">
+                                    <input class="form-control input-sm" name="reason" value="{{reason.id}}"
+                                           type="radio"
+                                           ng-disabled="!orderTicketForm.isBuyRadios.$dirty || !(reason.isForBuySide && reason.isForSellSide) && ((reason.isForBuySide && !orderTicket.order.isBuy) || (reason.isForSellSide && orderTicket.order.isBuy))"
+                                           ng-model="orderTicket.order.reason"
+                                           required in-reason-side-constraint/>
+                                    <span ng-bind="reason.label"></span>
+                                </label>
+                            </ng-form>
+                            <div ng-class='{"has-error": (orderTicketForm.$submitted || orderTicketForm.reasonRadios.$dirty) && orderTicketForm.reasonRadios.$invalid}'>
+                                <div class="help-block"
+                                     ng-if="(orderTicketForm.$submitted || orderTicketForm.reasonRadios.$dirty) && orderTicketForm.reasonRadios.$invalid">
+                                    <span ng-if="orderTicketForm.reasonRadios.$error.required && !orderTicketForm.reasonRadios.$error.reasonSideConstraint"
+                                          class="error-message">Please select a reason for your trade</span>
+                                                            <span ng-if="orderTicketForm.reasonRadios.$error.reasonSideConstraint">
+                                                                Please choose another option
+                                                            </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <button class="btn btn-block btn-md btn-fill btn-info orderTicket-submitAction"
+                                    type="submit">
+                                {{orderTicket.orderConfirmation ? "Review order" : "Submit order"}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="orderTicket-secondaryAction">
+                        <label class="orderTicket-confirmOrder checkbox text-capitalize u-text--sameSizeAsTableData"
+                               ng-class="{checked: orderTicket.orderConfirmation}">
+                                                    <span class="icons">
+                                                        <span class="first-icon fa fa-square-o"></span>
+                                                        <span class="second-icon fa fa-check-square-o"></span>
+                                                    </span>
+                            <input type="checkbox" name="orderConfirmation" ng-model="orderTicket.orderConfirmation"
+                                   ng-change="orderTicket.onOrderConfirmationChanged()"/>
+                            Confirm order
+                        </label>
+                        <button class="orderTicket-clearForm btn btn-simple btn-danger text-capitalize u-text--sameSizeAsTableData"
+                                ng-click="orderTicket.clearForm()"
+                                type="button">
+                            <span class="fa fa-times"></span>
+                            Clear ticket
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="orderTicket-step" ng-show="orderTicket.process.step == 2">
+                <div class="orderTicket-step-content">
+                    <div class="orderTicket-reviewSection">
+                        <strong class="u-text--sameSizeAsTableData" style="margin-top: 0;">
+                            Please confirm your order:
+                        </strong>
+                        <table class="table table-condensed table-no-border table--fullWidthRows">
+                            <tr>
+                                <td>Order type:</td>
+                                <td class="text-right">
+                                    <strong class="text-uppercase" in-buy-sell="{{orderTicket.order.isBuy}}">{{orderTicket.order.isBuy
+                                        ? "Buy" : "Sell"}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Price:</td>
+                                <td class="text-right">{{orderTicket.order.price |
+                                    costPerShare:app.contract.tickSize:app.contract.tickValue | currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Quantity:</td>
+                                <td class="text-right">{{orderTicket.order.quantityFormatted}}</td>
+                            </tr>
+                            <tr>
+                                <td>Funds available:</td>
+                                <td class="text-right">{{app.balance.fundsAvailableFormatted || '$0.00'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Funds required:</td>
+                                <td class="text-right">{{orderTicket.process.fundsRequiredFormatted}}</td>
+                            </tr>
+                        </table>
+                        <strong class="u-text--sameSizeAsTableData">What's the reason for this trade?</strong>
+                        <label class="radio" ng-repeat="reason in orderTicket.orderReason.values()"
+                               ng-class="{disabled: orderTicket.order.reason != reason.id,
+                                                                    checked: orderTicket.order.reason == reason.id}"
+                               title="{{!orderTicketForm.isBuyRadios.$dirty ? 'Select side (buy or sell) first' : ''}}">
+                            <input class="form-control input-sm" type="radio"
+                                   ng-disabled="orderTicket.order.reason != reason.id"/>
+                            <span ng-bind="reason.label"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <button class="btn btn-block btn-md btn-fill btn-info orderTicket-submitAction" type="submit"
+                                ng-click="orderTicket.onConfirmationActionClicked()">Submit order
+                        </button>
+                    </div>
+                </div>
+                <div class="orderTicket-secondaryAction">
+                    <button class="btn btn-simple btn-info orderTicket-editAction u-text--sameSizeAsTableData"
+                            ng-click="orderTicket.editOrder()">
+                        Edit Order
+                    </button>
+                    <button class="btn btn-simple btn-danger orderTicket-abortAction u-text--sameSizeAsTableData"
+                            ng-click="orderTicket.abortOrder()">
+                        Abort Order
+                    </button>
+                </div>
+            </div>
+
+            <div class="orderTicket-step" ng-show="orderTicket.process.step == 3">
+                <div class="orderTicket-step-content">
+                    <p ng-show="orderTicket.process.isEnteringOrder">
+                        Entering order...
+                    </p>
+                    <div class="orderTicket-result" style="width: 100%;" ng-if="!app.isUserLoggedIn">
+                        <div class="info">
+                            <%@ include file="/assets/svg/user.svg" %>
+                        </div>
+                        <div>
+                            That's how an order to buy or sell shares is created.
+                            <a href="/login">Login</a> or <a href="/sign-up">sign-up</a> to make this trade for real.
+                        </div>
+                    </div>
+                    <div class="orderTicket-result" ng-show="!orderTicket.process.isEnteringOrder" ng-if="app.isUserLoggedIn">
+                        <div class="success" ng-show="orderTicket.process.success === true"
+                             style="width: 100%;">
+                            <%@ include file="/assets/svg/check.svg" %>
+                            <p>Your order has been sent</p>
+                        </div>
+                        <div class="failure" ng-show="orderTicket.process.success === false"
+                             style="width: 100%;">
+                            <%@ include file="/assets/svg/attention.svg" %>
+                            <p>There was a problem</p>
+
+                            <p>Your order has not been sent</p>
+
+                            <p>{{orderTicket.process.errorMessage}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-block btn-md btn-fill btn-info orderTicket-submitAction"
+                                ng-click="orderTicket.onContinueActionClicked()"
+                                ng-show="!orderTicket.process.isEnteringOrder">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

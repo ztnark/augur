@@ -2,10 +2,26 @@
   "name": "augur",
   "version": "0.1.0",
   "description": "Web client for Augur, a prediction markets platform",
-  "main": "app/main.jsx",
   "scripts": {
-    "start": "node server.js",
-    "ssl": "node server.js -s"
+    "start": "npm run dev",
+    "server:local": "firebase serve -p 8080",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parallelshell 'npm run watch' 'npm run server:local'",
+    "clean": "rm -r target",
+    "build": "parallelshell 'mkdir target' 'npm run copyAssets' 'npm run build:js' 'npm run build:css'",
+    "build:js": "babel src/js -d target/js",
+    "build:css": "lessc src/less/index.less target/css/index.css",
+    "// copyAssets": "todo: improve this",
+    "copyAssets": "parallelshell 'npm run copyAssets:html' 'npm run copyAssets:js' 'npm run copyAssets:css' 'npm run copyAssets:fonts' 'npm run copyAssets:tpl'",
+    "copyAssets:js": "parallelshell 'copyfiles -f node_modules/jquery/dist/jquery.js target/dist/jquery' 'copyfiles -f node_modules/augur.js/dist/augur.js target/dist/augur' 'copyfiles -f node_modules/ui-router/release/angular-ui-router.js target/dist/angular/ui-router' 'copyfiles -f node_modules/angular/angular.js target/dist/angular' 'copyfiles -f node_modules/bootstrap/dist/js/bootstrap.js target/dist/bootstrap/js' 'copyfiles -f node_modules/requirejs/require.js target/dist/requirejs' 'copyfiles -f node_modules/requirejs-text/text.js target/dist/requirejs/plugins' ' copyfiles -f src/config/requirejs-main-config.js target/config'",
+    "copyAssets:css": "parallelshell 'copyfiles -f node_modules/bootstrap/dist/css/bootstrap.css target/dist/bootstrap/css' 'copyfiles -f src/dist/gsdk/20150306/css/gsdk.css target/dist/gsdk/css'",
+    "copyAssets:fonts": "copyfiles -f node_modules/bootstrap/dist/fonts target/dist/bootstrap/fonts",
+    "copyAssets:html": "copyfiles -f src/index.html target",
+    "// copyAssets:tpl": "add minification - then we won't have to copy tpls because they will be inlined into the code",
+    "copyAssets:tpl": "copyfiles -u 1 src/js/**/*.tpl.html target",
+    "watch": "parallelshell 'npm run watch:js' 'npm run watch:css'",
+    "watch:js": "watch 'npm run build:js' src/js/",
+    "watch:css": "watch 'npm run build:css' src/less/"
   },
   "engines": {
     "node": ">= 4.0.x"
@@ -19,47 +35,30 @@
     "url": "https://github.com/AugurProject/augur/issues"
   },
   "homepage": "https://github.com/AugurProject/augur",
-  "browserify": {
-    "extensions": [
-      ".jsx"
-    ],
-    "transform": [
-      [
-        "babelify",
-        {}
-      ]
-    ]
-  },
   "dependencies": {
-    "async": "^1.4.2",
-    "augur-abi": "^0.2.6",
-    "augur-contracts": "^0.1.7",
-    "augur.js": "^0.12.0",
-    "babelify": "^6.3.0",
-    "bignumber.js": "^2.0.7",
-    "bootstrap": "^3.3.4",
-    "browserify": "^10.2.6",
-    "envify": "^3.4.0",
-    "fluxxor": "^1.6.0",
-    "jquery": "^2.1.4",
-    "lodash": "^3.10.1",
-    "moment": "^2.10.2",
-    "node-static": "^0.7.7",
-    "pnglib": "0.0.1",
-    "posix-getopt": "^1.2.0",
-    "react": "^0.13.3",
-    "react-bootstrap": "^0.25.1",
-    "react-cookie": "^0.2.3",
-    "react-date-picker": "^2.1.3",
-    "react-highcharts": "^2.1.0",
-    "react-intl": "^1.2.0",
-    "react-paginate": "^0.1.33",
-    "react-router": "^0.13.3",
-    "secure-random": "^1.1.1"
+    "angular": "1.4.8",
+    "augur.js": "0.11.1",
+    "bootstrap": "3.3.6",
+    "jquery": "2.1.4",
+    "requirejs": "2.1.22",
+    "ui-router": "0.2.15"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^4.0.0",
-    "grunt-contrib-jshint": "^0.11.2"
+    "babel-cli": "6.2.0",
+    "babel-preset-es2015": "6.1.18",
+    "copyfiles": "0.2.1",
+    "divshot-cli": "1.11.0",
+    "flex.less": "https://github.com/codio/Flex.less/archive/1.0.0.tar.gz",
+    "font-awesome": "4.5.0",
+    "http-server": "0.8.5",
+    "less": "2.5.3",
+    "parallelshell": "2.0.0",
+    "requirejs-text": "2.0.12",
+    "watch": "0.16.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

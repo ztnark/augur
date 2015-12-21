@@ -1,12 +1,2 @@
-*.pyc
-*.pyo
-*.db
-.DS_Store
-config_local.py
-.idea/
-/venv/
-core
-*#
-*~
 node_modules/
-app/augur.js
+target/

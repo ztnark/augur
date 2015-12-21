@@ -1,0 +1,36 @@
+<div class="row topSection">
+    <div class="visible-xs-block">
+        <small ng-bind="app.contract.eventName">${contract.eventName}</small>
+    </div>
+    <h1 class="visible-xs-block" ng-bind="app.contract.name">${contract.name}</h1>
+    <div class="topSection-image contractImage" style="background-image: url('${contract.imageUrl}')"
+         ng-style="{'background-image': 'url({{app.contract.imageUrl}})'}"></div>
+    <div class="topSection-data">
+        <div class="h2 visible-xs-block">
+                        <span ng-bind="app.contract.lastTradePriceFormatted" in-highlight="app.contract.lastTradePrice">
+                              ${contract.lastTradePriceFormatted}</span>%
+        </div>
+
+        <span class="topSection-eventName hidden-xs" ng-bind="app.contract.eventName">${contract.eventName}</span>
+        <h1 class="hidden-xs">
+            <span ng-bind="app.contract.name">${contract.name}</span>
+                        <span style="float: right;">
+                            <span ng-bind="app.contract.lastTradePriceFormatted"
+                                  in-highlight="app.contract.lastTradePrice">
+                                ${contract.lastTradePriceFormatted}
+                            </span>%
+                        </span>
+        </h1>
+
+        <div ng-if="!app.contract.expired" ng-include="'top-section-label'">
+            <script type="text/ng-template" id="top-section-label">
+                <%@ include file="/assets/js/template/contract/top-section-labels.html" %>
+            </script>
+        </div>
+        <div ng-if="app.contract.expired" ng-include="'expired-top-section-label'">
+            <script type="text/ng-template" id="expired-top-section-label">
+                <%@ include file="/assets/js/template/contract/expired/top-section-labels.html" %>
+            </script>
+        </div>
+    </div>
+</div>

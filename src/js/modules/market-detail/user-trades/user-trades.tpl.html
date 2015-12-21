@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h2 style="margin-bottom: 25px;">My Trades
+            <a class="helpPopover" data-toggle="modal" data-target="#help-markets-my-trades"
+               ng-include="'question-icon'">
+            </a>
+        </h2>
+        <form class="form-inline" style="margin-bottom: 25px">
+            <div class="form-group">
+                <select ng-model="selectedPeriod"
+                        ng-options="period.label for period in userTrades.timePeriods" ng-change="userTrades.update()"
+                        class="form-control input-sm select--big"></select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<jsp:include page="../../include/help-popover.jsp">
+    <jsp:param name="contentCmsName" value="help-markets-my-trades"/>
+    <jsp:param name="labelCmsName" value="help-markets-my-trades-label"/>
+    <jsp:param name="labelDefaultValue" value="My Trades"/>
+</jsp:include>
+
+<p ng-if="userTrades.process.isDownloadingData">
+    Loading
+</p>
+
+<div ng-if="!userTrades.process.isDownloadingData">
+    <p ng-if="userTrades.error">
+        {{userTrades.error.errorMessage}}
+    </p>
+
+    <div ng-if="userTrades.error == null">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Outcome</th>
+                        <th class="text-right" style="width: 10%;">Trade</th>
+                        <th class="text-right" style="width: 10%;">Quantity</th>
+                        <th class="text-right" style="width: 10%;">Price</th>
+                        <th class="text-right" style="width: 10%;">Profit / Loss</th>
+                        <th style="position: relative; width: 18%; padding-left: 30px;">Time (ET)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="userTrades.trades.length === 0">
+                        <td colspan="6" class="text-center">
+                            You have not made any trades on this outcome. Click back to the <strong>Trade</strong>
+                            page to begin trading.
+                        </td>
+                    </tr>
+                    <tr ng-repeat="execution in userTrades.trades">
+                        <td class="media">
+                                                    <span class="media-left media-middle">
+                                                        <span class="media-object contractImage contractImage--small"
+                                                              ng-style="{'background-image': 'url(\'' + app.contract.imageUrl + '\')'}"></span>
+                                                    </span>
+                                                    <span class="media-body media-middle">
+                                                        {{app.contract.name}}
+                                                    </span>
+                        </td>
+                        <td in-buy-sell="{{execution.side}}" class="text-uppercase text-right">
+                            <strong>{{execution.side.toLowerCase() === "b" ? "Buy" :
+                                "Sell"}}</strong>
+                        </td>
+                        <td class="text-right">{{execution.quantityFormatted}}</td>
+                        <td class="text-right">{{execution.costPerShareFormatted}}</td>
+                        <td class="text-right" in-pos-neg="{{execution.pl}}">
+                            {{execution.plFormatted}}
+                        </td>
+                        <td in-date-with-timezone data-in-timeToFormat="execution.executionTime"
+                            data-in-datePattern="'h:mm:ss A, ddd MMM D'"
+                            style="padding-left: 30px;">
+                            {{execution.executionTimeFormatted}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
