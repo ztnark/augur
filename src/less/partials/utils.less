@@ -72,7 +72,11 @@
 }
 
 .u-verticalAlign {
-    .vertical-align();
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .u-text--sameSizeAsTableData {
