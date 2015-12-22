@@ -3,12 +3,12 @@
     border-radius: 0;
     margin-bottom: 0;
     background-color: @color-dark-bg;
-    color: @white-color;
+    color: @color-white;
     font-size: @font-size-base;
     .display(flex);
     .align-items(center);
     a {
-        color: @white-color;
+        color: @color-white;
         font-size: @font-size-base;
     }
     .navbar-header {
@@ -65,12 +65,12 @@
                     &:hover,
                     &:focus {
                         background-color: @color-dark-bg-active;
-                        color: @white-color;
+                        color: @color-white;
                     }
                     &.btn {
                         padding: 6px 12px;
                         margin-left: 15px;
-                        border: 2px solid @white-color;
+                        border: 2px solid @color-white;
                         .font-render-smooth();
                     }
                 }
@@ -88,7 +88,7 @@
                                 &:focus,
                                 &.active {
                                     & svg path {
-                                        fill: @info-color
+                                        fill: @color-blue-light
                                     }
                                 }
                                 &.menu_logout:hover {
@@ -118,7 +118,7 @@
             &:hover,
             &:focus {
                 background-color: transparent;
-                color: @white-color;
+                color: @color-white;
             }
             & .btn {
                 background-color: transparent;
@@ -189,7 +189,7 @@
         &:focus,
         &.active {
             background-color: inherit;
-            color: @info-color;
+            color: @color-blue-light;
         }
     }
 }
