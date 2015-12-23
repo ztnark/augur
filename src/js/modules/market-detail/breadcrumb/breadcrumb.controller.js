@@ -4,6 +4,7 @@
 define(function BreadcrumbControllerModule() {
     "use strict";
 
-    return [function BreadcrumbController() {
+    return ["$stateParams", "marketsService", function BreadcrumbController($stateParams, marketsService) {
+
     }];
 });

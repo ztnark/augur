@@ -14,6 +14,7 @@ define((require) => {
     let app = angular.module(appName, ["ui.router", "augur.home", "augur.markets", "augur.marketDetail"]);
 
     app.controller("AppController", require("app.controller"));
+    app.service("marketsService", require("common/angularjs/service/markets.service"));
 
     app
         .config(["$locationProvider", function configureHtml5Mode($locationProvider) {

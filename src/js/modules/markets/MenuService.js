@@ -4,7 +4,6 @@
 define(function MenuServiceModule(require) {
     "use strict";
 
-    const module = require("module");
     const utils = require("common/utils");
     const MenuNode = require("modules/markets/MenuNode");
     const MenuNodeType = require("modules/markets/MenuNodeType");
@@ -13,9 +12,8 @@ define(function MenuServiceModule(require) {
     const SEARCH_NODE_ID = "searchnode";
 
     console.log("MenuService.js");
-    //var initialData = module.config().initialData;
 
-    return ["$q", "augurApi", ($q, augurApi) => {
+    return ["$q", "marketsService", ($q, marketsService) => {
         console.log("MenuService.js: hu");
 
         /**
@@ -23,7 +21,7 @@ define(function MenuServiceModule(require) {
          * @constructor
          */
         function MenuService() {
-            this._structure = this._loadInitialData()
+            this._structure = marketsService.getData()
                 .then(this._transformInitialData);
             this._flatStructure = this._structure.then(this._flattenStructure).then((data) => {
                 console.log("MenuService.js[_flatStructure]: %o", data);
@@ -43,21 +41,6 @@ define(function MenuServiceModule(require) {
 
         MenuService.prototype.getRootNode = function () {
             return this.getNode(ROOT_NODE_ID);
-        };
-
-        MenuService.prototype._loadInitialData = function () {
-            return augurApi.getBranches()
-                .then((branchIds) => {
-                    return $q.all(
-                        branchIds.map(this._getBranchData, this)
-                    );
-                })
-                .then(function (branchValues) {
-                    console.log("MenuService.js: finished %o", branchValues);
-                    return branchValues;
-                }, (error) => {
-                    console.error("MenuService.js: something bad happened %o", error);
-                });
         };
 
         MenuService.prototype._transformInitialData = function (initialData) {
@@ -95,39 +78,6 @@ define(function MenuServiceModule(require) {
                 }, flatStructure);
                 return flatStructure;
             }, flatStructure);
-        };
-
-        MenuService.prototype._getBranchData = function (branchId) {
-            return $q
-                .all({
-                    description: augurApi.getDescription(branchId),
-                    markets: this._getMarketsForBranch(branchId)
-                })
-                .then(function (results) {
-                    return {
-                        // to be consistent with market info
-                        _id: branchId,
-                        description: results.description,
-                        markets: results.markets
-                    };
-                });
-
-        };
-
-        MenuService.prototype._getMarketsForBranch = function (branchId) {
-            return augurApi
-                .getMarkets(branchId)
-                .then(function (marketIds) {
-                    return $q.all(
-                        marketIds.map(function (marketId) {
-                            return augurApi.getMarketInfo(marketId);
-                        })
-                    );
-                })
-                .then(function (marketInfos) {
-                    console.log("MenuService.js: marketInfos: %o", marketInfos);
-                    return marketInfos;
-                });
         };
 
         return new MenuService();

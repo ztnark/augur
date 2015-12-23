@@ -6,38 +6,38 @@
             </a>
         </li>
         <li>
-            <a href="/markets/event/${contract.eventId}" ng-href="/markets/event/{{app.contract.eventId}}"
-               ng-bind="app.contract.eventName">
-                ${contract.eventName}
+            <a ui-sref="markets.listing({ nodeId: marketDetail.branch._id })">
+                {{ marketDetail.branch.description }}
             </a>
         </li>
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown">
-                <span ng-bind="app.contract.name">${contract.name}</span>
-                <span class="caret"></span>
-            </a>
+            <!--<a href="#" data-toggle="dropdown">-->
+            <span>
+                {{ marketDetail.market.description }}
+            </span>
+                <!--<span class="caret"></span>-->
+            <!--</a>-->
 
-            <table class="dropdown-menu table table-hover" role="menu"
-                   style="max-width: none; width: auto;">
-                <tbody in-contract-navigation></tbody>
-            </table>
-            <script type="text/ng-template" id="contract-navigation">
-                <tr ng-repeat="contract in contracts" ng-class="{highlighted: contract.id === app.contract.contractId}">
-                    <td class="text-nowrap">
-                        <a href="{{'/markets/contract?contractId=' + contract.id}}"
-                           ng-if="contract.id !== app.contract.contractId">
-                            {{contract.name}}
-                        </a>
-                                    <span ng-if="contract.id === app.contract.contractId">
-                                        {{contract.name}}
-                                    </span>
-                    </td>
-                    <td class="text-nowrap text-right">
-                        Last: <strong>{{contract.lastTradeCostPerShareFormatted}}
-                        ({{contract.lastTradePriceFormatted}}%)</strong>
-                    </td>
-                </tr>
-            </script>
+            <!--<table class="dropdown-menu table table-hover" role="menu"-->
+                   <!--style="max-width: none; width: auto;">-->
+                <!--<tbody>-->
+                    <!--<tr ng-repeat="market in breadcrumb.markets track by market._id" ng-class="{highlighted: breadcrumb.market._id === marketDetail.market._id}">-->
+                        <!--<td class="text-nowrap">-->
+                            <!--<a ui-sref="marketDetail({ marketId: market._id })"-->
+                               <!--ng-if="market._id !== marketDetail.market._id">-->
+                                <!--{{market.description}}-->
+                            <!--</a>-->
+                            <!--<span ng-if="market.id === marketDetail.market._id">-->
+                                <!--{{market.description}}-->
+                            <!--</span>-->
+                        <!--</td>-->
+                        <!--<td class="text-nowrap text-right">-->
+                            <!--Last: <strong>{{market.lastTradeCostPerShareFormatted}}-->
+                            <!--({{market.lastTradePriceFormatted}}%)</strong>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
         </li>
     </ul>
 </div>
