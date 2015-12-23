@@ -6,6 +6,7 @@
 require.config({
     baseUrl: "/js",
     paths: {
+        dist: "/dist",
         bootstrap: ["https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap",
             "/dist/bootstrap/js/bootstrap"],
         angular: ["https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular",
