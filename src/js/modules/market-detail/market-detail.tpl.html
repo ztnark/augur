@@ -1,5 +1,5 @@
 <div breadcrumb></div>
-<main-info/>
+<div main-info></div>
 <div role="tabpanel" style="margin-top: 15px;">
     <div class="row submenu">
         <a class="collapsed" data-toggle="collapse" href="#collapseSubmenu"
@@ -53,19 +53,19 @@
     </div>
     <div class="tab-content" ui-view>
         <div id="trade" role="tabpanel" class="tab-pane" ng-cloak>
-            <trade-interface/>
+            <div trade-interface></div>
         </div>
         <div id="stats" role="tabpanel" class="tab-pane">
-            <stats-and-charts/>
+            <div stats-and-charts></div>
         </div>
         <div id="rules" role="tabpanel" class="tab-pane">
-            <rules/>
+            <div rules></div>
         </div>
         <div id="userTrades" role="tabpanel" class="tab-pane" ng-if="app.isUserLoggedIn">
-            <user-trades/>
+            <div user-trades></div>
         </div>
         <div id="frozenFunds" class="tab-pane" role="tabpanel" ng-if="app.isUserLoggedIn">
-            <frozen-funds/>
+            <div frozen-funds></div>
         </div>
     </div>
 </div>
