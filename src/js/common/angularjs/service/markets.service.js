@@ -33,6 +33,7 @@ define((require) => {
                         return branchValues;
                     }, (error) => {
                         console.error("markets.service.js: something bad happened %o", error);
+                        return error;
                     });
             }
 
