@@ -9,7 +9,8 @@ define(function marketsModule(require) {
 
     let module = angular.module("augur.markets", ["ui.router"]);
 
-    module.controller("ListController", require("modules/markets/list/ListController"));
+    module.controller("MarketsController", require("modules/markets/markets.controller"));
+    module.controller("ListController", require("modules/markets/list/list.controller"));
 
     module.service("menuService", require("modules/markets/MenuService"));
     module.service("augurApi", require("common/augur/augur-api-promise"));
@@ -34,6 +35,7 @@ define(function marketsModule(require) {
                 .state("markets", {
                     url: "/markets",
                     abstract: true,
+                    controller: "MarketsController as markets",
                     template: require("text!modules/markets/markets.tpl.html")
                 })
                 .state("markets.listing", {

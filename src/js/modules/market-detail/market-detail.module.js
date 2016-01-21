@@ -9,6 +9,7 @@ define(function marketDetailModule(require) {
     let module = angular.module("augur.marketDetail", ["ui.router"]);
 
     module.controller("MarketDetailController", require("modules/market-detail/market-detail.controller"));
+    //module.factory("marketActions", require("common/angularjs/actions/market.actions"));
 
     module.directive("breadcrumb", require("modules/market-detail/breadcrumb/breadcrumb.directive"));
     //module.directive("mainInfo", require("modules/market-detail/main-info/main-info.directive"));
@@ -23,7 +24,11 @@ define(function marketDetailModule(require) {
             .state("marketDetail", {
                 url: "/markets/:marketId",
                 controller: "MarketDetailController as marketDetail",
-                template: require("text!modules/market-detail/market-detail.tpl.html")
+                template: require("text!modules/market-detail/market-detail.tpl.html"),
+                onEnter: ["$ngRedux", "$stateParams", "marketActions", function ($ngRedux, $stateParams, marketActions) {
+                    console.log("market-detail.module.js: marketDetail");
+                    $ngRedux.dispatch(marketActions.downloadMarket($stateParams.marketId));
+                }]
             });
     }]);
 });

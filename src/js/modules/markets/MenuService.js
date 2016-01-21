@@ -13,7 +13,7 @@ define(function MenuServiceModule(require) {
 
     console.log("MenuService.js");
 
-    return ["$q", "marketsService", ($q, marketsService) => {
+    return ["$q", "$ngRedux", "marketsService", ($q, $ngRedux, marketsService) => {
         console.log("MenuService.js: hu");
 
         /**
@@ -21,6 +21,7 @@ define(function MenuServiceModule(require) {
          * @constructor
          */
         function MenuService() {
+            $ngRedux.connect(this._transformInitialData)(this);
             this._structure = marketsService.getData()
                 .then(this._transformInitialData);
             this._flatStructure = this._structure.then(this._flattenStructure).then((data) => {
@@ -28,6 +29,9 @@ define(function MenuServiceModule(require) {
                 return data;
             });
         }
+
+        MenuService.prototype.ROOT_NODE_ID = ROOT_NODE_ID;
+        MenuService.prototype.SEARCH_NODE_ID = SEARCH_NODE_ID;
 
         /**
          *

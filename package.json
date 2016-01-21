@@ -13,7 +13,7 @@
     "build:css": "lessc src/less/index.less target/css/index.css",
     "// copyAssets": "todo: improve this",
     "copyAssets": "parallelshell 'npm run copyAssets:html' 'npm run copyAssets:js' 'npm run copyAssets:css' 'npm run copyAssets:fonts' 'npm run copyAssets:tpl'",
-    "copyAssets:js": "parallelshell 'copyfiles -f node_modules/jquery/dist/jquery.js target/dist/jquery' 'copyfiles -f node_modules/augur.js/dist/augur.js target/dist/augur' 'copyfiles -f node_modules/ui-router/release/angular-ui-router.js target/dist/angular/ui-router' 'copyfiles -f node_modules/angular/angular.js target/dist/angular' 'copyfiles -f node_modules/bootstrap/dist/js/bootstrap.js target/dist/bootstrap/js' 'copyfiles -f node_modules/requirejs/require.js target/dist/requirejs' 'copyfiles -f node_modules/requirejs-text/text.js target/dist/requirejs/plugins' ' copyfiles -f src/config/requirejs-main-config.js target/config' 'copyfiles -f node_modules/ipfs-api/dist/ipfsapi.min.js target/dist/ipfs-api'",
+    "copyAssets:js": "parallelshell 'r.js -convert node_modules/redux-thunk/lib target/dist/redux-thunk' 'copyfiles -f node_modules/redux/dist/redux.js target/dist/redux' 'copyfiles -f node_modules/ng-redux/dist/ng-redux.js target/dist/ng-redux' 'copyfiles -f node_modules/jquery/dist/jquery.js target/dist/jquery' 'copyfiles -f node_modules/augur.js/dist/augur.js target/dist/augur' 'copyfiles -f node_modules/ui-router/release/angular-ui-router.js target/dist/angular/ui-router' 'copyfiles -f node_modules/angular/angular.js target/dist/angular' 'copyfiles -f node_modules/bootstrap/dist/js/bootstrap.js target/dist/bootstrap/js' 'copyfiles -f node_modules/requirejs/require.js target/dist/requirejs' 'copyfiles -f node_modules/requirejs-text/text.js target/dist/requirejs/plugins' ' copyfiles -f src/config/requirejs-main-config.js target/config' 'copyfiles -f node_modules/ipfs-api/dist/ipfsapi.min.js target/dist/ipfs-api'",
     "copyAssets:css": "parallelshell 'copyfiles -f node_modules/bootstrap/dist/css/bootstrap.css target/dist/bootstrap/css' 'copyfiles -f src/dist/gsdk/20150306/css/gsdk.css target/dist/gsdk/css'",
     "copyAssets:fonts": "parallelshell 'cpx \"node_modules/bootstrap/dist/fonts/**\" target/dist/bootstrap/fonts -v' 'cpx \"node_modules/font-awesome/fonts/**\" target/fonts -v'",
     "copyAssets:html": "copyfiles -f src/index.html target",
@@ -22,7 +22,7 @@
     "watch": "parallelshell 'npm run watch:js' 'npm run watch:css' 'npm run watch:tpl'",
     "watch:js": "watch 'npm run build:js' src/js/",
     "watch:css": "watch 'npm run build:css' src/less/",
-    "watch:tpl": "cpx \"src/js/**/*.tpl.html\" target/js --watch"
+    "watch:tpl": "cpx \"src/js/**/*.tpl.html\" target/js --watch --verbose"
   },
   "engines": {
     "node": ">= 4.0.x"
@@ -42,6 +42,9 @@
     "bootstrap": "3.3.6",
     "ipfs-api": "^2.10.1",
     "jquery": "2.1.4",
+    "ng-redux": "3.1.2",
+    "redux": "3.0.5",
+    "redux-thunk": "1.0.2",
     "requirejs": "2.1.22",
     "ui-router": "0.2.15"
   },

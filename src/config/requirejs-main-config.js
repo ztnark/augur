@@ -14,6 +14,9 @@ require.config({
         jquery: ["https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery",
             "/dist/jquery/jquery"],
         augur: "/dist/augur/augur",
+        redux: "/dist/redux/redux",
+        "redux-thunk": "/dist/redux-thunk/index",
+        "ng-redux": "/dist/ng-redux/ng-redux",
         "ui.router": "/dist/angular/ui-router/angular-ui-router",
         "text": "/dist/requirejs/plugins/text"
     },
@@ -23,6 +26,9 @@ require.config({
             deps: ["jquery"]
         },
         "ui.router": {
+            deps: ["angular"]
+        },
+        "ng-redux": {
             deps: ["angular"]
         },
         "bootstrap": {

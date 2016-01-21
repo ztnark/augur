@@ -6,17 +6,21 @@ define((require) => {
 
     let angular = require("angular");
     require("ui.router");
+    let redux = require("redux");
+    let reduxThunk = require("redux-thunk");
+    require("ng-redux");
     require("modules/home/home.module");
     require("modules/market-detail/market-detail.module");
     require("modules/markets/markets.module");
 
     let appName = "augur-client";
-    let app = angular.module(appName, ["ui.router", "augur.home", "augur.markets", "augur.marketDetail"]);
+    let module = angular.module(appName, ["ui.router", "ngRedux", "augur.home", "augur.markets", "augur.marketDetail"]);
 
-    app.controller("AppController", require("app.controller"));
-    app.service("marketsService", require("common/angularjs/service/markets.service"));
+    module.controller("AppController", require("app.controller"));
+    module.service("marketsService", require("common/angularjs/service/markets.service"));
+    module.factory("marketActions", require("common/angularjs/actions/market.actions"));
 
-    app
+    module
         .config(["$locationProvider", function configureHtml5Mode($locationProvider) {
             $locationProvider.html5Mode({
                 enabled: true,
@@ -34,85 +38,14 @@ define((require) => {
                 return $delegate;
             }]);
         }])
-        //.config(["$stateProvider", function configureAppStates($stateProvider) {
-        //    let menuSpec = {
-        //        template: require("text!modules/markets/menu.tpl.html"),
-        //        controller: "ListController as list",
-        //        resolve: {
-        //            items: ["$stateParams", "menuService", ($stateParams, menuService) => {
-        //                return menuService.getRoot()
-        //                    .then(node => node.children);
-        //            }],
-        //            parent: ["$stateParams", "menuService", ($stateParams, menuService) => {
-        //                return menuService.getRoot();
-        //            }]
-        //        }
-        //    };
-        //
-        //    let rootSpec = {
-        //        template: require("text!modules/markets/list/list.tpl.html"),
-        //        controller: "ListController as list",
-        //        resolve: {
-        //            items: ["$stateParams", "menuService", ($stateParams, menuService) => {
-        //                return menuService.getRoot()
-        //                    .then(node => node.children[0])
-        //                    .then(node => node.children);
-        //            }],
-        //            parent: ["$stateParams", "menuService", ($stateParams, menuService) => {
-        //                return menuService.getRoot()
-        //                    .then(node => node.children[0]);
-        //            }]
-        //        }
-        //    };
-        //    $stateProvider
-        //        .state("home", {
-        //            url: "/",
-        //            template: require("text!modules/home/home.tpl.html")
-        //        })
-        //        .state("markets", {
-        //            url: "/markets",
-        //            abstract: true,
-        //            template: require("text!modules/markets/markets.tpl.html"),
-        //            controller: "MarketsAppController"
-        //        })
-        //        .state("markets.listing", {
-        //            url: "?nodeId",
-        //            views: {
-        //                "menuView@markets": menuSpec,
-        //                "contentView@markets": rootSpec
-        //            }
-        //        })
-        //        .state("markets.listing.mobile", {
-        //            views: {
-        //                "contentView@markets": {
-        //                    template: "mobil"
-        //                }
-        //            }
-        //        })
-        //        .state("markets.listing.search", {
-        //            url: "/search?query",
-        //            views: {
-        //                //menuView: menuSpec,
-        //                "contentView": {
-        //                    template: "todo search for {{query}}",
-        //                    controller: ["$stateParams", function SearchController($stateParams) {
-        //                        this.query = $stateParams.query
-        //                    }]
-        //                }
-        //            }
-        //        })
-        //        .state("marketDetail", {
-        //            url: "/markets/:marketId",
-        //            controller: "MarketDetailController as marketDetail",
-        //            template: require("text!modules/market-detail/market-detail.tpl.html"),
-        //            resolve: {
-        //                marketId: ["$stateParams", function ($stateParams) {
-        //                    return $stateParams.marketId;
-        //                }]
-        //            }
-        //        });
-        //}])
 
+        .config(["$ngReduxProvider", ($ngReduxProvider) => {
+            var marketReducers = require("common/redux/reducers/market.reducers");
+            let reducer = redux.combineReducers({
+                markets: marketReducers
+            });
+            $ngReduxProvider.createStoreWith(reducer, [reduxThunk]);
+        }])
 
         .run(["$rootScope", "$state", function stateChangeListeners($rootScope, $state) {
             /**
