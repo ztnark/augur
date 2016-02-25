@@ -21,3 +21,21 @@
         }
     }
 }
+
+/* effectively centers everything nicely */
+.pagination-row {
+    .display(flex);
+    .align-items(center);
+    .justify-content(space-between);
+
+    & > .pagination-section {
+        display: table;
+        & > {
+            // don't wanna use *
+            & > span, & > ul, & > div {
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
+    }
+}

@@ -64,6 +64,11 @@ let MarketsPage = React.createClass({
         var sortInput = newValue.value.split('|');
         this.getFlux().actions.search.sortMarkets(sortInput[0], parseInt(sortInput[1]));
     },
+    onMarketsPerPageChange(option) {
+        this.setState({
+            marketsPerPage: option.value
+        });
+    },
 
     debounceSearchInput: _.debounce(function (val) {
         this.handlePageChanged({selected: 0});
@@ -83,7 +88,7 @@ let MarketsPage = React.createClass({
      * Returns filtered markets (expired or not) and data for pagination
      * todo: filtering logic should probably be part of SearchStore ?
      */
-    _getMarketsData() {
+    getMarketsData() {
         let currentBranch = this.props.branch.currentBranch;
         let currentPeriod = currentBranch != null ? currentBranch.currentPeriod : null;
         let filteredMarkets = _(this.state.markets)
@@ -126,7 +131,7 @@ let MarketsPage = React.createClass({
         let tourMarketId;
         if (tourMarketKey) tourMarketId = this.state.markets[tourMarketKey]._id;
 
-        let {markets, marketsCount, firstItemIndex, lastItemIndex} = this._getMarketsData();
+        let {markets, marketsCount, firstItemIndex, lastItemIndex} = this.getMarketsData();
 
         let tourMarketRow = <span />;
         if (tourMarketId && this.state.pageNum === 0) {
@@ -138,21 +143,38 @@ let MarketsPage = React.createClass({
         }
 
         let pagination = (
-            <div className="row">
-                <div className="col-xs-12">
-                    <span className='showing'>Showing { firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
-                    <Paginate
-                        previousLabel={ <i className='fa fa-chevron-left'></i> }
-                        nextLabel={ <i className='fa fa-chevron-right'></i> }
-                        breakLabel={ <li className="break"><a href="">...</a></li> }
-                        pageNum={ marketsCount / this.state.marketsPerPage }
-                        marginPagesDisplayed={ 2 }
-                        pageRangeDisplayed={ 5 }
-                        forceSelected={ this.state.pageNum }
-                        clickCallback={ this.handlePageChanged }
-                        containerClassName={ 'paginator' }
-                        subContainerClassName={ 'pages' }
-                        activeClass={ 'active' } />
+            <div className="row" style={{marginBottom: "1.7rem"}}>
+                <div className="col-xs-12 pagination-row">
+                    <div className="pagination-section">
+                        <span style={{paddingRight: "20px"}}>View</span>
+                        <Select style={{ width: "4.6rem" }}
+                                value={this.state.marketsPerPage}
+                                name="markets-paginationItemsPerPage"
+                                searchable={false}
+                                clearable={false}
+                                onChange={this.onMarketsPerPageChange}
+                                options={[
+                                    {value: 25, label: "25"},
+                                    {value: 50, label: "50"},
+                                    {value: 100, label: "100"}
+                                ]}
+                            />
+                    </div>
+                    <div className="pagination-section">
+                        <span style={{paddingRight: "20px"}} className='showing'>Showing { firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
+                        <Paginate
+                            previousLabel={ <i className='fa fa-chevron-left'></i> }
+                            nextLabel={ <i className='fa fa-chevron-right'></i> }
+                            breakLabel={ <li className="break"><a href="">...</a></li> }
+                            pageNum={ marketsCount / this.state.marketsPerPage }
+                            marginPagesDisplayed={ 2 }
+                            pageRangeDisplayed={ 5 }
+                            forceSelected={ this.state.pageNum }
+                            clickCallback={ this.handlePageChanged }
+                            containerClassName={ 'paginator' }
+                            subContainerClassName={ 'pages' }
+                            activeClass={ 'active' } />
+                    </div>
                 </div>
             </div>
         );
