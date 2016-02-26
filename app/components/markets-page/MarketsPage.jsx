@@ -2,7 +2,7 @@ let React = require("react");
 let abi = require("augur-abi");
 let _ = require("lodash");
 let moment = require("moment");
-let Paginate = require("react-paginate");
+let Pagination = require("react-bootstrap/lib/Pagination");
 let FluxMixin = require("fluxxor/lib/flux_mixin")(React);
 let StoreWatchMixin = require("fluxxor/lib/store_watch_mixin");
 let Navigation = require("react-router/lib/Navigation");
@@ -23,7 +23,8 @@ let MarketsPage = React.createClass({
         return {
             marketsPerPage: constants.MARKETS_PER_PAGE,
             visiblePages: 3,
-            pageNum: this.props.params.page ? this.props.params.page - 1 : 0,
+            // zero-based
+            pageNum: this.props.query.page ? this.props.query.page - 1 : 0,
             sortValue: null,
             addMarketModalOpen: false
         };
@@ -46,9 +47,10 @@ let MarketsPage = React.createClass({
         };
     },
 
-    handlePageChanged: function (data) {
-        this.transitionTo('markets', null, {page: (parseInt(data.selected) + 1), expired: this.props.query.expired});
-        this.setState({pageNum: data.selected});
+    handlePageChanged: function (event, selectedEvent) {
+        let selectedPage = selectedEvent.eventKey;
+        this.transitionTo('markets', null, {page: (parseInt(selectedPage)), expired: this.props.query.expired});
+        this.setState({pageNum: selectedPage - 1});
     },
 
     onChangeSearchInput: function (event) {
@@ -108,7 +110,7 @@ let MarketsPage = React.createClass({
         let firstItemIndex = this.state.pageNum * this.state.marketsPerPage;
         let marketsCount = filteredMarkets.size();
         let lastItemIndex = firstItemIndex + this.state.marketsPerPage;
-        lastItemIndex = (lastItemIndex > marketsCount ? marketsCount : lastItemIndex);
+        lastItemIndex = Math.min(lastItemIndex, marketsCount);
 
         let markets = filteredMarkets
             .map()
@@ -154,26 +156,23 @@ let MarketsPage = React.createClass({
                                 clearable={false}
                                 onChange={this.onMarketsPerPageChange}
                                 options={[
-                                    {value: 25, label: "25"},
+                                    {value: constants.MARKETS_PER_PAGE, label: constants.MARKETS_PER_PAGE},
                                     {value: 50, label: "50"},
                                     {value: 100, label: "100"}
                                 ]}
                             />
                     </div>
                     <div className="pagination-section">
-                        <span style={{paddingRight: "20px"}} className='showing'>Showing { firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
-                        <Paginate
-                            previousLabel={ <i className='fa fa-chevron-left'></i> }
-                            nextLabel={ <i className='fa fa-chevron-right'></i> }
-                            breakLabel={ <li className="break"><a href="">...</a></li> }
-                            pageNum={ marketsCount / this.state.marketsPerPage }
-                            marginPagesDisplayed={ 2 }
-                            pageRangeDisplayed={ 5 }
-                            forceSelected={ this.state.pageNum }
-                            clickCallback={ this.handlePageChanged }
-                            containerClassName={ 'paginator' }
-                            subContainerClassName={ 'pages' }
-                            activeClass={ 'active' } />
+                        <span style={{paddingRight: "20px"}} className='showing'>{ firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
+                        <Pagination
+                            prev
+                            next
+                            ellipsis={false}
+                            items={Math.ceil(marketsCount / this.state.marketsPerPage)}
+                            maxButtons={-1} // hide page numbers (not documented but works)
+                            activePage={this.state.pageNum + 1}
+                            onSelect={this.handlePageChanged}
+                            />
                     </div>
                 </div>
             </div>
