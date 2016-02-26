@@ -144,6 +144,7 @@ let MarketsPage = React.createClass({
                                 numOpenOrders={(myOpenOrders && tourMarketId && myOpenOrders[tourMarketId] && myOpenOrders[tourMarketId][1] && myOpenOrders[tourMarketId][1].length) || 0} />
         }
 
+        let pagesCount = Math.ceil(marketsCount / this.state.marketsPerPage);
         let pagination = (
             <div className="row" style={{marginBottom: "1.7rem"}}>
                 <div className="col-xs-12 pagination-row">
@@ -165,12 +166,12 @@ let MarketsPage = React.createClass({
                     <div className="pagination-section">
                         <span style={{paddingRight: "20px"}} className='showing'>{ firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
 
-                        { (marketsCount / this.state.marketsPerPage) >= 2 &&
+                        { pagesCount > 1 &&
                             <Pagination
                                 prev
                                 next
                                 ellipsis={false}
-                                items={Math.ceil(marketsCount / this.state.marketsPerPage)}
+                                items={ pagesCount }
                                 maxButtons={-1} // hide page numbers (not documented but works)
                                 activePage={this.state.pageNum + 1}
                                 onSelect={this.handlePageChanged}
