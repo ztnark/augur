@@ -285,7 +285,7 @@ var Overview = React.createClass({
         }
 
         return (
-            <div className={className + ' ' + this.props.className }>
+            <div className={`${className} ${this.props.className} col-sm-4 col-md-3`}>
                 <h4 className="title">
                     {description} ({percentageFormatted})
                 </h4>
@@ -445,16 +445,31 @@ var Buy = React.createClass(_.merge({
     actionLabel: 'Buy',
 
     getHelpText: function () {
-        var cost;
-        if (this.state.simulation && this.state.simulation.cost) {
-            cost = this.state.simulation.cost.toFixed(3);
-        } else {
-            cost = "error :(";
-        }
         if (this.state.inputError) {
             return ( this.state.inputError );
         } else if (this.state.simulation) {
-            return ( 'Cost: ' + cost );
+            let shares = abi.number(this.state.value);
+            let costFormatted, costPerShareFormatted;
+
+            if (this.state.simulation.cost) {
+                costFormatted = this.state.simulation.cost.toFixed(3);
+                costPerShareFormatted = this.state.simulation.cost.dividedBy(shares).toFixed(3);
+            } else {
+                costFormatted = "error :(";
+            }
+
+            return (
+                <div>
+                    <div>
+                        Cost: {costFormatted}
+                    </div>
+                    { shares > 1 &&
+                        <div>
+                            Per share: {costPerShareFormatted}
+                        </div>
+                    }
+                </div>
+            );
         } else {
             return '';
         }

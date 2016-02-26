@@ -72,9 +72,10 @@ let OrderTicketStep1 = React.createClass({
 
         return (
             <div className="orderTicket-step collapse in collapsedOnMobile order-ticket-display" style={style}>
-                { outcomes }
+                <div className="row">
+                    { outcomes }
+                </div>
             </div>
-
         );
     }
 });

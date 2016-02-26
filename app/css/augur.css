@@ -783,9 +783,6 @@ a.market-pane:hover {
 .outcome .trade .new-price i {
     margin-right: 2px;
 }
-.outcome .trade form {
-    width: 150px;
-}
 .outcome .trade form input {
     border-radius: 0px;
     border-bottom-left-radius: 4px;
