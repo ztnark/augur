@@ -54,6 +54,7 @@ let RegisterModal = React.createClass({
       let flux = this.getFlux();
       let self = this;
       this.props.onHide();
+      this.updateProgressModal();
       this.updateProgressModal({
         header: "Creating New Account",
         status: "Creating new account <i>" + this.state.handle + "</i>...",
@@ -95,12 +96,6 @@ let RegisterModal = React.createClass({
         },
         onSendEther: function (account) {
           self.updateProgressModal("Received " + flux.augur.constants.FREEBIE + " Ether.");
-          flux.augur.filters.ignore(true, function (err) {
-            if (err) return console.error(err);
-            console.debug("Blockchain listeners reset.");
-            flux.actions.config.initializeData();
-            flux.actions.asset.updateAssets();
-          });
         },
         onSent: function (res) {
           self.updateProgressModal("Requesting free Cash and Reputation...");

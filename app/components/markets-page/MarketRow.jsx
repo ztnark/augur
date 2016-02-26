@@ -3,16 +3,11 @@ let ReactDOM = require("react-dom");
 let _ = require("lodash");
 let utilities = require("../../libs/utilities");
 let moment = require("moment");
-let Shepherd = require("tether-shepherd");
 let Link = require("react-router/lib/components/Link");
 let OutcomeRow = require("./OutcomeRow");
 
-let tour = new Shepherd.Tour({
-    defaults: {
-        classes: "shepherd-element shepherd-open shepherd-theme-arrows",
-        showCancelLink: true
-    }
-});
+let Shepherd = require("tether-shepherd");
+let tour;
 
 /**
  * Represents detail of market in market lists.
@@ -247,15 +242,15 @@ let MarketRow = React.createClass({
                     { rowAction }
                 </div>
                 <div className="subtitle clearfix">
-                    <div className="labelValue subtitle-group">
+                    <div className="fa fa-square-o labelValue subtitle-group">
                         <span className="labelValue-label trading-fee-label">Trading Fee: </span>
                         <span className="labelValue-value trading-fee">{market.tradingFee ? market.tradingFee.times(100).toFixed(1) + '%' : '-'}</span>
                     </div>
-                    <div className="labelValue subtitle-group">
+                    <div className="fa fa-clock-o labelValue subtitle-group">
                         <span className="labelValue-label end-date-label">{endDateLabel}: </span>
                         <span className="labelValue-value end-date">{endDateFormatted}</span>
                     </div>
-                    <div className="labelValue subtitle-group">
+                    <div className="fa fa-bookmark-o labelValue subtitle-group">
                         <span className="labelValue-label">
                             {utilities.getMarketTypeName(market)}
                             { " " }
@@ -268,24 +263,24 @@ let MarketRow = React.createClass({
                 </div>
                 <div className="details">
                     <div className="table-container outcomes">
-                        <table className="tabular tabular-condensed">
-                            <thead>
-                                <tr>
-                                    <th colSpan="3">Market Leaders</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {market.outcomes.map((outcome) => {
-                                    return (
-                                        <OutcomeRow
-                                            key={`${market._id}-${outcome.id}`}
-                                            outcome={outcome}
-                                            market={market}
-                                            contentType={this.props.contentType} />
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                        <div className="panelify-sideways info">
+                            <div className="title">Top Predictions</div>
+                            <div className="content">
+                                <table className="outcomes-table">
+                                    <tbody>
+                                        {market.outcomes.map((outcome) => {
+                                            return (
+                                                <OutcomeRow
+                                                    key={`${market._id}-${outcome.id}`}
+                                                    outcome={outcome}
+                                                    market={market}
+                                                    contentType={this.props.contentType} />
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     { holdingsSection }
                     { reportSection }
@@ -306,8 +301,13 @@ let MarketRow = React.createClass({
         let outcomes = this.props.market.outcomes;
         let outcomeNames = utilities.getOutcomeNames(this.props.market);
 
-        Shepherd.once('cancel', () => {
-            localStorage.setItem("tourComplete", true);
+        Shepherd.once('cancel', () => localStorage.setItem("tourComplete", true));
+
+        tour = new Shepherd.Tour({
+            defaults: {
+                classes: "shepherd-element shepherd-open shepherd-theme-arrows",
+                showCancelLink: true
+            }
         });
 
         // TODO add glowing border to current top market
@@ -381,7 +381,7 @@ let MarketRow = React.createClass({
     },
 
     componentWillUnmount() {
-        tour.hide();
+        tour && tour.hide();
     }
 });
 

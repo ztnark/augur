@@ -29,20 +29,10 @@
         max-width: 200px; // looks good on iP5 emulator
         overflow: hidden;
         text-overflow: ellipsis;
-        float: right; // so it's aligned to right
     }
 
     .tabular {
         width: 100%;
-    }
-}
-
-@media (max-width: @screen-sm-min) {
-    .breadcrumb > li {
-        display: block;
-        &:first-child {
-            padding-left: 20px;
-        }
     }
 }
 
@@ -51,7 +41,6 @@
         max-width: 165px; // looks good on iP5 emulator
         overflow: hidden;
         text-overflow: ellipsis;
-        float: right; // so it's aligned to right
     }
 }
 
@@ -119,7 +108,7 @@ h3 {
 }
 
 .openOrders {
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     table {
         margin-bottom: 5px;
@@ -127,6 +116,10 @@ h3 {
     .openOrder:hover .openOrder-cancelOrderAction {
         visibility: visible;
     }
+}
+
+.comments {
+    margin-top: 2rem;
 }
 
 @media (min-width: @screen-sm-min) {
@@ -216,12 +209,37 @@ h3 {
 
 
 .orderTicket {
+    margin-top: 2rem;
     .tradeAction.tradeAction-buy {
         float: left;
     }
     .tradeAction.tradeAction-sell {
         float: right;
         text-align: right;
+    }
+
+    .outcome {
+        p {
+            margin-bottom: 0;
+        }
+
+        .tradeAction {
+            width: 48%;
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .shares-held, .shares-pending {
+            padding-right: 0.5rem;
+            lime-height: 0.5rem;
+            font-size: 10px;
+            font-style: italic;
+        }
+
+        .sell-button {
+            margin-bottom: 0.5rem;
+        }
     }
 }
 

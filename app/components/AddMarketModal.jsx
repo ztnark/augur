@@ -183,7 +183,7 @@ let AddMarketModal = React.createClass({
         return false;
       } else if (!this.state.marketText.length) {
          this.setState({marketTextError: 'Please enter your question'});
-        return false;       
+        return false;
       }
     } else if (pageNumber === 2) {
       if (this.state.tradingFee === '') {
@@ -244,6 +244,7 @@ let AddMarketModal = React.createClass({
       onSent: function (r) {
         console.log("new market submitted:", r.txHash);
         var marketId = r.callReturn;
+        self.updateProgressModal();
         self.updateProgressModal({
           header: "Creating Market",
           status: "New market submitted.<br />Market ID: <small>" + r.callReturn + "</small><br />Waiting for confirmation...",
@@ -393,7 +394,7 @@ let AddMarketModal = React.createClass({
         <div className="fees">
 
           <div className="form-horizontal">
-            <Input 
+            <Input
               type='text'
               label='Trading fee'
               labelClassName='col-xs-3'
@@ -409,7 +410,7 @@ let AddMarketModal = React.createClass({
           <p className="desc">The trading fee is the percentage taken from each purchase or sale of an outcome.  These fees are split by you and all owners of winning outcomes</p>
 
           <div className="form-horizontal">
-            <Input 
+            <Input
               type="text"
               label="Initial liquidity"
               help={ marketInvestmentHelp }

@@ -164,15 +164,18 @@ let MarketsPage = React.createClass({
                     </div>
                     <div className="pagination-section">
                         <span style={{paddingRight: "20px"}} className='showing'>{ firstItemIndex + 1 } - { lastItemIndex } of { marketsCount }</span>
-                        <Pagination
-                            prev
-                            next
-                            ellipsis={false}
-                            items={Math.ceil(marketsCount / this.state.marketsPerPage)}
-                            maxButtons={-1} // hide page numbers (not documented but works)
-                            activePage={this.state.pageNum + 1}
-                            onSelect={this.handlePageChanged}
-                            />
+
+                        { (marketsCount / this.state.marketsPerPage) >= 2 &&
+                            <Pagination
+                                prev
+                                next
+                                ellipsis={false}
+                                items={Math.ceil(marketsCount / this.state.marketsPerPage)}
+                                maxButtons={-1} // hide page numbers (not documented but works)
+                                activePage={this.state.pageNum + 1}
+                                onSelect={this.handlePageChanged}
+                                />
+                        }
                     </div>
                 </div>
             </div>
