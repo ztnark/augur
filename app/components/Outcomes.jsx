@@ -322,17 +322,20 @@ var TradeBase = {
     getInitialState: function () {
         return {
             simulation: null,
+            maxCostSimulation: null,
             inputError: null,
+            maxCostError: null,
             limitInputError: null,
             capInputError: null,
             value: '',
+            maxCost: '',
             limit: '',
             cap: ''
         };
     },
 
-    handleChange: function () {
-        var rawValue = this.refs.inputShares.getValue();
+    handleChange: function (event) {
+        var rawValue = event.target.value;
         var numShares = abi.number(rawValue);
         this.setState({value: rawValue});
         this.setState({inputError: null});
@@ -349,10 +352,35 @@ var TradeBase = {
             numShares
         );
         this.setState({
+            maxCost: abi.bignum(sim[0]).toFixed(2),
             simulation: {
                 cost: abi.bignum(sim[0]),
                 newPrice: abi.bignum(sim[1])
             }
+        });
+    }, 300),
+
+    handleMaxCostChange: function (event) {
+        let rawMaxCost = event.target.value;
+        let maxCost = abi.number(rawMaxCost);
+        this.setState({maxCost: rawMaxCost});
+        this.setState({maxCostError: null});
+        if (!maxCost || maxCost === '') {
+            return this.setState({maxCostSimulation: null});
+        }
+        this.debounceMaxCostChange(maxCost);
+    },
+
+    debounceMaxCostChange: _.debounce(function (maxCost) {
+        var sim = this.getFlux().augur.orders.limit.fill(this.props.market, {
+                amount: 10000000, // arbitrary big number
+                outcome: this.props.outcome.id,
+                cap: maxCost
+            }
+        );
+        console.log("sim: %o", sim);
+        this.setState({
+            value: Math.floor(sim.amount)
         });
     }, 300),
 
@@ -390,44 +418,65 @@ var TradeBase = {
         var outcome = this.props.outcome;
 
         var buttonStyle = this.actionLabel === 'Sell' ? 'danger' : 'success';
-        var submit = (
-            <Button bsStyle={buttonStyle} type="submit">{this.actionLabel}</Button>
-        );
         var inputStyle = this.state.inputError ? 'error' : null;
 
         return (
             <div className="trade">
-                <div className='buy trade-button'>
-                    <form onSubmit={this.onSubmit}>
+                <div className='trade-button'>
+                    <form className="form-horizontal" onSubmit={this.onSubmit}>
                         <Input
                             type="text"
                             bsStyle={inputStyle}
                             value={this.state.value}
                             help={this.getHelpText()}
                             ref="inputShares"
+                            labelClassName="col-xs-3"
+                            wrapperClassName="col-xs-9"
+                            label="Shares"
                             placeholder="Shares"
-                            onChange={this.handleChange}
-                            buttonAfter={submit} />
+                            onChange={this.handleChange} />
+                        <div className="form-group text-center">
+                            or
+                        </div>
+                        <Input
+                            type="text"
+                            bsStyle={inputStyle}
+                            value={this.state.maxCost}
+                            labelClassName="col-xs-3"
+                            wrapperClassName="col-xs-9"
+                            //help={this.getMaxCostHelpText()}
+                            ref="inputShares"
+                            label="Cost"
+                            placeholder="amount to spend"
+                            onChange={this.handleMaxCostChange} />
+                        <hr/>
                         <Input
                             type="text"
                             bsStyle={inputStyle}
                             value={this.state.limit}
+                            labelClassName="col-xs-3"
+                            wrapperClassName="col-xs-9"
+                            label="Price"
                             // help="Specifying a price will create a Stop Order"
                             ref="inputLimit"
                             // use max price / min price instead?
-                            placeholder="Price (optional)"
+                            placeholder="optional"
                             onChange={this.handleLimitChange} />
                         <Input
                             type="text"
                             bsStyle={inputStyle}
                             value={this.state.cap}
+                            labelClassName="col-xs-3"
+                            wrapperClassName="col-xs-9"
+                            label="Cap"
                             // help="Specifying a cap will create a Limit Order"
                             ref="inputCap"
-                            placeholder="Cap (optional)"
+                            placeholder="optional"
                             onChange={this.handleCapChange} />
                     </form>
                 </div>
                 <div className='cancel trade-button'>
+                    <Button bsStyle={buttonStyle} type="submit">{this.actionLabel}</Button>
                     <Button bsStyle='plain' onClick={this.props.handleCancel} bsSize='small'>CANCEL</Button>
                 </div>
                 <p>{ utils.getOutcomePrice(outcome) } cash/share</p>
