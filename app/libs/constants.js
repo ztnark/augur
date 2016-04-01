@@ -72,10 +72,6 @@ module.exports = {
     INITIAL_LOAD_COMPLETE: null,
     CLOSED_MARKET: null
   }),
-  search: keyMirror({
-    KEYWORDS_UPDATED: null,
-    UPDATE_SORT_BY: null
-  }),
   report: keyMirror({
     REPORTS_STORAGE: null,
     SAVE_REPORT_SUCCESS: null,

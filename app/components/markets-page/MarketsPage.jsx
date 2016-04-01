@@ -13,35 +13,33 @@ let Select = require('react-select');
 let MarketRow = require("./MarketRow");
 let constants = require("../../libs/constants");
 let utils = require("../../libs/utilities");
+let marketUtils = require("../../libs/market-utilities");
 let InputClear = require('../layout/InputClear');
 
 let MarketsPage = React.createClass({
 
     // assuming only one branch and all markets in store are of that branch
-    mixins: [FluxMixin, StoreWatchMixin("market", "search", "branch", "config"), Navigation],
+    mixins: [FluxMixin, StoreWatchMixin("market", "branch", "config"), Navigation],
 
     getInitialState() {
+        var initialSearchQuery = this.props.query.search || "";
         return {
+            searchQuery: initialSearchQuery,
+            searchKeywords: this.getSearchKeywords(initialSearchQuery),
             marketsPerPage: constants.MARKETS_PER_PAGE,
             visiblePages: 3,
-            pageNum: this.props.params.page ? this.props.params.page - 1 : 0,
-            addMarketModalOpen: false,
-            selectedMarketStatus: this.selectedMarketStatusFromProps(this.props)
+            addMarketModalOpen: false
         };
     },
 
     getStateFromFlux: function () {
         var flux = this.getFlux();
         var marketState = flux.store("market").getState();
-        var searchState = flux.store("search").getState();
         var currentBranch = flux.store("branch").getCurrentBranch();
         var account = flux.store("config").getAccount();
 
         return {
-            searchKeywords: searchState.keywords,
-            sortBy: searchState.sortBy,
-            reverseSort: searchState.reverseSort,
-            markets: searchState.results,
+            markets: marketState.markets,
             pendingMarkets: marketState.pendingMarkets,
             currentBranch: currentBranch,
             account: account,
@@ -49,77 +47,111 @@ let MarketsPage = React.createClass({
         };
     },
 
-    handlePageChanged: function (data) {
-        this.transitionTo('markets', null, {page: (parseInt(data.selected) + 1), expired: this.props.query.expired});
-        this.setState({pageNum: data.selected});
+    componentWillMount() {
+        this.onChangeSearchInputDebounced = _.debounce(() => {
+            this.transitionTo('markets', null, {
+                search: this.state.searchQuery,
+                expired: this.props.query.expired,
+                sort: this.props.query.sort
+            });
+        }, 300);
     },
-
-    onChangeSearchInput: function (searchKeywords) {
-        this.handlePageChanged({selected: 0});
-        this.getFlux().actions.search.updateKeywords(searchKeywords);
-    },
-
-    onChangeSortBy: function (newValue) {
-        this.handlePageChanged({selected: 0});
-        var sortInput = newValue.value.split('|');
-        this.getFlux().actions.search.sortMarkets(sortInput[0], parseInt(sortInput[1]));
-    },
-
-    onChangeMarketStatus: function (newValue) {
-        switch(newValue.value) {
-            case 'expired':
-                this.transitionTo(this.context.router.getCurrentPathname(), null, { expired: true });
-                break;
-            default:
-                this.transitionTo(this.context.router.getCurrentPathname(), null, { expired: false });
-                break;
-        }
-    },
-
-    selectedMarketStatusFromProps: function(props) {
-        return props.query.expired === 'true' ? 'expired' : 'open';
-    },
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.query.expired !== nextProps.query.expired) {
-            // when switching from one tab to another restart pagination
-            this.setState(_.merge({}, this.state, {
-                pageNum: 0,
-                selectedMarketStatus: this.selectedMarketStatusFromProps(nextProps)
-            }));
-        }
+    componentWillUnmount() {
+        this.onChangeSearchInputDebounced.cancel();
     },
 
     /**
-     * Returns filtered markets (expired or not) and data for pagination
-     * todo: filtering logic should probably be part of SearchStore ?
+     * @param {object} data
      */
-    _getMarketsData() {
+    handlePageChanged: function (data) {
+        this.transitionTo('markets', null, {
+            page: (parseInt(data.selected) + 1),
+            expired: this.props.query.expired,
+            search: this.props.query.search,
+            sort: this.props.query.sort
+        });
+    },
+
+    /**
+     * @param {String} searchQuery
+     */
+    onChangeSearchInput: function (searchQuery) {
+        this.setState({
+            searchQuery,
+            searchKeywords: this.getSearchKeywords(searchQuery)
+        });
+
+        this.onChangeSearchInputDebounced();
+    },
+
+    /**
+     * @param {object} option
+     */
+    onChangeSortBy: function (option) {
+        this.transitionTo('markets', null, {
+            search: this.props.query.search,
+            sort: option.value,
+            expired: this.props.query.expired
+        });
+    },
+
+    /**
+     * @param {object} option
+     */
+    onChangeMarketStatus: function (option) {
+        this.transitionTo('markets', null, {
+            search: this.props.query.search,
+            expired: option.value === "expired",
+            sort: this.props.query.sort
+        });
+    },
+
+    resolvePageNumber() {
+        return this.props.query.page ? this.props.query.page - 1 : 0;
+    },
+    resolveSort() {
+        return this.props.query.sort || "startingSortOrder|desc";
+    },
+    getSearchKeywords(searchQuery) {
+        return searchQuery.trim().toLocaleLowerCase().split(" ");
+    },
+
+    /**
+     * Does all the filtering and sorting
+     */
+    getMarketsData() {
         let currentBranch = this.props.branch.currentBranch;
         let currentPeriod = currentBranch != null ? currentBranch.currentPeriod : null;
-        let filteredMarkets = _(this.state.markets)
-            .filter((market => {
-                if (currentBranch == null) {
+
+        let showExpiredMarkets = this.props.query.expired === "true";
+        let sortBy = this.resolveSort().split("|");
+        let sortByFieldName = sortBy[0] || "startingSortOrder";
+        let sortOrder = sortBy[1] || "desc";
+
+        let filteredSortedMarkets = _(this.state.markets)
+            .filter((market) => {
+                return this.state.searchKeywords.every(function (keyword) {
+                    return marketUtils.isDescriptionMatch(market, keyword) || marketUtils.isTagsMatch(market, keyword);
+                }, this);
+            })
+            .filter(market => {
+                if (currentPeriod == null) {
                     // at least display something
                     return true;
                 }
 
-                if (this.props.query.expired === "true") {
-                    return currentPeriod >= market.tradingPeriod;
-                } else {
-                    return currentPeriod < market.tradingPeriod;
-                }
-            }));
+                return showExpiredMarkets ? (currentPeriod >= market.tradingPeriod) : (currentPeriod < market.tradingPeriod);
+            })
+            .sortByOrder([sortByFieldName], [sortOrder])
+            .value();
 
-        let firstItemIndex = this.state.pageNum * this.state.marketsPerPage;
-        let marketsCount = filteredMarkets.size();
+        let firstItemIndex = this.resolvePageNumber() * this.state.marketsPerPage;
+        let marketsCount = filteredSortedMarkets.length;
         let lastItemIndex = firstItemIndex + this.state.marketsPerPage;
         lastItemIndex = (lastItemIndex > marketsCount ? marketsCount : lastItemIndex);
 
-        let markets = filteredMarkets
-            .map()
-            .slice(firstItemIndex, lastItemIndex)
-            .value();
+        let markets = filteredSortedMarkets
+            .slice(firstItemIndex, lastItemIndex);
 
         return {
             markets, marketsCount, firstItemIndex, lastItemIndex
@@ -131,7 +163,7 @@ let MarketsPage = React.createClass({
         let account = this.state.account;
         let myOpenOrders = flux.augur.orders.get(account);
         let isVisibleTourMarket = this.state.tourMarket && !localStorage.getItem("marketRowTourComplete") && !localStorage.getItem("tourComplete");
-        let {markets, marketsCount, firstItemIndex, lastItemIndex} = this._getMarketsData();
+        let {markets, marketsCount, firstItemIndex, lastItemIndex} = this.getMarketsData();
         let numPages = Math.ceil(marketsCount / this.state.marketsPerPage);
         let pagination;
         let tourMarketRow;
@@ -158,7 +190,7 @@ let MarketsPage = React.createClass({
                                 pageNum={ numPages }
                                 marginPagesDisplayed={ 2 }
                                 pageRangeDisplayed={ 5 }
-                                forceSelected={ this.state.pageNum }
+                                forceSelected={ this.resolvePageNumber() }
                                 clickCallback={ this.handlePageChanged }
                                 containerClassName={ 'paginator' }
                                 subContainerClassName={ 'pages' }
@@ -187,30 +219,30 @@ let MarketsPage = React.createClass({
                 </h1>
                 <div className="search-container">
                     <InputClear
-                           value={this.state.searchKeywords}
+                           value={this.state.searchQuery}
                            onChange={this.onChangeSearchInput}/>
                 </div>
 
                 <div className="row dropdowns">
                     <Select className="sort-control"
-                            value={this.state.sortBy + '|' + this.state.reverseSort}
+                            value={this.resolveSort()}
                             name="markets-sort"
                             searchable={false}
                             clearable={false}
                             placeholder="Sort markets"
                             onChange={this.onChangeSortBy}
                             options={[
-                                {value: "volume|1", label: "Volume"},
-                                {value: "startingSortOrder|0", label: "Creation date (newest first)"},
-                                {value: "startingSortOrder|1", label: "Creation date (oldest first)"},
-                                {value: "endBlock|0", label: "End date (soonest first)"},
-                                {value: "endBlock|1", label: "End date (farthest first)"},
-                                {value: "description|0", label: "Description"}
+                                {value: "volume|desc", label: "Volume"},
+                                {value: "startingSortOrder|desc", label: "Creation date (newest first)"},
+                                {value: "startingSortOrder|asc", label: "Creation date (oldest first)"},
+                                {value: "endBlock|asc", label: "End date (soonest first)"},
+                                {value: "endBlock|desc", label: "End date (farthest first)"},
+                                {value: "description|asc", label: "Description"}
                             ]}>
                     </Select>
 
                     <Select className="market-status"
-                            value={ this.state.selectedMarketStatus }
+                            value={ this.props.query.expired === "true" ? "expired" : "open" }
                             name="market-status"
                             searchable={false}
                             clearable={false}

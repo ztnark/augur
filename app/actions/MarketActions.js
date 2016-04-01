@@ -266,8 +266,7 @@ module.exports = {
 
                 // get the current account's trading history after the first
                 // page of markets has loaded.
-                // also, sort the first page.
-                // self.flux.actions.search.sortMarkets("volume", 1);
+
                 next();
 
                 augur.getAccountTrades(account, function (accountTrades) {

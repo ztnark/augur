@@ -19,8 +19,7 @@ var actions = {
   config: require("./actions/ConfigActions"),
   market: require("./actions/MarketActions"),
   network: require("./actions/NetworkActions"),
-  report: require("./actions/ReportActions"),
-  search: require("./actions/SearchActions")
+  report: require("./actions/ReportActions")
 };
 var stores = {
   asset: new dispatcher.asset(),
@@ -28,8 +27,7 @@ var stores = {
   config: new dispatcher.config(),
   market: new dispatcher.market(),
   network: new dispatcher.network(),
-  report: new dispatcher.report(),
-  search: new dispatcher.search()
+  report: new dispatcher.report()
 };
 
 window.abi = require("augur-abi");

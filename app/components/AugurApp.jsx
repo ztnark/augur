@@ -26,7 +26,7 @@ var AugurApp = React.createClass({
 
   mixins: [
     FluxMixin,
-    StoreWatchMixin("branch", "asset", "network", "config", "report", "market", "search")
+    StoreWatchMixin("branch", "asset", "network", "config", "report", "market")
   ],
 
   getInitialState: function () {
@@ -57,7 +57,6 @@ var AugurApp = React.createClass({
       branch: flux.store("branch").getState(),
       asset: flux.store("asset").getState(),
       market: flux.store("market").getState(),
-      search: flux.store("search").getState(),
       config: flux.store("config").getState(),
       report: flux.store("report").getState()
     };

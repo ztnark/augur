@@ -8,8 +8,7 @@ var stores = {
   config: require("./ConfigStore"),
   market: require("./MarketStore"),
   network: require("./NetworkStore"),
-  report: require("./ReportStore"),
-  search: require("./SearchStore")
+  report: require("./ReportStore")
 };
 
 stores.asset.initialize = function () {
@@ -78,17 +77,6 @@ stores.report.initialize = function () {
     constants.branch.UPDATE_CURRENT_BRANCH_SUCCESS, this.handleUpdateCurrentBranchSuccess
   );
 };
-stores.search.initialize = function () {
-  this.bindActions(
-    constants.market.LOAD_MARKETS_SUCCESS, this.handleMarketsUpdated,
-    constants.market.UPDATE_MARKETS_SUCCESS, this.handleMarketsUpdated,
-    constants.search.KEYWORDS_UPDATED, this.handleKeywordsUpdated,
-    constants.search.UPDATE_SORT_BY, this.handleUpdateSortBy,
-    constants.market.PRICE_HISTORY_LOADING, this.handlePriceHistoryLoading,
-    constants.market.LOAD_PRICE_HISTORY_SUCCESS, this.handleLoadPriceHistorySuccess,
-    constants.market.LOAD_METADATA_SUCCESS, this.handleLoadMetadataSuccess
-  );
-};
 
 module.exports = {
     asset: Fluxxor.createStore(stores.asset),
@@ -96,6 +84,5 @@ module.exports = {
     config: Fluxxor.createStore(stores.config),
     market: Fluxxor.createStore(stores.market),
     network: Fluxxor.createStore(stores.network),
-    report: Fluxxor.createStore(stores.report),
-    search: Fluxxor.createStore(stores.search)
+    report: Fluxxor.createStore(stores.report)
 };

@@ -45,7 +45,6 @@ let MarketPage = React.createClass({
         let account = flux.store("config").getAccount();
         let handle = flux.store("config").getHandle();
         let blockNumber = flux.store("network").getState().blockNumber;
-        let searchState = flux.store("search").getState();
         if (currentBranch && market && market.tradingPeriod &&
             currentBranch.currentPeriod >= market.tradingPeriod.toNumber()) {
             market.matured = true;
