@@ -67,7 +67,7 @@ let RegisterModal = React.createClass({
       let flux = this.getFlux();
       let self = this;
       let mailingListSignup = this.state.mailingList;
-      setTimeout(() => self.props.onHide(), 0);
+      setTimeout(function () { self.props.onHide(); }, 0);
       this.updateProgressModal();
       this.updateProgressModal({
         header: "Creating New Account",
