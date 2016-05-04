@@ -2,7 +2,7 @@ import memoizerific from 'memoizerific';
 import { ListWordsUnderLength } from '../../../utils/list-words-under-length';
 
 import { AUTH_PATHS, PAGES_PATHS } from '../../link/constants/paths';
-import { M, MARKETS, MAKE, POSITIONS, TRANSACTIONS } from '../../app/constants/pages';
+import { ACCOUNT, M, MARKETS, MAKE, POSITIONS, TRANSACTIONS } from '../../app/constants/pages';
 import { LOGIN, REGISTER } from '../../auth/constants/auth-types';
 
 import { showLink, showPreviousLink } from '../../link/actions/show-link';
@@ -15,6 +15,7 @@ export default function() {
 		{ market } = require('../../../selectors');
 	return {
 		authLink: selectAuthLink(loginAccount.id ? LOGIN : REGISTER, !!loginAccount.id, store.dispatch),
+		accountLink: selectAccountLink(store.dispatch),
 		createMarketLink: selectCreateMarketLink(store.dispatch),
 		marketsLink: selectMarketsLink(store.dispatch),
 		positionsLink: selectPositionsLink(store.dispatch),
@@ -36,6 +37,14 @@ export const selectAuthLink = memoizerific(1)(function(authType, alsoLogout, dis
 	return {
 		href,
 		onClick: () => { !!alsoLogout && dispatch(logout()); dispatch(showLink(href)); }
+	};
+});
+
+export const selectAccountLink = memoizerific(1)(function(dispatch) {
+	var href = PAGES_PATHS[ACCOUNT];
+	return {
+		href,
+		onClick: () => dispatch(showLink(href))
 	};
 });
 

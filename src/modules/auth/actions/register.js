@@ -37,9 +37,9 @@ export function register(username, password, password2) {
 				return;
 			}
 			numAssetsLoaded++;
-			links.marketsLink.onClick();
 			dispatch(updateTransactionsData({ [transactionID]: makeTransactionUpdate() }));
 			dispatch(updateLoginAccount(loginAccount));
+			links.accountLink.onClick();
 
 		}, (res) => {
 			numAssetsLoaded++;

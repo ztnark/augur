@@ -1,8 +1,9 @@
-import { MARKETS, MAKE, POSITIONS, TRANSACTIONS, M } from '../../app/constants/pages';
+import { MARKETS, ACCOUNT, MAKE, POSITIONS, TRANSACTIONS, M } from '../../app/constants/pages';
 import { REGISTER, LOGIN } from '../../auth/constants/auth-types';
 
 export const PATHS_PAGES = {
     '/': MARKETS,
+    '/account': ACCOUNT,
     '/make': MAKE,
     '/positions': POSITIONS,
     '/transactions': TRANSACTIONS,

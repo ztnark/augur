@@ -21,7 +21,7 @@ export function login(username, password) {
 			dispatch(updateLoginAccount(loginAccount));
 			dispatch(loadLoginAccountDependents());
 			dispatch(autoReportSequence());
-			links.marketsLink.onClick();
+			links.accountLink.onClick();
 			return;
 		});
 	};
