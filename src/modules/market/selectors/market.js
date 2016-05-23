@@ -1,3 +1,26 @@
+/*
+This is one of the most important and sensitive selectors in the app.
+It builds the fat, heavy, rigid, hierarchical market objects,
+that are used to render and display many parts of the ui.
+This is the point where the shallow, light, loose, flexible, independent
+pieces of state come together to make each market.
+
+IMPORTANT
+The assembleMarket() function (where all the action happens) is heavily memoized, and performance sensitive.
+Doing things sub-optimally here will cause noticeable performance degradation in the app.
+The "trick" is to maximize memoization cache hits as much a spossible, and not have assembleMarket()
+run any more than it has to.
+
+To achieve that, we pass in the minimum number of the shallowest arguments possible.
+For example, instead of passing in the entire `favorites` collection and letting the
+function find the one it needs for the market, we instead find the specific fvorite
+for that market in advance, and only pass in a boolean: `!!favorites[marketID]`
+That way the market only gets re-assembled when that specific favorite changes.
+
+This is true for all selectors, but especially important for this one.
+*/
+
+
 import memoizerific from 'memoizerific';
 import { formatNumber, formatEther, formatPercent, formatDate, makeDateFromBlock } from '../../../utils/format-number';
 import { isMarketDataOpen } from '../../../utils/is-market-data-open';
@@ -9,6 +32,7 @@ import { toggleFavorite } from '../../markets/actions/update-favorites';
 import { placeTrade } from '../../trade/actions/place-trade';
 import { updateTradesInProgress } from '../../trade/actions/update-trades-in-progress';
 import { submitReport } from '../../reports/actions/submit-report';
+import { toggleTag } from '../../markets/actions/toggle-tag';
 
 import store from '../../../store';
 
@@ -16,6 +40,8 @@ import { selectMarketLink } from '../../link/selectors/links';
 import { selectOutcomeTradeOrders } from '../../trade/selectors/trade-orders';
 import { selectTradeSummary } from '../../trade/selectors/trade-summary';
 import { selectPositionsSummary } from '../../positions/selectors/positions-summary';
+
+import { selectPriceTimeSeries } from '../../market/selectors/price-time-series';
 
 import { selectPositionFromOutcomeAccountTrades } from '../../positions/selectors/position';
 
@@ -25,18 +51,20 @@ export default function() {
 }
 
 export const selectMarket = (marketID) => {
-	var { marketsData, favorites, reports, outcomes, accountTrades, tradesInProgress, blockchain } = store.getState(),
+	var { marketsData, favorites, reports, outcomes, accountTrades, tradesInProgress,
+		blockchain, priceHistory } = store.getState(),
 		endDate;
 
 	if (!marketID || !marketsData || !marketsData[marketID] || !marketsData[marketID].description || !marketsData[marketID].eventID) {
 		return {};
 	}
 
-	endDate = makeDateFromBlock(marketsData[marketID].endDate, blockchain.currentBlockNumber, blockchain.currentBlockMillisSinceEpoch);
+	endDate = new Date(marketsData[marketID].endDate);
 
 	return assembleMarket(
 		marketID,
 		marketsData[marketID],
+		priceHistory[marketID],
 		isMarketDataOpen(marketsData[marketID], blockchain && blockchain.currentBlockNumber),
 
 		!!favorites[marketID],
@@ -60,6 +88,7 @@ export const selectMarketFromEventID = (eventID) => {
 export const assembleMarket = memoizerific(1000)(function(
 		marketID,
 		marketData,
+		marketPriceHistory,
 		isOpen,
 		isFavorite,
 		marketOutcomes,
@@ -133,11 +162,11 @@ export const assembleMarket = memoizerific(1000)(function(
 			outcome;
 
 		outcome = {
-	        ...outcomeData,
-	        id: outcomeID,
-	        marketID,
-	        lastPrice: formatEther(outcomeData.price, { positiveSign: false }),
-	        lastPricePercent: formatPercent(outcomeData.price * 100, { positiveSign: false })
+			...outcomeData,
+			id: outcomeID,
+			marketID,
+			lastPrice: formatEther(outcomeData.price || 0, { positiveSign: false }),
+			lastPricePercent: formatPercent((outcomeData.price || 0) * 100, { positiveSign: false })
 		};
 
 		outcomeTradeOrders = selectOutcomeTradeOrders(o, outcome, outcomeTradeInProgress, dispatch);
@@ -163,6 +192,15 @@ export const assembleMarket = memoizerific(1000)(function(
 
 		return outcome;
 	}).sort((a, b) => (b.lastPrice.value - a.lastPrice.value) || (a.name < b.name ? -1 : 1));
+
+	o.tags = o.tags.map(tag => {
+		return {
+			name: tag,
+			onClick: () => dispatch(toggleTag(tag))
+		};
+	});
+
+	o.priceTimeSeries = selectPriceTimeSeries(o.outcomes, marketPriceHistory);
 
 	o.reportableOutcomes = o.outcomes.slice();
 	o.reportableOutcomes.push({ id: INDETERMINATE_OUTCOME_ID, name: INDETERMINATE_OUTCOME_NAME });

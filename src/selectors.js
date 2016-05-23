@@ -6,13 +6,16 @@ import authForm from './modules/auth/selectors/auth-form';
 
 import marketsHeader from './modules/markets/selectors/markets-header';
 import markets from './modules/markets/selectors/markets';
-import allMarkets from './modules/markets/selectors/all-markets';
+import allMarkets from './modules/markets/selectors/markets-all';
+import favoriteMarkets from './modules/markets/selectors/markets-favorite';
+import filteredMarkets from './modules/markets/selectors/markets-filtered';
+import unpaginatedMarkets from './modules/markets/selectors/markets-unpaginated';
 import marketsTotals from './modules/markets/selectors/markets-totals';
 import pagination from './modules/markets/selectors/pagination';
 
 import market from './modules/market/selectors/market';
 
-import filtersProps from './modules/markets/selectors/filters-props';
+import filters from './modules/markets/selectors/filters';
 import searchSort from './modules/markets/selectors/search-sort';
 import keywords from './modules/markets/selectors/keywords';
 
@@ -33,12 +36,15 @@ var selectors = {
 	marketsHeader,
 	markets,
 	allMarkets,
+	favoriteMarkets,
+	filteredMarkets,
+	unpaginatedMarkets,
 	marketsTotals,
 	pagination,
 
 	market,
 
-	filtersProps,
+	filters,
 	searchSort,
 	keywords,
 
