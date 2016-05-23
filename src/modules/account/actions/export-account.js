@@ -7,6 +7,6 @@ import { saveAccount } from "../../../services/file-saver"
 export function exportAccount() {
     return (dispatch, getState) => {
         let { loginAccount } = getState();
-        saveAccount(loginAccount);
+        saveAccount(loginAccount.keystore);
     }
 }
