@@ -309,8 +309,19 @@ ex.tradeShares = function tradeShares(branchID, marketID, outcomeID, numShares, 
 	});
 };
 
-ex.tradeActions = function tradeActions(){
-	
+ex.getTradingActions = function getTradingActions(tradeData, cb){
+	augur.getTradingActions({
+		type: tradeData.type,
+		shares: tradeData.shares,
+		limitPrice: tradeData.limitPrice,
+		takerFee: tradeData.takerFee,
+		makerFee: tradeData.makerFee,
+		userAddress: tradeData.userAddress,
+		userPositionShares: tradeData.userPositionShares,
+		outcomeId: tradeData.outcomeId,
+		marketOrderBook: tradeData.marketOrderbook,
+		cb: res => cb(res)
+	});
 };
 
 ex.getSimulatedBuy = function getSimulatedBuy(marketID, outcomeID, numShares) {
