@@ -309,6 +309,10 @@ ex.tradeShares = function tradeShares(branchID, marketID, outcomeID, numShares, 
 	});
 };
 
+ex.tradeActions = function tradeActions(){
+	
+};
+
 ex.getSimulatedBuy = function getSimulatedBuy(marketID, outcomeID, numShares) {
 	return augur.getSimulatedBuy(marketID, outcomeID, numShares);
 };
