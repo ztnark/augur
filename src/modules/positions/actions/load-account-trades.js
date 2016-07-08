@@ -25,7 +25,7 @@ export function loadAccountTrades() {
 
 						p[trade.market][outcomeID].push({
 							qtyShares: parseFloat(trade.shares),
-							purchasePrice: Math.abs(trade.cost)
+							purchasePrice: Math.abs(trade.price)
 						});
 					});
 				});
