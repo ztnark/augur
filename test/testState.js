@@ -39,7 +39,6 @@ const testState = {
 	},
 	env,
 	loginAccount: {
-		address: '0xtest123',
 		id: '0xtest123',
 		name: 'testTesterson',
 		secureLoginID: 'testSecureID',

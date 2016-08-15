@@ -27,7 +27,7 @@ export function register(name, password, password2) {
 			}
 			const loginAccount = { ...account, id: account.address };
 			dispatch(updateLoginAccount({ secureLoginID: loginAccount.secureLoginID }));
-			dispatch(addFundNewAccount(loginAccount.address));
+			dispatch(addFundNewAccount(loginAccount.id));
 			selectAuthLink(LOGIN, false, dispatch).onClick();
 		});
 	};

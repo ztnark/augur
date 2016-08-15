@@ -1,4 +1,4 @@
-import * as AugurJS from '../../../services/augurjs';
+import { augur } from '../../../services/augurjs';
 import {
 	loadLoginAccountDependents,
 	loadLoginAccountLocalStorage
@@ -10,10 +10,9 @@ export function importAccount(name, password, rememberMe, keystore) {
 	return (dispatch, getState) => {
 		const { links } = require('../../../selectors');
 		const localStorageRef = typeof window !== 'undefined' && window.localStorage;
-
-		AugurJS.importAccount(name, password, keystore, (err, loginAccount) => {
-			if (err) {
-				dispatch(authError(err));
+		augur.web.importAccount(name, password, keystore, (loginAccount) => {
+			if (loginAccount.error) {
+				dispatch(authError(loginAccount));
 				return;
 			}
 			if (!loginAccount || !loginAccount.id) {
