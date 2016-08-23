@@ -44,8 +44,6 @@ export default function () {
 		};
 	});
 
-	console.log('*** reports -- ', reports);
-
 	return reports;
 }
 
