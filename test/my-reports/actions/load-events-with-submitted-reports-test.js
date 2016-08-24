@@ -5,7 +5,7 @@ import * as mockStore from '../../mockStore';
 
 import { UPDATE_EVENTS_WITH_ACCOUNT_REPORT_DATA } from '../../../src/modules/my-reports/actions/update-events-with-account-report-data';
 
-describe('modules/my-reports/actions/load-events-with-submitted-report', () => {
+describe('modules/my-reports/actions/load-events-with-submitted-report.js', () => {
 	proxyquire.noPreserveCache().noCallThru();
 
 	let action, out;
