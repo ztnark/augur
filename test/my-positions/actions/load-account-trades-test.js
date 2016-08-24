@@ -1,6 +1,4 @@
-import {
-	assert
-} from 'chai';
+import { assert } from 'chai';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import configureMockStore from 'redux-mock-store';
