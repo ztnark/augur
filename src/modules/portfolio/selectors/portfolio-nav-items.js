@@ -40,9 +40,9 @@ export const selectPortfolioNavItems = memoizerific(1)((links) => {
 			link: links.myReportsLink,
 			page: MY_REPORTS,
 			leadingTitle: 'Total Reports',
-			leadingValue: formatNumber((reportsSummary && reportsSummary.numReports), { denomination: 'reports' }),
+			leadingValue: reportsSummary && reportsSummary.numReports || 0,
 			trailingTitle: 'Total Gain/Loss',
-			trailingValue: formatRep((reportsSummary && reportsSummary.netRep), { denomination: 'rep' })
+			trailingValue: reportsSummary && reportsSummary.netRep || 0
 		}
 	];
 });
