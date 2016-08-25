@@ -69,7 +69,7 @@ export const selectMarketOutcome = memoizerific(1000)((outcomeID, marketID) => {
 
 	const { allMarkets } = require('../../../selectors');
 	const filteredMarket = allMarkets.filter(market => market.id === marketID);
-	
+
 	if (!filteredMarket) return null;
 
 	switch (filteredMarket.type) {

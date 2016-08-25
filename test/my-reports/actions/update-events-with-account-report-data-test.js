@@ -25,6 +25,6 @@ describe('modules/my-reports/actions/update-events-with-account-report-data.js',
 		}];
 
 		store.dispatch(updateEventsWithAccountReportData(testData));
-		assert.deepEqual(store.getActions(), out, `Didn't dispatch the UPDATE_EVENTS_WITH_ACCOUNT_REPORT_DATA as expected`);
+		assert.deepEqual(store.getActions(), out, `Didn't dispatch UPDATE_EVENTS_WITH_ACCOUNT_REPORT_DATA as expected`);
 	});
 });
