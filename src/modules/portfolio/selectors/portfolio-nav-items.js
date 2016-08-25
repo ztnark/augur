@@ -31,9 +31,9 @@ export const selectPortfolioNavItems = memoizerific(1)((links) => {
 			link: links.myMarketsLink,
 			page: MY_MARKETS,
 			leadingTitle: 'Total Markets',
-			leadingValue: formatNumber((marketsSummary && marketsSummary.numMarkets || 0), { denomination: 'markets' }),
+			leadingValue: marketsSummary && marketsSummary.numMarkets || 0,
 			trailingTitle: 'Total Gain/Loss',
-			trailingValue: formatEther((marketsSummary && marketsSummary.totalValue || 0), { denomination: 'eth' })
+			trailingValue: marketsSummary && marketsSummary.totalValue || 0
 		},
 		{
 			label: 'Reports',

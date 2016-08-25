@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import { formatNumber, formatEther } from '../../../src/utils/format-number';
 import assertions from 'augur-ui-react-components/lib/assertions';
 
 import sinon from 'sinon';
@@ -33,8 +34,8 @@ describe('modules/my-markets/selectors/my-markets-summary', () => {
 	});
 
 	expected = {
-		numMarkets: 2,
-		totalValue: 20
+		numMarkets: formatNumber(2, { denomination: 'markets' }),
+		totalValue: formatEther(20, { denomination: 'eth' })
 	};
 
 	before(() => {
