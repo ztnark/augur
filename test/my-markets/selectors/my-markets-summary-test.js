@@ -35,7 +35,7 @@ describe('modules/my-markets/selectors/my-markets-summary', () => {
 
 	expected = {
 		numMarkets: formatNumber(2, { denomination: 'markets' }),
-		totalValue: formatEther(20, { denomination: 'eth' })
+		totalValue: formatEther(20, { denomination: ' eth' })
 	};
 
 	before(() => {

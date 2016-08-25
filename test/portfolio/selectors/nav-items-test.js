@@ -53,20 +53,20 @@ describe('modules/portfolio/selectors/nav-items', () => {
 	const stubbedMyPositionsSummary = sinon.stub(selectors, 'selectMyPositionsSummary', () => (
 		{
 			numPositions: formatNumber(10, { denomination: 'positions' }),
-			netChange: formatEther(2)
+			netChange: formatEther(2, { denomination: ' eth' })
 		}
 	));
 	const stubbedMyMarketsSummary = sinon.stub(selectors, 'selectMyMarketsSummary', () => (
 		{
-			numMarkets: 30,
-			totalValue: 10
+			numMarkets: formatNumber(30, { denomination: 'markets' }),
+			totalValue: formatEther(10, { denomination: ' eth' })
 		}
 	));
 
 	const stubbedMyReportsSummary = sinon.stub(selectors, 'selectMyReportsSummary', () => (
 		{
-			numReports: 10,
-			netRep: 5
+			numReports: formatNumber(10, { denomination: 'reports' }),
+			netRep: formatRep(5, { denomination: ' rep' })
 		}
 	));
 
@@ -92,7 +92,7 @@ describe('modules/portfolio/selectors/nav-items', () => {
 			leadingTitle: 'Total Positions',
 			leadingValue: formatNumber(10, { denomination: 'positions' }),
 			trailingTitle: 'Total Gain/Loss',
-			trailingValue: formatEther(2)
+			trailingValue: formatEther(2, { denomination: ' eth' })
 		},
 		{
 			label: 'Markets',
@@ -108,7 +108,7 @@ describe('modules/portfolio/selectors/nav-items', () => {
 			leadingTitle: 'Total Markets',
 			leadingValue: formatNumber(30, { denomination: 'markets' }),
 			trailingTitle: 'Total Gain/Loss',
-			trailingValue: formatEther(10, { denomination: 'eth' })
+			trailingValue: formatEther(10, { denomination: ' eth' })
 		},
 		{
 			label: 'Reports',
@@ -124,7 +124,7 @@ describe('modules/portfolio/selectors/nav-items', () => {
 			leadingTitle: 'Total Reports',
 			leadingValue: formatNumber(10, { denomination: 'reports' }),
 			trailingTitle: 'Total Gain/Loss',
-			trailingValue: formatRep(5, { denomination: 'rep' })
+			trailingValue: formatRep(5, { denomination: ' rep' })
 		}
 	];
 

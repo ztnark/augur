@@ -28,7 +28,7 @@ describe('modules/my-reports/selectors/my-reports-summary.js', () => {
 	actual = proxiedSelector.default();
 	expected = {
 		numReports: formatNumber(3, { denomination: 'reports'}),
-		netRep: formatRep(8, { denomination: 'rep' })
+		netRep: formatRep(8, { denomination: ' rep' })
 	};
 
 	it('should return the expected object', () => {

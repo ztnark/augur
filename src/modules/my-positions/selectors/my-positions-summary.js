@@ -89,7 +89,7 @@ export const generatePositionsSummary = memoizerific(20)((numPositions, qtyShare
 		totalCost: formatEther(totalCost),
 		shareChange: formatEther(shareChange),
 		gainPercent: formatPercent(gainPercent),
-		netChange: formatEther(netChange)
+		netChange: formatEther(netChange, { denomination: ' eth' })
 	};
 });
 

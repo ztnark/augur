@@ -1,6 +1,5 @@
 import memoizerific from 'memoizerific';
 import { MY_POSITIONS, MY_MARKETS, MY_REPORTS } from '../../../modules/app/constants/pages';
-import { formatNumber, formatEther, formatRep } from '../../../utils/format-number';
 import selectMyPositionsSummary from '../../my-positions/selectors/my-positions-summary';
 import selectMyMarketsSummary from '../../my-markets/selectors/my-markets-summary';
 import selectMyReportsSummary from '../../my-reports/selectors/my-reports-summary';
