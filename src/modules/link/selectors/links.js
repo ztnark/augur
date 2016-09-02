@@ -17,8 +17,9 @@ import { loadEventsWithSubmittedReport } from '../../my-reports/actions/load-eve
 import store from '../../../store';
 
 export default function () {
-	const { keywords, selectedFilters, selectedSort, selectedTags, pagination, loginAccount, auth } = store.getState();
+	const { keywords, selectedFilters, selectedSort, selectedTags, pagination, loginAccount, auth, url } = store.getState();
 	const { market } = require('../../../selectors');
+	console.log('links.js: url', url);
 	return {
 		authLink: selectAuthLink(auth.selectedAuthType, !!loginAccount.id, store.dispatch),
 		createMarketLink: selectCreateMarketLink(store.dispatch),
