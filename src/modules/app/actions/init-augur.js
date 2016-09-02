@@ -25,6 +25,9 @@ export function initAugur() {
 						dispatch(reportingTestSetup());
 					} else {
 						dispatch(loadBranch(BRANCH_ID));
+
+						const { links } = require('../../../selectors');
+						links.authLink.onClick(); // this makes other tests fail
 					}
 				});
 			}
