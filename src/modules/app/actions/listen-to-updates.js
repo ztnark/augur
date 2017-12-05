@@ -59,6 +59,7 @@ export function listenToUpdates() {
               [log.marketID]: { [log.outcome]: [log] }
             }, log.marketID))
             dispatch(updateAssets())
+            dispatch(convertLogsToTransactions(TYPES.ORDER_CANCELED, [log]))
           }
         }
       },
@@ -74,6 +75,7 @@ export function listenToUpdates() {
               }
             }, log.marketID))
             dispatch(updateAssets())
+            dispatch(convertLogsToTransactions(TYPES.ORDER_CREATED, [log]))
           }
         }
       },
@@ -100,6 +102,7 @@ export function listenToUpdates() {
               }
             }))
             dispatch(updateAssets())
+            dispatch(convertLogsToTransactions(TYPES.ORDER_FILLED, [log]))
             dispatch(loadMarketsInfo([log.marketID]))
             console.log('MSG -- ', log)
           }
