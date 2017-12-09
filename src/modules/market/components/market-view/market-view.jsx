@@ -15,8 +15,7 @@ export default class MarketView extends Component {
     isConnected: PropTypes.bool.isRequired,
     isMarketLoaded: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
-    loadFullMarket: PropTypes.func.isRequired,
-    universe: PropTypes.object.isRequired
+    loadFullMarket: PropTypes.func.isRequired
   }
 
   static loadFullMarket(marketId, options, force) {
