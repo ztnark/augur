@@ -43,7 +43,7 @@ export function listenToUpdates() {
         if (log) {
           console.log('TokensTransferred:', log)
           const { address } = getState().loginAccount
-          if (log._from === address || log._to === address) {
+          if (log.sender === address || log.recipient === address) {
             dispatch(updateAssets())
             dispatch(convertLogsToTransactions(TYPES.TRANSFER, [log]))
           }
