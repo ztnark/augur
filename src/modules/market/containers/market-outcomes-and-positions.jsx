@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom'
 
 import MarketOutcomesAndPositions from 'modules/market/components/market-outcomes-and-positions/market-outcomes-and-positions'
 import getScalarShareDenomination from 'modules/market/selectors/scalar-share-denomination'
-import { selectMarket } from 'modules/market/selectors/market'
-import getValue from 'utils/get-value'
+// import { selectMarket } from 'modules/market/selectors/market'
+// import getValue from 'utils/get-value'
 
 const mapStateToProps = state => ({
   marketID: '0x7d9f26082539a7f9793b8c3b25f2a20374ab357d73ff6d6dc99cab6145b567a0',
@@ -16,9 +16,7 @@ const mapStateToProps = state => ({
 })
 
 const mergeProps = (sP, dP, oP) => {
-  const market = selectMarket(oP.marketId)
-
-  console.log('market -- ', market)
+  // const market = selectMarket(oP.marketId)
 
   return {
     ...sP,

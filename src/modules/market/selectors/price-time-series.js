@@ -8,6 +8,8 @@ import memoize from 'memoizee'
  * @return {Array}
  */
 export const selectPriceTimeSeries = memoize((outcomes, marketPriceHistory) => {
+  console.log('selectPriceTimeSeries -- ', outcomes, marketPriceHistory)
+
   if (marketPriceHistory == null) {
     return []
   }
