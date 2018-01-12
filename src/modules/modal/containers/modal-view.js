@@ -5,7 +5,8 @@ import ModalView from 'modules/modal/components/modal-view/modal-view'
 import { closeModal } from 'modules/modal/actions/close-modal'
 
 const mapStateToProps = state => ({
-  modal: state.modal
+  modal: state.modal,
+  network: state.env['network-id']
 })
 
 const mapDispatchToProps = dispatch => ({

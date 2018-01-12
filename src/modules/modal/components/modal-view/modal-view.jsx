@@ -3,17 +3,19 @@ import PropTypes from 'prop-types'
 
 import ModalLedger from 'modules/modal/components/modal-ledger/modal-ledger'
 import ModalUport from 'modules/modal/components/modal-uport/modal-uport'
+import ModalFundsWarning from 'modules/modal/components/modal-funds-warning/modal-funds-warning'
 
 import debounce from 'utils/debounce'
 import getValue from 'utils/get-value'
 
-import { MODAL_LEDGER, MODAL_UPORT } from 'modules/modal/constants/modal-types'
+import { MODAL_LEDGER, MODAL_UPORT, MODAL_FUNDS_WARNING } from 'modules/modal/constants/modal-types'
 
 import Styles from 'modules/modal/components/modal-view/modal-view.styles'
 
 export default class ModalView extends Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
+    network: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired
   }
 
@@ -54,6 +56,12 @@ export default class ModalView extends Component {
         <div
           className={Styles.ModalView__content}
         >
+          {p.modal.type === MODAL_FUNDS_WARNING &&
+            <ModalFundsWarning
+              {...p.modal}
+              network={p.network}
+            />
+          }
           {p.modal.type === MODAL_LEDGER &&
             <ModalLedger {...p.modal} />
           }

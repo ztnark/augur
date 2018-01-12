@@ -5,11 +5,21 @@ import Clipboard from 'clipboard'
 
 import { Deposit as DepositIcon, Copy as CopyIcon } from 'modules/common/components/icons/icons'
 
+import { MODAL_FUNDS_WARNING } from 'modules/modal/constants/modal-types'
+
 import Styles from 'modules/account/components/account-deposit/account-deposit.styles'
 
 export default class AccountDeposit extends Component {
   static propTypes = {
-    address: PropTypes.string.isRequired
+    address: PropTypes.string.isRequired,
+    updateModal: PropTypes.func.isRequired
+  }
+
+  componentWillMount() {
+    this.props.updateModal({
+      type: MODAL_FUNDS_WARNING,
+      canClose: true
+    })
   }
 
   componentDidMount() {
