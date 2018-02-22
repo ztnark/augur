@@ -35,11 +35,13 @@ describe(`modules/bids-asks/actions/update-order-book.js`, () => {
     }
     const expectedOutput = {
       type: UPDATE_ORDER_BOOK,
-      marketId,
-      outcome,
-      orderTypeLabel,
-      orderBook
+      data: {
+        marketId,
+        outcome,
+        orderTypeLabel,
+        orderBook
+      }
     }
-    assert.deepEqual(updateOrderBook(marketId, outcome, orderTypeLabel, orderBook), expectedOutput, `Updating order book didn't return the correct action!`)
+    assert.deepEqual(updateOrderBook({ marketId, outcome, orderTypeLabel, orderBook }), expectedOutput, `Updating order book didn't return the correct action!`)
   })
 })

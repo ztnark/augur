@@ -28,15 +28,19 @@ describe(`modules/bids-asks/actions/clear-order-book-on-first-chunk.js`, () => {
     assertions: (actions) => {
       assert.deepEqual(actions, [{
         type: 'UPDATE_IS_FIRST_ORDER_BOOK_CHUNK_LOADED',
-        marketId: 'MARKET_0',
-        outcome: 2,
-        orderTypeLabel: 'buy',
-        isLoaded: true
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 2,
+          orderTypeLabel: 'buy',
+          isLoaded: true
+        }
       }, {
         type: 'CLEAR_ORDER_BOOK',
-        marketId: 'MARKET_0',
-        outcome: 2,
-        orderTypeLabel: 'buy'
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 2,
+          orderTypeLabel: 'buy'
+        }
       }])
     }
   })

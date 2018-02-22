@@ -4,7 +4,12 @@ const clearOrderBookOnFirstChunk = (marketId, outcome, orderTypeLabel) => (dispa
   const { isFirstOrderBookChunkLoaded } = getState()
   if (!((isFirstOrderBookChunkLoaded[marketId] || {})[outcome] || {})[orderTypeLabel]) {
     console.log('first chunk, clearing order book of', marketId)
-    dispatch(updateIsFirstOrderBookChunkLoaded(marketId, outcome, orderTypeLabel, true))
+    dispatch(updateIsFirstOrderBookChunkLoaded({
+      marketId,
+      outcome,
+      orderTypeLabel,
+      isLoaded: true
+    }))
     dispatch(clearOrderBook(marketId, outcome, orderTypeLabel))
   }
 }

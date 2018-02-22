@@ -1,4 +1,4 @@
-import { UPDATE_ORDER_BOOK, REPLACE_ORDER_BOOK, CLEAR_ORDER_BOOK } from 'modules/bids-asks/actions/update-order-book'
+import { UPDATE_ORDER_BOOK, CLEAR_ORDER_BOOK } from 'modules/bids-asks/actions/update-order-book'
 import { RESET_STATE } from 'modules/app/actions/reset-state'
 
 const DEFAULT_STATE = {}
@@ -12,8 +12,9 @@ export default function (orderBooks = DEFAULT_STATE, action) {
       const {
         marketId,
         outcome,
-        orderTypeLabel
-      } = action
+        orderTypeLabel,
+        orderBook
+      } = action.data
       const marketOrderBook = orderBooks[marketId] || {}
       const outcomeOrderBook = marketOrderBook[outcome] || {}
 
@@ -25,27 +26,8 @@ export default function (orderBooks = DEFAULT_STATE, action) {
             ...outcomeOrderBook,
             [orderTypeLabel]: {
               ...(outcomeOrderBook[orderTypeLabel] || {}),
-              ...action.orderBook
+              ...orderBook
             }
-          }
-        }
-      }
-    }
-    case REPLACE_ORDER_BOOK: {
-      const {
-        marketId,
-        outcome,
-        orderTypeLabel
-      } = action
-      const marketOrderBook = orderBooks[marketId] || {}
-      const outcomeOrderBook = marketOrderBook[outcome] || {}
-      return {
-        ...orderBooks,
-        [marketId]: {
-          ...marketOrderBook,
-          [outcome]: {
-            ...outcomeOrderBook,
-            [orderTypeLabel]: action.orderBook
           }
         }
       }
@@ -55,7 +37,7 @@ export default function (orderBooks = DEFAULT_STATE, action) {
         marketId,
         outcome,
         orderTypeLabel
-      } = action
+      } = action.data
       const marketOrderBook = orderBooks[marketId] || {}
       const outcomeOrderBook = marketOrderBook[outcome] || {}
       return {

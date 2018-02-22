@@ -151,29 +151,43 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
         }
       },
       insertOrderBookChunkToOrderBook: {
-        default: (marketId, outcome, orderTypeLabel, orderBookChunk) => dispatch => dispatch({
-          type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
-          marketId,
-          outcome,
-          orderTypeLabel,
-          orderBookChunk
-        })
+        default: (options) => dispatch => {
+          const {
+            marketId,
+            outcome,
+            orderTypeLabel,
+            orderBookChunk
+          } = options
+          dispatch({
+            type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
+            data: {
+              marketId,
+              outcome,
+              orderTypeLabel,
+              orderBookChunk
+            }
+          })
+        }
       }
     },
     assertions: (err, actions) => {
       assert.isNull(err)
       assert.deepEqual(actions, [{
         type: 'UPDATE_IS_FIRST_ORDER_BOOK_CHUNK_LOADED',
-        marketId: 'MARKET_0',
-        outcome: 3,
-        orderTypeLabel: 'sell',
-        isLoaded: false
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 3,
+          orderTypeLabel: 'sell',
+          isLoaded: false
+        }
       }, {
         type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
-        marketId: 'MARKET_0',
-        outcome: 3,
-        orderTypeLabel: 'sell',
-        orderBookChunk: {}
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 3,
+          orderTypeLabel: 'sell',
+          orderBookChunk: {}
+        }
       }])
     }
   })
@@ -207,29 +221,43 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
         }
       },
       insertOrderBookChunkToOrderBook: {
-        default: (marketId, outcome, orderTypeLabel, orderBookChunk) => dispatch => dispatch({
-          type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
-          marketId,
-          outcome,
-          orderTypeLabel,
-          orderBookChunk
-        })
+        default: (options) => dispatch => {
+          const {
+            marketId,
+            outcome,
+            orderTypeLabel,
+            orderBookChunk
+          } = options
+          dispatch({
+            type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
+            data: {
+              marketId,
+              outcome,
+              orderTypeLabel,
+              orderBookChunk
+            }
+          })
+        }
       }
     },
     assertions: (err, actions) => {
       assert.isNull(err)
       assert.deepEqual(actions, [{
         type: 'UPDATE_IS_FIRST_ORDER_BOOK_CHUNK_LOADED',
-        marketId: 'MARKET_0',
-        outcome: 3,
-        orderTypeLabel: 'sell',
-        isLoaded: false
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 3,
+          orderTypeLabel: 'sell',
+          isLoaded: false
+        }
       }, {
         type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
-        marketId: 'MARKET_0',
-        outcome: 3,
-        orderTypeLabel: 'sell',
-        orderBookChunk: { '0x1': order1, '0x2': order2 }
+        data: {
+          marketId: 'MARKET_0',
+          outcome: 3,
+          orderTypeLabel: 'sell',
+          orderBookChunk: { '0x1': order1, '0x2': order2 }
+        }
       }])
     }
   })

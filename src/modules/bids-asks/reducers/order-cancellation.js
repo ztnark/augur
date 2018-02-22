@@ -8,19 +8,25 @@ const DEFAULT_STATE = {}
  */
 export default function (orderCancellation = DEFAULT_STATE, action) {
   switch (action.type) {
-    case UPDATE_ORDER_STATUS:
+    case UPDATE_ORDER_STATUS: {
+      const { orderId, status } = action.data
       return {
         ...orderCancellation,
-        [action.orderId]: action.status
+        [orderId]: status
       }
-    case UPDATE_ORDER_REMOVE:
-      delete orderCancellation[action.orderId]
+    }
+    case UPDATE_ORDER_REMOVE: {
+      const { orderId } = action.data
+      delete orderCancellation[orderId]
       return {
         ...orderCancellation
       }
-    case RESET_STATE:
+    }
+    case RESET_STATE: {
       return DEFAULT_STATE
-    default:
+    }
+    default: {
       return orderCancellation
+    }
   }
 }

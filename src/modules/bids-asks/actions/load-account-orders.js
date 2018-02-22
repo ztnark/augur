@@ -17,11 +17,15 @@ export const loadAccountOrders = (options, callback = logError) => (dispatch, ge
         const outcomes = Object.keys(orders[marketId])
         outcomes.forEach((outcome, id, nextOutcome) => {
           const orderTypeLabels = Object.keys(orders[marketId][outcome])
-          orderTypeLabels.forEach(orderType => dispatch(updateOrderBook(marketId, outcome, orderType, orders[marketId][outcome][orderType])))
+          orderTypeLabels.forEach(orderTypeLabel => dispatch(updateOrderBook({
+            marketId,
+            outcome,
+            orderTypeLabel,
+            orderBook: orders[marketId][outcome][orderTypeLabel]
+          })))
         })
       })
       callback(null, orders)
     }))
   })
 }
-
