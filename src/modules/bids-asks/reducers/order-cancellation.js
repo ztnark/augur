@@ -22,11 +22,9 @@ export default function (orderCancellation = DEFAULT_STATE, action) {
         ...orderCancellation
       }
     }
-    case RESET_STATE: {
+    case RESET_STATE:
       return DEFAULT_STATE
-    }
-    default: {
+    default:
       return orderCancellation
-    }
   }
 }

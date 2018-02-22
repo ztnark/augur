@@ -151,7 +151,7 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
         }
       },
       insertOrderBookChunkToOrderBook: {
-        default: (options) => dispatch => {
+        default: options => (dispatch) => {
           const {
             marketId,
             outcome,
@@ -221,7 +221,7 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
         }
       },
       insertOrderBookChunkToOrderBook: {
-        default: (options) => dispatch => {
+        default: options => (dispatch) => {
           const {
             marketId,
             outcome,

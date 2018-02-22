@@ -1,7 +1,7 @@
 import { updateOrderBook } from 'modules/bids-asks/actions/update-order-book'
 import clearOrderBookOnFirstChunk from 'modules/bids-asks/actions/clear-order-book-on-first-chunk'
 
-const insertOrderBookChunkToOrderBook = (options) => (dispatch) => {
+const insertOrderBookChunkToOrderBook = options => (dispatch) => {
   const {
     marketId,
     outcome,
