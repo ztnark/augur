@@ -13,7 +13,7 @@ export default function (orderBooks = DEFAULT_STATE, action) {
         marketId,
         outcome,
         orderTypeLabel,
-        orderBook
+        orderBook,
       } = action.data
       const marketOrderBook = orderBooks[marketId] || {}
       const outcomeOrderBook = marketOrderBook[outcome] || {}
@@ -26,23 +26,18 @@ export default function (orderBooks = DEFAULT_STATE, action) {
             ...outcomeOrderBook,
             [orderTypeLabel]: {
               ...(outcomeOrderBook[orderTypeLabel] || {}),
-              ...orderBook
-            }
-          }
-        }
+              ...orderBook,
+            },
+          },
+        },
       }
     }
     case CLEAR_ORDER_BOOK: {
       const {
         marketId,
         outcome,
-<<<<<<< HEAD
-        orderTypeLabel
-      } = action.data
-=======
         orderTypeLabel,
-      } = action
->>>>>>> seadragon
+      } = action.data
       const marketOrderBook = orderBooks[marketId] || {}
       const outcomeOrderBook = marketOrderBook[outcome] || {}
       return {

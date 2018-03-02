@@ -11,8 +11,8 @@ describe('modules/bids-asks/reducers/order-cancellation.js', () => {
       type: UPDATE_ORDER_STATUS,
       data: {
         orderId: 'an orderId',
-        status: 'a status'
-      }
+        status: 'a status',
+      },
     })
 
     assert.deepEqual(newState, { 'an orderId': 'a status' })

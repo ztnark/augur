@@ -6,14 +6,14 @@ const insertOrderBookChunkToOrderBook = options => (dispatch) => {
     marketId,
     outcome,
     orderTypeLabel,
-    orderBookChunk
+    orderBookChunk,
   } = options
   dispatch(clearOrderBookOnFirstChunk(marketId, outcome, orderTypeLabel))
   dispatch(updateOrderBook({
     marketId,
     outcome,
     orderTypeLabel,
-    orderBook: orderBookChunk
+    orderBook: orderBookChunk,
   }))
 }
 

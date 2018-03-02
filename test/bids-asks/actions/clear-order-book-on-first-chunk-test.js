@@ -32,15 +32,15 @@ describe(`modules/bids-asks/actions/clear-order-book-on-first-chunk.js`, () => {
           marketId: 'MARKET_0',
           outcome: 2,
           orderTypeLabel: 'buy',
-          isLoaded: true
-        }
+          isLoaded: true,
+        },
       }, {
         type: 'CLEAR_ORDER_BOOK',
         data: {
           marketId: 'MARKET_0',
           outcome: 2,
-          orderTypeLabel: 'buy'
-        }
+          orderTypeLabel: 'buy',
+        },
       }])
     },
   })

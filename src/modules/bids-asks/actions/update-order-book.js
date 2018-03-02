@@ -7,19 +7,19 @@ export const updateOrderBook = (options) => {
     marketId,
     outcome,
     orderTypeLabel,
-    orderBook
+    orderBook,
   } = options
   return ({
     type: UPDATE_ORDER_BOOK,
     data: {
-      marketId, outcome, orderTypeLabel, orderBook
-    }
+      marketId, outcome, orderTypeLabel, orderBook,
+    },
   })
 }
 export const clearOrderBook = (marketId, outcome, orderTypeLabel) => (
   {
     type: CLEAR_ORDER_BOOK,
-    data: { marketId, outcome, orderTypeLabel }
+    data: { marketId, outcome, orderTypeLabel },
   }
 )
 export const updateIsFirstOrderBookChunkLoaded = (options) => {
@@ -27,12 +27,12 @@ export const updateIsFirstOrderBookChunkLoaded = (options) => {
     marketId,
     outcome,
     orderTypeLabel,
-    isLoaded
+    isLoaded,
   } = options
   return ({
     type: UPDATE_IS_FIRST_ORDER_BOOK_CHUNK_LOADED,
     data: {
-      marketId, outcome, orderTypeLabel, isLoaded
-    }
+      marketId, outcome, orderTypeLabel, isLoaded,
+    },
   })
 }

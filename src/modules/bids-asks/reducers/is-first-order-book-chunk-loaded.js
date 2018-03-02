@@ -18,9 +18,9 @@ export default function (isFirstOrderBookChunkLoaded = DEFAULT_STATE, action) {
           ...(isFirstOrderBookChunkLoaded[marketId] || {}),
           [outcome]: {
             ...((isFirstOrderBookChunkLoaded[marketId] || {})[outcome] || {}),
-            [orderTypeLabel]: isLoaded
-          }
-        }
+            [orderTypeLabel]: isLoaded,
+          },
+        },
       }
     }
     case RESET_STATE:

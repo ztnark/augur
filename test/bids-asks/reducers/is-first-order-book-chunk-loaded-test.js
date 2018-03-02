@@ -19,9 +19,9 @@ describe(`modules/bids-asks/reducers/is-first-order-book-chunk-loaded.js`, () =>
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'buy',
-          isLoaded: false
-        }
-      }
+          isLoaded: false,
+        },
+      },
     },
     assertions: (output) => {
       assert.deepEqual(output, {
@@ -43,9 +43,9 @@ describe(`modules/bids-asks/reducers/is-first-order-book-chunk-loaded.js`, () =>
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'buy',
-          isLoaded: true
-        }
-      }
+          isLoaded: true,
+        },
+      },
     },
     assertions: (output) => {
       assert.deepEqual(output, {

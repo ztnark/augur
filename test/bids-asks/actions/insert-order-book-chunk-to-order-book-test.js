@@ -15,7 +15,7 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
       marketId: t.params.marketId,
       outcome: t.params.outcome,
       orderTypeLabel: t.params.orderTypeLabel,
-      orderBookChunk: t.params.orderBookChunk
+      orderBookChunk: t.params.orderBookChunk,
     }))
     t.assertions(store.getActions())
     store.clearActions()
@@ -37,10 +37,10 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
           data: {
             marketId,
             outcome,
-            orderTypeLabel
-          }
-        })
-      }
+            orderTypeLabel,
+          },
+        }),
+      },
     },
     assertions: (actions) => {
       assert.deepEqual(actions, [{
@@ -48,8 +48,8 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
         data: {
           marketId: 'MARKET_0',
           outcome: 2,
-          orderTypeLabel: 'buy'
-        }
+          orderTypeLabel: 'buy',
+        },
       }, {
         type: 'UPDATE_ORDER_BOOK',
         data: {
@@ -57,9 +57,9 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
           outcome: 2,
           orderTypeLabel: 'buy',
           orderBook: {
-            '0x1': { amount: '1' }
-          }
-        }
+            '0x1': { amount: '1' },
+          },
+        },
       }])
     },
   })

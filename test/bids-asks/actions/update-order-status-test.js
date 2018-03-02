@@ -19,7 +19,7 @@ describe('modules/bids-asks/actions/update-order-status.js', () => {
         status: CLOSE_DIALOG_CLOSING,
         marketId: 'marketId',
         outcome: 2,
-        orderTypeLabel: BUY
+        orderTypeLabel: BUY,
       }))
       assert.lengthOf(store.getActions(), 0)
       store.dispatch(updateOrderStatus({
@@ -27,7 +27,7 @@ describe('modules/bids-asks/actions/update-order-status.js', () => {
         status: CLOSE_DIALOG_CLOSING,
         marketId: 'nonExistingMarketId',
         outcome: 2,
-        orderTypeLabel: BUY
+        orderTypeLabel: BUY,
       }))
       assert.lengthOf(store.getActions(), 0)
     })
@@ -37,7 +37,7 @@ describe('modules/bids-asks/actions/update-order-status.js', () => {
         status: CLOSE_DIALOG_CLOSING,
         marketId: 'testMarketId',
         outcome: 2,
-        orderTypeLabel: BUY
+        orderTypeLabel: BUY,
       }))
       assert.deepEqual(store.getActions(), [{
         type: 'UPDATE_ORDER_STATUS',
@@ -45,8 +45,8 @@ describe('modules/bids-asks/actions/update-order-status.js', () => {
           orderId: '0xdbd851cc394595f9c50f32c1554059ec343471b49f84a4b72c44589a25f70ff3',
           status: CLOSE_DIALOG_CLOSING,
           marketId: 'testMarketId',
-          orderType: BUY
-        }
+          orderType: BUY,
+        },
       }])
     })
   })

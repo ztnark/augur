@@ -39,11 +39,11 @@ describe(`modules/bids-asks/actions/update-order-book.js`, () => {
         marketId,
         outcome,
         orderTypeLabel,
-        orderBook
-      }
+        orderBook,
+      },
     }
     assert.deepEqual(updateOrderBook({
-      marketId, outcome, orderTypeLabel, orderBook
+      marketId, outcome, orderTypeLabel, orderBook,
     }), expectedOutput, `Updating order book didn't return the correct action!`)
   })
 })

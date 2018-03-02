@@ -16,7 +16,7 @@ const loadOneOutcomeBidsOrAsks = (marketId, outcome, orderTypeLabel, callback = 
     marketId,
     outcome,
     orderTypeLabel,
-    isLoaded: false
+    isLoaded: false,
   }))
   augur.trading.getOrders({ marketId, outcome, orderType: orderTypeLabel }, (err, orders) => {
     if (err) return callback(err)
@@ -25,7 +25,7 @@ const loadOneOutcomeBidsOrAsks = (marketId, outcome, orderTypeLabel, callback = 
         marketId,
         outcome,
         orderTypeLabel,
-        orderBookChunk: has(orders, [marketId, outcome, orderTypeLabel]) ? orders[marketId][outcome][orderTypeLabel] : {}
+        orderBookChunk: has(orders, [marketId, outcome, orderTypeLabel]) ? orders[marketId][outcome][orderTypeLabel] : {},
       }))
     }
     callback(null)

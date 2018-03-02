@@ -21,7 +21,7 @@ export const loadAccountOrders = (options, callback = logError) => (dispatch, ge
             marketId,
             outcome,
             orderTypeLabel,
-            orderBook: orders[marketId][outcome][orderTypeLabel]
+            orderBook: orders[marketId][outcome][orderTypeLabel],
           })))
         })
       })

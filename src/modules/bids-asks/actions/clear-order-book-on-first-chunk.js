@@ -8,7 +8,7 @@ const clearOrderBookOnFirstChunk = (marketId, outcome, orderTypeLabel) => (dispa
       marketId,
       outcome,
       orderTypeLabel,
-      isLoaded: true
+      isLoaded: true,
     }))
     dispatch(clearOrderBook(marketId, outcome, orderTypeLabel))
   }

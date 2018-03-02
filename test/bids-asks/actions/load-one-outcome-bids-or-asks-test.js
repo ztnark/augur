@@ -156,7 +156,7 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
             marketId,
             outcome,
             orderTypeLabel,
-            orderBookChunk
+            orderBookChunk,
           } = options
           dispatch({
             type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
@@ -164,11 +164,11 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
               marketId,
               outcome,
               orderTypeLabel,
-              orderBookChunk
-            }
+              orderBookChunk,
+            },
           })
-        }
-      }
+        },
+      },
     },
     assertions: (err, actions) => {
       assert.isNull(err)
@@ -178,16 +178,16 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'sell',
-          isLoaded: false
-        }
+          isLoaded: false,
+        },
       }, {
         type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
         data: {
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'sell',
-          orderBookChunk: {}
-        }
+          orderBookChunk: {},
+        },
       }])
     },
   })
@@ -226,7 +226,7 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
             marketId,
             outcome,
             orderTypeLabel,
-            orderBookChunk
+            orderBookChunk,
           } = options
           dispatch({
             type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
@@ -234,11 +234,11 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
               marketId,
               outcome,
               orderTypeLabel,
-              orderBookChunk
-            }
+              orderBookChunk,
+            },
           })
-        }
-      }
+        },
+      },
     },
     assertions: (err, actions) => {
       assert.isNull(err)
@@ -248,16 +248,16 @@ describe(`modules/bids-asks/actions/load-one-outcome-bids-or-asks.js`, () => {
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'sell',
-          isLoaded: false
-        }
+          isLoaded: false,
+        },
       }, {
         type: 'INSERT_ORDER_BOOK_CHUNK_TO_ORDER_BOOK',
         data: {
           marketId: 'MARKET_0',
           outcome: 3,
           orderTypeLabel: 'sell',
-          orderBookChunk: { '0x1': order1, '0x2': order2 }
-        }
+          orderBookChunk: { '0x1': order1, '0x2': order2 },
+        },
       }])
     },
   })

@@ -15,7 +15,7 @@ export const updateOrderStatus = options => (dispatch, getState) => {
     status,
     marketId,
     outcome,
-    orderTypeLabel
+    orderTypeLabel,
   } = options
   const { orderBooks } = getState()
   const order = selectOrder(orderId, marketId, outcome, orderTypeLabel, orderBooks)
@@ -28,8 +28,8 @@ export const updateOrderStatus = options => (dispatch, getState) => {
       orderId,
       status,
       marketId,
-      orderType: orderTypeLabel
-    }
+      orderType: orderTypeLabel,
+    },
   })
 }
 

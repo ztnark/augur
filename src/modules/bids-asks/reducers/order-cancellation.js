@@ -12,7 +12,7 @@ export default function (orderCancellation = DEFAULT_STATE, action) {
       const { orderId, status } = action.data
       return {
         ...orderCancellation,
-        [orderId]: status
+        [orderId]: status,
       }
     }
     case UPDATE_ORDER_REMOVE: {
