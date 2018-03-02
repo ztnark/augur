@@ -37,23 +37,27 @@ export const selectScalarMarketsShareDenominationState = state => state.scalarMa
 export const selectClosePositionTradeGroupsState = state => state.closePositionTradeGroups
 export const selectMarketCreatorFeesState = state => state.marketCreatorFees
 export const selectNotificationsState = state => state.notifications
+export const selectMarketReportState = state => state.marketReportState
+export const selectParticipationTokens = state => state.participationTokens
+export const selectInitialReporters = state => state.initialReporters
+export const selectDisputeCrowdsourcerTokens = state => state.disputeCrowdsourcerTokens
 
 export const selectBlockchainCurrentBlockTimestamp = createSelector(
   selectBlockchainState,
-  blockchain => blockchain.currentBlockTimestamp
+  blockchain => blockchain.currentBlockTimestamp,
 )
 
 export const selectUniverseReportingPeriodDurationInSeconds = createSelector(
   selectUniverseState,
-  universe => universe.reportingPeriodDurationInSeconds
+  universe => universe.reportingPeriodDurationInSeconds,
 )
 
 export const selectUniverseReportPeriod = createSelector(
   selectUniverseState,
-  universe => universe.currentReportingWindowAddress
+  universe => universe.currentReportingWindowAddress,
 )
 
 export const selectLoginAccountAddress = createSelector(
   selectLoginAccountState,
-  loginAccount => loginAccount.address
+  loginAccount => loginAccount.address,
 )

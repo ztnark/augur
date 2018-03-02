@@ -14,7 +14,7 @@ import Styles from 'modules/portfolio/components/performance-graph/performance-g
 
 class PerformanceGraph extends Component {
   static propTypes = {
-    performanceData: PropTypes.object
+    performanceData: PropTypes.object,
   }
 
   constructor(props) {
@@ -25,7 +25,7 @@ class PerformanceGraph extends Component {
       graphTypeOptions: [
         { label: 'Total', value: 'Total' },
         { label: 'Total Realized', value: 'Realized' },
-        { label: 'Total Unrealized', value: 'Unrealized' }
+        { label: 'Total Unrealized', value: 'Unrealized' },
       ],
       graphTypeDefault: 'Total',
       graphPeriod: 'day',
@@ -33,9 +33,9 @@ class PerformanceGraph extends Component {
         { label: 'Past 24hrs', value: 'day' },
         { label: 'Past Week', value: 'week' },
         { label: 'Past Month', value: 'month' },
-        { label: 'All', value: 'all' }
+        { label: 'All', value: 'all' },
       ],
-      graphPeriodDefault: 'day'
+      graphPeriodDefault: 'day',
     }
 
     this.changeDropdown = this.changeDropdown.bind(this)
@@ -48,17 +48,18 @@ class PerformanceGraph extends Component {
 
     Highcharts.setOptions({
       lang: {
-        thousandsSep: ','
-      }
+        thousandsSep: ',',
+      },
     })
     const id = 'performance_graph_chart'
 
     this.performanceGraph = new Highcharts.Chart(id, {
       title: {
-        text: null
+        text: null,
       },
       chart: {
-        backgroundColor: '#1e1a31',
+        backgroundColor: 'transparent',
+        height: '220px',
         spacingLeft: 0,
         spacingRight: 0,
       },
@@ -69,10 +70,10 @@ class PerformanceGraph extends Component {
           const text = this.renderer.text(
             'Responsive text',
             this.xAxis[0].toPixels(20),
-            this.yAxis[0].toPixels(60)
+            this.yAxis[0].toPixels(60),
           )
             .css({
-              fontSize: '10px'
+              fontSize: '10px',
             })
             .add()
 
@@ -81,28 +82,32 @@ class PerformanceGraph extends Component {
         redraw() {
           this.customTexts[0].attr({
             x: this.xAxis[0].toPixels(15),
-            y: this.yAxis[0].toPixels(50)
+            y: this.yAxis[0].toPixels(50),
           })
-        }
+        },
       },
       lang: {
-        noData: 'No performance history.'
+        noData: 'No performance history.',
       },
       rangeSelector: { selected: 1 },
       xAxis: {
         visible: true,
         type: 'datetime',
+        lineColor: '#686177',
         crosshair: {
           width: 4,
+          color: '#6f697e',
         },
         labels: {
           formatter() {
             return formatDate(new Date(this.value)).simpleDate
           },
           style: {
-            color: '#ffffff',
-            fontSize: '0.875rem',
-          }
+            color: '#a7a2b2',
+            fontSize: '0.625rem',
+            textTransform: 'uppercase',
+            fontWeight: '500',
+          },
         },
         tickLength: 6,
         showFirstLabel: false,
@@ -110,12 +115,13 @@ class PerformanceGraph extends Component {
         tickPositioner(low, high) {
           const positions = [low, this.dataMin, this.dataMax, high]
           return positions
-        }
+        },
       },
       yAxis: {
         visible: true,
         showFirstLabel: false,
         showLastLabel: true,
+        gridLineColor: '#686177',
         title: {
           text: null,
         },
@@ -129,8 +135,10 @@ class PerformanceGraph extends Component {
             return formatEther(this.value).full
           },
           style: {
-            color: '#ffffff',
-            fontSize: '0.875rem'
+            color: '#a7a2b2',
+            fontSize: '0.625rem',
+            textTransform: 'uppercase',
+            fontWeight: '500',
           },
         },
         tickPositioner() {
@@ -144,7 +152,7 @@ class PerformanceGraph extends Component {
             positions = [this.dataMin, median, Math.ceil(this.dataMax) + (this.dataMax * 0.05)]
           }
           return positions
-        }
+        },
       },
       plotOptions: {
         series: {
@@ -154,13 +162,13 @@ class PerformanceGraph extends Component {
             stops: [
               [0, Highcharts.Color('#dbdae1').setOpacity(0.25).get('rgba')],
               [0.5, Highcharts.Color('#dbdae1').setOpacity(0.15).get('rgba')],
-              [1, Highcharts.Color('#dbdae1').setOpacity(0).get('rgba')]
-            ]
-          }
-        }
+              [1, Highcharts.Color('#dbdae1').setOpacity(0).get('rgba')],
+            ],
+          },
+        },
       },
       legend: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
         positioner(labelWidth, labelHeight, point) {
@@ -172,15 +180,17 @@ class PerformanceGraph extends Component {
         borderWidth: 0,
         headerFormat: '',
         style: {
-          fontSize: '1rem'
+          fontSize: '0.625rem',
+          color: 'white',
+          fontWeight: '700',
         },
         shadow: false,
         shape: 'none',
         pointFormat: '<b style="color:{point.color}">{point.y} ETH</b>',
-        valueDecimals: 2
+        valueDecimals: 2,
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
     })
 
@@ -228,7 +238,7 @@ class PerformanceGraph extends Component {
             lineColor: 'white',
           },
           name: series.name,
-          data: series.data
+          data: series.data,
         }, false)
       } else {
         this.performanceGraph.series[i].setData(series.data, false)

@@ -16,7 +16,7 @@ export default class MarketOutcomeDepth extends Component {
     fixedPrecision: PropTypes.number.isRequired,
     updateHoveredPrice: PropTypes.func.isRequired,
     updateHoveredDepth: PropTypes.func.isRequired,
-    hoveredPrice: PropTypes.any
+    hoveredPrice: PropTypes.any,
   }
 
   constructor(props) {
@@ -27,7 +27,7 @@ export default class MarketOutcomeDepth extends Component {
       chartWidth: 0,
       chartHeight: 0,
       yScale: null,
-      xScale: null
+      xScale: null,
     }
 
     this.drawChart = this.drawChart.bind(this)
@@ -78,7 +78,7 @@ export default class MarketOutcomeDepth extends Component {
         bottom: 30,
         left: 0,
         stick: 5,
-        tickOffset: 10
+        tickOffset: 10,
       }
 
       const { marketDepth } = this.props
@@ -192,7 +192,7 @@ export default class MarketOutcomeDepth extends Component {
         xScale,
         chart: fauxDiv.toReact(),
         chartWidth: width,
-        chartHeight: height
+        chartHeight: height,
       })
     }
   }
@@ -204,7 +204,7 @@ export default class MarketOutcomeDepth extends Component {
       this.props.updateHoveredDepth([])
     } else {
       const nearestCompletelyFillingOrder = Object.keys(this.props.marketDepth).reduce((p, side) => {
-        const fillingSideOrder = this.props.marketDepth[side].reduce((p, order) => {
+        let fillingSideOrder = this.props.marketDepth[side].reduce((p, order) => {
           if (p === null) return order
           if (side === ASKS) {
             return (this.props.hoveredPrice > p[1] && this.props.hoveredPrice < order[1]) ? order: p
@@ -215,7 +215,11 @@ export default class MarketOutcomeDepth extends Component {
 
         if (p === null) return fillingSideOrder
 
-        fillingSideOrder.push(side)
+        if (fillingSideOrder == null) {
+          fillingSideOrder = [side]
+        } else {
+          fillingSideOrder.push(side)
+        }
         return Math.abs(this.props.hoveredPrice - p[1]) < Math.abs(this.props.hoveredPrice - fillingSideOrder[1]) ? p : fillingSideOrder
       }, null)
 

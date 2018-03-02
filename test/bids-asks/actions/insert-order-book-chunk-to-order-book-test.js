@@ -9,7 +9,7 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
   const test = t => it(t.description, () => {
     const store = configureMockStore([thunk])({})
     const insertOrderBookChunkToOrderBook = proxyquire('../../../src/modules/bids-asks/actions/insert-order-book-chunk-to-order-book', {
-      './clear-order-book-on-first-chunk': t.stub.clearOrderBookOnFirstChunk
+      './clear-order-book-on-first-chunk': t.stub.clearOrderBookOnFirstChunk,
     }).default
     store.dispatch(insertOrderBookChunkToOrderBook({
       marketId: t.params.marketId,
@@ -27,8 +27,8 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
       outcome: 2,
       orderTypeLabel: 'buy',
       orderBookChunk: {
-        '0x1': { amount: '1' }
-      }
+        '0x1': { amount: '1' },
+      },
     },
     stub: {
       clearOrderBookOnFirstChunk: {
@@ -61,6 +61,6 @@ describe(`modules/bids-asks/actions/insert-order-book-chunk-to-order-book.js`, (
           }
         }
       }])
-    }
+    },
   })
 })

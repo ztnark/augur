@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 
 import { selectAggregateOrderBook, selectTopBid, selectTopAsk, __RewireAPI__ as selectOrderBookRewireAPI } from 'modules/bids-asks/helpers/select-order-book'
 
-import { formatShares, formatEtherTokens } from 'utils/format-number'
+import { formatShares, formatEther } from 'utils/format-number'
 
 import { CLOSE_DIALOG_CLOSING } from 'modules/market/constants/close-dialog-status'
 
@@ -31,13 +31,13 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
 
         const expected = {
           bids: [],
-          asks: []
+          asks: [],
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -50,7 +50,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
 
         const expected = {
           bids: ['test'],
-          asks: ['test']
+          asks: ['test'],
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
@@ -58,7 +58,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         selectOrderBookRewireAPI.__ResetDependency__('selectAggregatePricePoints')
 
         done()
-      }
+      },
     })
   })
 
@@ -67,18 +67,18 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
       bids: [
         {
           isOfCurrentUser: true,
-          price: '0.4'
+          price: '0.4',
         },
         {
-          price: '0.3'
+          price: '0.3',
         },
         {
-          price: '0.2'
+          price: '0.2',
         },
         {
-          price: '0.1'
+          price: '0.1',
         },
-      ]
+      ],
     }
 
     test({
@@ -91,7 +91,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -104,7 +104,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -114,13 +114,13 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
 
         const expected = {
           isOfCurrentUser: true,
-          price: '0.4'
+          price: '0.4',
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -129,13 +129,13 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = selectTopBid(marketOrderBook, true)
 
         const expected = {
-          price: '0.3'
+          price: '0.3',
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
   })
 
@@ -144,18 +144,18 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
       asks: [
         {
           isOfCurrentUser: true,
-          price: '0.5'
+          price: '0.5',
         },
         {
-          price: '0.6'
+          price: '0.6',
         },
         {
-          price: '0.7'
+          price: '0.7',
         },
         {
-          price: '0.8'
+          price: '0.8',
         },
-      ]
+      ],
     }
 
     test({
@@ -168,7 +168,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -181,7 +181,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -191,13 +191,13 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
 
         const expected = {
           isOfCurrentUser: true,
-          price: '0.5'
+          price: '0.5',
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -206,13 +206,13 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = selectTopAsk(marketOrderBook, true)
 
         const expected = {
-          price: '0.6'
+          price: '0.6',
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected top bid`)
 
         done()
-      }
+      },
     })
   })
 
@@ -228,7 +228,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.deepEqual(actual, expected, `didn't return the expected array`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -242,15 +242,15 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.deepEqual(actual, expected, `didn't return the expected array`)
 
         done()
-      }
+      },
     })
 
     test({
       description: `should return an empty array when the orders array is null`,
       state: {
         loginAccount: {
-          address: '0xtest'
-        }
+          address: '0xtest',
+        },
       },
       assertions: (done, store) => {
         const selectAggregatePricePoints = selectOrderBookRewireAPI.__get__('selectAggregatePricePoints')
@@ -259,32 +259,44 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
           1: {
             buy: {
               '0xorder1': {
-                price: '0.1',
-                amount: '1'
+                fullPrecisionPrice: '0.1',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '1',
+                tokensEscrowed: '0',
               },
               '0xorder2': {
-                price: '0.1',
-                amount: '1'
+                fullPrecisionPrice: '0.1',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '0',
+                tokensEscrowed: '0.1',
               },
               '0xorder3': {
-                price: '0.2',
-                amount: '1'
+                fullPrecisionPrice: '0.2',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '0',
+                tokensEscrowed: '0.2',
               },
               '0xorder4': {
-                price: '0.2',
-                amount: '1'
+                fullPrecisionPrice: '0.2',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '0',
+                tokensEscrowed: '0.2',
               },
               '0xorder5': {
                 owner: '0xtest',
-                price: '0.2',
-                amount: '1'
+                fullPrecisionPrice: '0.2',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '1',
+                tokensEscrowed: '0',
               },
               '0xorder6': {
-                price: '0.3',
-                amount: '1'
-              }
-            }
-          }
+                fullPrecisionPrice: '0.3',
+                fullPrecisionAmount: '1',
+                sharesEscrowed: '1',
+                tokensEscrowed: '0',
+              },
+            },
+          },
         }
 
         const actual = selectAggregatePricePoints('1', 'buy', orders, { '0xorder5': CLOSE_DIALOG_CLOSING })
@@ -293,24 +305,30 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
           {
             isOfCurrentUser: false,
             shares: formatShares('2'),
-            price: formatEtherTokens('0.1')
+            price: formatEther('0.1'),
+            sharesEscrowed: formatShares('1'),
+            tokensEscrowed: formatEther('0.1'),
           },
           {
             isOfCurrentUser: true,
             shares: formatShares('3'),
-            price: formatEtherTokens('0.2')
+            price: formatEther('0.2'),
+            sharesEscrowed: formatShares('1'),
+            tokensEscrowed: formatEther('0.4'),
           },
           {
             isOfCurrentUser: false,
             shares: formatShares('1'),
-            price: formatEtherTokens('0.3')
-          }
+            price: formatEther('0.3'),
+            sharesEscrowed: formatShares('1'),
+            tokensEscrowed: formatEther('0'),
+          },
         ]
 
         assert.deepEqual(actual, expected, `didn't return the expected array`)
 
         done()
-      }
+      },
     })
   })
 
@@ -322,21 +340,25 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = reduceSharesCountByPrice({}, {
           isOfCurrentUser: false,
           outcome: '1',
-          price: '0.1',
-          amount: '1'
+          fullPrecisionPrice: '0.1',
+          fullPrecisionAmount: '1',
+          sharesEscrowed: '1',
+          tokensEscrowed: '0',
         })
 
         const expected = {
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+            sharesEscrowed: new BigNumber('1'),
+            tokensEscrowed: new BigNumber('0'),
+          },
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -346,26 +368,32 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = reduceSharesCountByPrice({
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+            sharesEscrowed: new BigNumber('0'),
+            tokensEscrowed: new BigNumber('0.1'),
+          },
         }, {
           isOfCurrentUser: true,
           outcome: '1',
-          price: '0.1',
-          amount: '1'
+          fullPrecisionPrice: '0.1',
+          fullPrecisionAmount: '1',
+          sharesEscrowed: '1',
+          tokensEscrowed: '0',
         })
 
         const expected = {
           0.1: {
             isOfCurrentUser: true,
-            shares: new BigNumber('2')
-          }
+            shares: new BigNumber('2'),
+            sharesEscrowed: new BigNumber('1'),
+            tokensEscrowed: new BigNumber('0.1'),
+          },
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -375,30 +403,38 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = reduceSharesCountByPrice({
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+            sharesEscrowed: new BigNumber('1'),
+            tokensEscrowed: new BigNumber('0'),
+          },
         }, {
           isOfCurrentUser: false,
           outcome: '1',
-          price: '0.2',
-          amount: '1'
+          fullPrecisionPrice: '0.2',
+          fullPrecisionAmount: '1',
+          sharesEscrowed: '0',
+          tokensEscrowed: '0.2',
         })
 
         const expected = {
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
+            shares: new BigNumber('1'),
+            sharesEscrowed: new BigNumber('1'),
+            tokensEscrowed: new BigNumber('0'),
           },
           0.2: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+            sharesEscrowed: new BigNumber('0'),
+            tokensEscrowed: new BigNumber('0.2'),
+          },
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
 
         done()
-      }
+      },
     })
 
     test({
@@ -410,25 +446,25 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const actual = reduceSharesCountByPrice({
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+          },
         }, {
           isOfCurrentUser: false,
           outcome: '1',
-          amount: '1'
+          fullPrecisionAmount: '1',
         })
 
         const expected = {
           0.1: {
             isOfCurrentUser: false,
-            shares: new BigNumber('1')
-          }
+            shares: new BigNumber('1'),
+          },
         }
 
         assert.deepEqual(actual, expected, `didn't return the expected object`)
 
         done()
-      }
+      },
     })
   })
 
@@ -439,9 +475,9 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const sortPricePointsByPriceAsc = selectOrderBookRewireAPI.__get__('sortPricePointsByPriceAsc')
 
         const actual = sortPricePointsByPriceAsc({
-          price: formatShares('1')
+          price: formatShares('1'),
         }, {
-          price: formatShares('2')
+          price: formatShares('2'),
         })
 
         const expected = -1
@@ -449,7 +485,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected number`)
 
         done()
-      }
+      },
     })
   })
 
@@ -460,9 +496,9 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         const sortPricePointsByPriceDesc= selectOrderBookRewireAPI.__get__('sortPricePointsByPriceDesc')
 
         const actual = sortPricePointsByPriceDesc({
-          price: formatShares('1')
+          price: formatShares('1'),
         }, {
-          price: formatShares('2')
+          price: formatShares('2'),
         })
 
         const expected = 1
@@ -470,7 +506,7 @@ describe('modules/bids-asks/helpers/select-order-book.js', () => {
         assert.strictEqual(actual, expected, `didn't return the expected number`)
 
         done()
-      }
+      },
     })
   })
 })

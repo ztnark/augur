@@ -7,21 +7,24 @@ import MarketOutcomeCharts from 'modules/market/containers/market-outcome-charts
 import MarketOutcomesAndPositions from 'modules/market/containers/market-outcomes-and-positions'
 import MarketTrading from 'modules/market/containers/market-trading'
 
+import { CATEGORICAL } from 'modules/markets/constants/market-types'
+
 import Styles from 'modules/market/components/market-view/market-view.styles'
 
 export default class MarketView extends Component {
   static propTypes = {
     marketId: PropTypes.string.isRequired,
+    marketType: PropTypes.string,
     isConnected: PropTypes.bool.isRequired,
     isMarketLoaded: PropTypes.bool.isRequired,
-    loadFullMarket: PropTypes.func.isRequired
+    loadFullMarket: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
 
     this.state = {
-      selectedOutcomes: []
+      selectedOutcomes: props.marketType === CATEGORICAL ? [] : ['1'],
     }
 
     this.updateSelectedOutcomes = this.updateSelectedOutcomes.bind(this)

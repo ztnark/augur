@@ -4,12 +4,12 @@ import mocks from 'test/mockStore'
 
 // import { BUY, SELL } from 'modules/transactions/constants/types';
 
-import { formatEtherTokens, formatPercent } from 'utils/format-number'
+import { formatEther, formatPercent } from 'utils/format-number'
 
 describe('modules/trade/helpers/generate-trade.js', () => {
   const { state } = mocks
   const { generateTrade } = require('modules/trade/helpers/generate-trade')
-  const trade = generateTrade(state.marketsData.testMarketId, state.outcomesData.testMarketId['1'], state.tradesInProgress.testMarketId, state.orderBooks.testMarketId)
+  const trade = generateTrade(state.marketsData.testMarketId, state.outcomesData.testMarketId['1'], state.tradesInProgress.testMarketId['1'], state.orderBooks.testMarketId)
 
   it('should generate trade object', () => {
     assert.deepEqual(trade, {
@@ -21,7 +21,7 @@ describe('modules/trade/helpers/generate-trade.js', () => {
         minimized: '',
         rounded: '',
         roundedValue: 0,
-        value: 0
+        value: 0,
       },
       limitPrice: '0.50',
       numShares: 5000,
@@ -33,14 +33,15 @@ describe('modules/trade/helpers/generate-trade.js', () => {
         minimized: '0',
         rounded: '0',
         roundedValue: 0,
-        value: 0
+        value: 0,
       },
-      potentialEthProfit: formatEtherTokens(7500),
-      potentialEthLoss: formatEtherTokens(2500),
-      potentialProfitPercent: formatPercent(300),
+      potentialEthProfit: formatEther(2500),
+      potentialEthLoss: formatEther(2500),
+      potentialProfitPercent: formatPercent(100),
       potentialLossPercent: formatPercent(100),
       side: 'buy',
-      totalCost: formatEtherTokens(2500),
+      sharesFilled: 5000,
+      totalCost: formatEther(2500),
       totalFee: {
         denomination: '',
         formatted: '',
@@ -49,7 +50,17 @@ describe('modules/trade/helpers/generate-trade.js', () => {
         minimized: '',
         rounded: '',
         roundedValue: 0,
-        value: 0
+        value: 0,
+      },
+      totalFeePercent: {
+        denomination: '',
+        formatted: '',
+        formattedValue: 0,
+        full: '',
+        minimized: '',
+        rounded: '',
+        roundedValue: 0,
+        value: 0,
       },
       tradeSummary: {
         totalGas: {
@@ -60,19 +71,19 @@ describe('modules/trade/helpers/generate-trade.js', () => {
           minimized: '0',
           rounded: '0.0000',
           roundedValue: 0,
-          value: 0
+          value: 0,
         },
-        tradeOrders: []
+        tradeOrders: [],
       },
       tradeTypeOptions: [
         {
           label: 'buy',
-          value: 'buy'
+          value: 'buy',
         },
         {
           label: 'sell',
-          value: 'sell'
-        }
+          value: 'sell',
+        },
       ],
       totalSharesUpToOrder: trade.totalSharesUpToOrder,
       updateTradeOrder: trade.updateTradeOrder, // self reference for function

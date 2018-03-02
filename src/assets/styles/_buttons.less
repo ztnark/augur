@@ -65,6 +65,25 @@
   cursor: default;
 }
 
+.button--offWhite {
+  .button;
+
+  background-color: @color-offwhite;
+  color: @color-purple;
+
+  &:hover {
+    background-color: @color-white;
+  }
+}
+
+.button--offwhite--disabled,
+.button--offwhite:disabled,
+.button--offwhite:disabled:hover {
+  background-color: @color-lightgray;
+  color: @color-lightergray;
+  cursor: default;
+}
+
 .button--disabled {
   background-color: @color-disabled;
   color: @color-text-disabled;
@@ -75,12 +94,11 @@
   }
 }
 
-.button--white {
+.button--white--short {
   .button;
 
   background-color: @color-white;
   color: @color-text-dark;
-  padding: 1.1em 2em;
 
   &:hover {
     background-color: @color-lightpurple;
@@ -93,4 +111,10 @@
     color: @color-lightergray;
     cursor: auto;
   }
+}
+
+.button--white {
+  .button--white--short;
+
+  padding: 1.1em 2em;
 }

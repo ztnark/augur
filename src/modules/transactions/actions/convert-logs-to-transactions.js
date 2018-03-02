@@ -30,7 +30,7 @@ export function convertTradeLogsToTransactions(label, data, marketId) {
   return (dispatch, getState) => {
     const { marketsData } = getState()
     async.forEachOfSeries(data, (marketTrades, marketId, next) => {
-      if (marketsData[marketId] != null && marketsData[marketId].id != null) {
+      if (marketsData[marketId] && marketsData[marketId] != null && marketsData[marketId].id != null) {
         dispatch(convertTradeLogToTransaction(label, data, marketId))
         return next()
       }
@@ -65,8 +65,8 @@ export const convertLogToTransaction = (label, log, status, isRetry, callback = 
       dispatch(updateTransactionsData({
         [hash]: {
           ...dispatch(constructBasicTransaction(hash, status, log.blockNumber, log.timestamp, gasFees)),
-          ...transaction
-        }
+          ...transaction,
+        },
       }))
       return callback()
     }

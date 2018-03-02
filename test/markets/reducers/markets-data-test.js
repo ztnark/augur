@@ -1,6 +1,7 @@
 import { describe, it } from 'mocha'
 import { assert } from 'chai'
 import reducer from 'modules/markets/reducers/markets-data'
+import { UPDATE_MARKET_REP_BALANCE } from 'src/modules/markets/actions/update-markets-data'
 
 describe(`modules/markets/reducers/markets-data.js`, () => {
   describe('UPDATE_MARKET_CATEGORY', () => {
@@ -12,120 +13,120 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          category: undefined
+          category: undefined,
         },
         '0xa2': {
           id: '0xa2',
-          category: 'regular potables'
-        }
+          category: 'regular potables',
+        },
       },
       action: {
         type: 'UPDATE_MARKET_CATEGORY',
         marketId: undefined,
-        category: 'potent potables'
+        category: 'potent potables',
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            category: undefined
+            category: undefined,
           },
           '0xa2': {
             id: '0xa2',
-            category: 'regular potables'
-          }
+            category: 'regular potables',
+          },
         })
-      }
+      },
     })
     test({
       description: 'set market category',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          category: undefined
+          category: undefined,
         },
         '0xa2': {
           id: '0xa2',
-          category: 'regular potables'
-        }
+          category: 'regular potables',
+        },
       },
       action: {
         type: 'UPDATE_MARKET_CATEGORY',
         marketId: '0xa1',
-        category: 'potent potables'
+        category: 'potent potables',
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            category: 'potent potables'
+            category: 'potent potables',
           },
           '0xa2': {
             id: '0xa2',
-            category: 'regular potables'
-          }
+            category: 'regular potables',
+          },
         })
-      }
+      },
     })
     test({
       description: 'unset market category',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          category: 'potent potables'
+          category: 'potent potables',
         },
         '0xa2': {
           id: '0xa2',
-          category: 'regular potables'
-        }
+          category: 'regular potables',
+        },
       },
       action: {
         type: 'UPDATE_MARKET_CATEGORY',
         marketId: '0xa1',
-        category: undefined
+        category: undefined,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            category: undefined
+            category: undefined,
           },
           '0xa2': {
             id: '0xa2',
-            category: 'regular potables'
-          }
+            category: 'regular potables',
+          },
         })
-      }
+      },
     })
     test({
       description: 'update market category',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          category: 'regular potables'
+          category: 'regular potables',
         },
         '0xa2': {
           id: '0xa2',
-          category: 'regular potables'
-        }
+          category: 'regular potables',
+        },
       },
       action: {
         type: 'UPDATE_MARKET_CATEGORY',
         marketId: '0xa1',
-        category: 'potent potables'
+        category: 'potent potables',
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            category: 'potent potables'
+            category: 'potent potables',
           },
           '0xa2': {
             id: '0xa2',
-            category: 'regular potables'
-          }
+            category: 'regular potables',
+          },
         })
-      }
+      },
     })
   })
   describe('UPDATE_MARKETS_LOADING_STATUS', () => {
@@ -137,178 +138,178 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: true
+          isLoading: true,
         },
         '0xa2': {
           id: '0xa2',
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: [],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
+            isLoading: true,
           },
           '0xa2': {
             id: '0xa2',
-            isLoading: false
-          }
+            isLoading: false,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status from undefined to true for 1 market ID',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: undefined
-        }
+          isLoading: undefined,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
-          }
+            isLoading: true,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status from false to true for 1 market ID',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
-          }
+            isLoading: true,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status from true to true for 1 market ID',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: true
-        }
+          isLoading: true,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
-          }
+            isLoading: true,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status from true to false for 1 market ID',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: true
-        }
+          isLoading: true,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: false
+        isLoading: false,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: false
-          }
+            isLoading: false,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status to true for 1 out of 2 market IDs',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: false
+          isLoading: false,
         },
         '0xa2': {
           id: '0xa2',
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
+            isLoading: true,
           },
           '0xa2': {
             id: '0xa2',
-            isLoading: false
-          }
+            isLoading: false,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status to false for 1 out of 2 market IDs',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: true
+          isLoading: true,
         },
         '0xa2': {
           id: '0xa2',
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1'],
-        isLoading: false
+        isLoading: false,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: false
+            isLoading: false,
           },
           '0xa2': {
             id: '0xa2',
-            isLoading: false
-          }
+            isLoading: false,
+          },
         })
-      }
+      },
     })
 
     test({
@@ -316,78 +317,93 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: false
+          isLoading: false,
         },
         '0xa2': {
           id: '0xa2',
-          isLoading: false
+          isLoading: false,
         },
         '0xa3': {
           id: '0xa3',
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa1', '0xa3'],
-        isLoading: true
+        isLoading: true,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
+            isLoading: true,
           },
           '0xa2': {
             id: '0xa2',
-            isLoading: false
+            isLoading: false,
           },
           '0xa3': {
             id: '0xa3',
-            isLoading: true
-          }
+            isLoading: true,
+          },
         })
-      }
+      },
     })
     test({
       description: 'update loading status to false for 2 out of 3 market IDs',
       marketsData: {
         '0xa1': {
           id: '0xa1',
-          isLoading: true
+          isLoading: true,
         },
         '0xa2': {
           id: '0xa2',
-          isLoading: true
+          isLoading: true,
         },
         '0xa3': {
           id: '0xa3',
-          isLoading: true
-        }
+          isLoading: true,
+        },
       },
       action: {
         type: 'UPDATE_MARKETS_LOADING_STATUS',
         marketIds: ['0xa2', '0xa3'],
-        isLoading: false
+        isLoading: false,
       },
       assertions: (reducedData) => {
         assert.deepEqual(reducedData, {
           '0xa1': {
             id: '0xa1',
-            isLoading: true
+            isLoading: true,
           },
           '0xa2': {
             id: '0xa2',
-            isLoading: false
+            isLoading: false,
           },
           '0xa3': {
             id: '0xa3',
-            isLoading: false
-          }
+            isLoading: false,
+          },
         })
-      }
+      },
     })
   })
+  describe('UPDATE_MARKET_REP_BALANCE', () => {
+    it('should add repBalance attribute to market data', () => {
+      const result = reducer({
+        '0xa2': {},
+      }, {
+        type: UPDATE_MARKET_REP_BALANCE,
+        marketId: '0xa2',
+        repBalance: 0.3496805826822917,
+      })
+
+      const d = result['0xa2']
+      assert.propertyVal(d, 'repBalance', 0.3496805826822917)
+    })
+  })
+
   describe('UPDATE_MARKETS_DATA', () => {
     it('should update markets data', () => {
       const marketsData = {
@@ -395,25 +411,25 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
           id: 2,
           outcomeId: 'someoutcome',
           details: {
-            example: 'test'
-          }
-        }
+            example: 'test',
+          },
+        },
       }
       const marketsData2 = {
         '0x0131d98e878803e113e2accc457ad57f5b97a87910be31d60e931c08ca4d5ef1': {
           id: 1,
           outcomeId: 'an outcomeId',
           details: {
-            test: 'example'
-          }
+            test: 'example',
+          },
         },
         '0x04be50f6303babc4e5400a6ebfaa77a8a76f620dd9f6394466e552842f585801': {
           id: 2,
           outcomeId: 'someoutcome',
           details: {
-            example: 'test'
-          }
-        }
+            example: 'test',
+          },
+        },
       }
       const curMarketsData1 = {
         '0x0131d98e878803e113e2accc457ad57f5b97a87910be31d60e931c08ca4d5ef1': {
@@ -421,9 +437,9 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
           outcomeId: 'an outcomeId',
           hasLoadedMarketInfo: false,
           details: {
-            test: 'example'
-          }
-        }
+            test: 'example',
+          },
+        },
       }
       const curMarketsData2 = {
         '0x0131d98e878803e113e2accc457ad57f5b97a87910be31d60e931c08ca4d5ef1': {
@@ -431,16 +447,16 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
           outcomeId: 'an outcomeId',
           hasLoadedMarketInfo: false,
           details: {
-            test: 'example'
-          }
+            test: 'example',
+          },
         },
         '0x04be50f6303babc4e5400a6ebfaa77a8a76f620dd9f6394466e552842f585801': {
           id: 2,
           outcomeId: 'a different outcome',
           details: {
-            example: 'test2'
-          }
-        }
+            example: 'test2',
+          },
+        },
       }
       const expectedOutput = {
         '0x0131d98e878803e113e2accc457ad57f5b97a87910be31d60e931c08ca4d5ef1': {
@@ -448,25 +464,25 @@ describe(`modules/markets/reducers/markets-data.js`, () => {
           outcomeId: 'an outcomeId',
           hasLoadedMarketInfo: false,
           details: {
-            test: 'example'
-          }
+            test: 'example',
+          },
         },
         '0x04be50f6303babc4e5400a6ebfaa77a8a76f620dd9f6394466e552842f585801': {
           id: 2,
           outcomeId: 'someoutcome',
           hasLoadedMarketInfo: false,
           details: {
-            example: 'test'
-          }
-        }
+            example: 'test',
+          },
+        },
       }
       const action = {
         type: 'UPDATE_MARKETS_DATA',
-        marketsData
+        marketsData,
       }
       const action2 = {
         type: 'UPDATE_MARKETS_DATA',
-        marketsData: marketsData2
+        marketsData: marketsData2,
       }
       assert.deepEqual(reducer(curMarketsData1, action), expectedOutput, `didn't add a new market to markets data`)
       assert.deepEqual(reducer(curMarketsData2, action), expectedOutput, `didn't update a market in markets data`)

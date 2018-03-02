@@ -19,7 +19,7 @@ export default function (orderCancellation = DEFAULT_STATE, action) {
       const { orderId } = action.data
       delete orderCancellation[orderId]
       return {
-        ...orderCancellation
+        ...orderCancellation,
       }
     }
     case RESET_STATE:

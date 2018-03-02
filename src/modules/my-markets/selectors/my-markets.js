@@ -17,7 +17,7 @@ export const selectAuthorOwnedMarkets = createSelector(
   (allMarkets, authorId) => {
     if (!allMarkets || !authorId) return null
     return allMarkets.filter(market => market.author === authorId)
-  }
+  },
 )
 
 export const selectLoginAccountMarkets = createSelector(
@@ -38,14 +38,15 @@ export const selectLoginAccountMarkets = createSelector(
         description: market.description,
         endDate: market.endDate,
         volume: market.volume,
+        repBalance: market.repBalance,
         fees,
         numberOfTrades,
         averageTradeSize,
-        openVolume
+        openVolume,
       })
     })
     return markets
-  }
+  },
 )
 
 export const selectNumberOfTrades = memoize((trades) => {
@@ -69,16 +70,16 @@ export const selectAverageTradeSize = memoize((marketPriceHistory) => {
   if (!marketPriceHistory) return 0
   const initialState = {
     shares: ZERO,
-    trades: 0
+    trades: 0,
   }
   const priceHistoryTotals = Object.keys(marketPriceHistory).reduce((historyTotals, currentOutcome) => {
     const outcomeTotals = marketPriceHistory[currentOutcome].reduce((outcomeTotals, trade) => ({
       shares: new BigNumber(outcomeTotals.shares, 10).plus(new BigNumber(trade.amount, 10)),
-      trades: outcomeTotals.trades + 1
+      trades: outcomeTotals.trades + 1,
     }), initialState)
     return {
       shares: historyTotals.shares.plus(outcomeTotals.shares),
-      trades: historyTotals.trades + outcomeTotals.trades
+      trades: historyTotals.trades + outcomeTotals.trades,
     }
   }, initialState)
   return priceHistoryTotals.shares.dividedBy(new BigNumber(priceHistoryTotals.trades, 10))

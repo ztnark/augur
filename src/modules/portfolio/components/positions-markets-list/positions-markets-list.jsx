@@ -12,7 +12,6 @@ class PositionsMarketsList extends Component {
     title: PropTypes.string.isRequired,
     markets: PropTypes.array.isRequired,
     closePositionStatus: PropTypes.object.isRequired,
-    scalarShareDenomination: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     linkType: PropTypes.string,
@@ -31,7 +30,7 @@ class PositionsMarketsList extends Component {
         { label: 'Volume', value: 'volume' },
         { label: 'Newest', value: 'newest' },
         { label: 'Expiring Soon', value: 'expiring' },
-        { label: 'Fees', value: 'fees' }
+        { label: 'Fees', value: 'fees' },
       ],
     }
 
@@ -77,7 +76,6 @@ class PositionsMarketsList extends Component {
               key={market.id}
               market={market}
               closePositionStatus={p.closePositionStatus}
-              scalarShareDenomination={p.scalarShareDenomination}
               location={p.location}
               history={p.history}
               linkType={p.linkType}

@@ -11,7 +11,7 @@ export const constructRelayTransaction = tx => (dispatch, getState) => {
   const { hash } = tx
   const { status } = tx
   const unpackedParams = unpackTransactionParameters(tx)
-  console.log('unpacked:', JSON.stringify(unpackedParams, null, 2))
+  // console.log('unpacked:', JSON.stringify(unpackedParams, null, 2))
   const timestamp = tx.response.timestamp || parseInt(Date.now() / 1000, 10)
   const blockNumber = tx.response.blockNumber && parseInt(tx.response.blockNumber, 16)
   if (notifications.filter(notification => notification.id === hash).length) {
@@ -23,7 +23,7 @@ export const constructRelayTransaction = tx => (dispatch, getState) => {
       title: `${unpackedParams.type} - ${status}`,
       description: unpackedParams._description || '',
       linkPath: makePath(TRANSACTIONS),
-      seen: false // Manually set to false to ensure notification
+      seen: false, // Manually set to false to ensure notification
     }))
   } else {
     dispatch(addNotification({
@@ -33,10 +33,10 @@ export const constructRelayTransaction = tx => (dispatch, getState) => {
       blockNumber,
       title: `${unpackedParams.type} - ${status}`,
       description: unpackedParams._description || '',
-      linkPath: makePath(TRANSACTIONS)
+      linkPath: makePath(TRANSACTIONS),
     }))
   }
   return {
-    [hash]: dispatch(constructBasicTransaction(hash, status, blockNumber, timestamp, tx.response.gasFees))
+    [hash]: dispatch(constructBasicTransaction(hash, status, blockNumber, timestamp, tx.response.gasFees)),
   }
 }

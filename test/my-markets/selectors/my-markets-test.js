@@ -15,7 +15,7 @@ describe('modules/portfolio/selectors/login-account-markets', () => {
   const { store, state } = mockStore.default
   state.marketCreatorFees = {
     '0xMARKET1': new BigNumber('10', 10),
-    '0xMARKET2': new BigNumber('11', 10)
+    '0xMARKET2': new BigNumber('11', 10),
   }
 
   const { allMarkets } = store.getState()
@@ -24,7 +24,7 @@ describe('modules/portfolio/selectors/login-account-markets', () => {
 
   const proxiedSelector = proxyquire('../../../src/modules/my-markets/selectors/my-markets', {
     '../../../store': store,
-    '../../markets/selectors/markets-all': MarketsAll
+    '../../markets/selectors/markets-all': MarketsAll,
   })
 
   const actual = proxiedSelector.default()
@@ -35,6 +35,7 @@ describe('modules/portfolio/selectors/login-account-markets', () => {
       id: '0xMARKET1',
       description: 'test-market-1',
       endDate: formatDate(new Date('2017/12/12')),
+      repBalance: undefined,
       volume: formatNumber(100),
       fees: formatEtherTokens(new BigNumber('10', 10)),
       numberOfTrades: formatNumber(4),
@@ -45,49 +46,50 @@ describe('modules/portfolio/selectors/login-account-markets', () => {
           orderBook: {
             bid: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
             ],
             ask: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
-            ]
-          }
+            ],
+          },
         },
         {
           orderBook: {
             bid: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
             ],
             ask: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
-            ]
-          }
-        }
-      ]
+            ],
+          },
+        },
+      ],
     },
     {
       author: '0x0000000000000000000000000000000000000001',
       id: '0xMARKET2',
       description: 'test-market-2',
       endDate: formatDate(new Date('2017/12/12')),
+      repBalance: undefined,
       volume: formatNumber(100),
       fees: formatEtherTokens(new BigNumber('11', 10)),
       numberOfTrades: formatNumber(4),
@@ -98,44 +100,44 @@ describe('modules/portfolio/selectors/login-account-markets', () => {
           orderBook: {
             bid: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
             ],
             ask: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
-            ]
-          }
+            ],
+          },
         },
         {
           orderBook: {
             bid: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
             ],
             ask: [
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
               {
-                shares: formatShares(10)
+                shares: formatShares(10),
               },
-            ]
-          }
-        }
-      ]
-    }
+            ],
+          },
+        },
+      ],
+    },
   ]
 
   it('should return the expected array', () => {

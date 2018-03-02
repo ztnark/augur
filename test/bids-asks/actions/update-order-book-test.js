@@ -18,7 +18,7 @@ describe(`modules/bids-asks/actions/update-order-book.js`, () => {
         sharesEscrowed: '0',
         betterOrderId: '0x000000000000000000000000000000000000000000000000000000000000000a',
         worseOrderId: '0x000000000000000000000000000000000000000000000000000000000000000b',
-        gasPrice: '20000000000'
+        gasPrice: '20000000000',
       },
       '0xf': {
         amount: '1.1111',
@@ -30,8 +30,8 @@ describe(`modules/bids-asks/actions/update-order-book.js`, () => {
         sharesEscrowed: '0',
         betterOrderId: '0x000000000000000000000000000000000000000000000000000000000000000a',
         worseOrderId: '0x000000000000000000000000000000000000000000000000000000000000000b',
-        gasPrice: '20000000001'
-      }
+        gasPrice: '20000000001',
+      },
     }
     const expectedOutput = {
       type: UPDATE_ORDER_BOOK,

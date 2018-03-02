@@ -16,11 +16,11 @@ export const loginWithAirbitzEthereumWallet = (airbitzAccount, ethereumWallet, h
     meta: {
       address: account.address,
       signer: Buffer.from(privateKey, 'hex'),
-      accountType: augur.rpc.constants.ACCOUNT_TYPES.PRIVATE_KEY
+      accountType: augur.rpc.constants.ACCOUNT_TYPES.PRIVATE_KEY,
     },
     name: airbitzAccount.username,
-    airbitzAccount
-  }, true))
+    airbitzAccount,
+  }))
 }
 
 // Create an ethereum wallet if one doesn't exist

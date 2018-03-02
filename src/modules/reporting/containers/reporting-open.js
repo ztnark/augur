@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import ReportingOpen from 'modules/reporting/components/reporting-open/reporting-open'
 
 // import getAllMarkets from 'modules/markets/selectors/markets-all'
-import getScalarShareDenomination from 'modules/market/selectors/scalar-share-denomination'
 import { toggleFavorite } from 'modules/markets/actions/update-favorites'
 
 import { loadMarketsInfo } from 'modules/markets/actions/load-markets-info'
@@ -15,7 +14,6 @@ const mapStateToProps = state => ({
   isLogged: state.isLogged,
   markets, // getAllMarkets(),
   universe: state.universe,
-  scalarShareDenomination: getScalarShareDenomination(),
   canLoadMarkets: !!getValue(state, 'universe.id'),
   hasLoadedMarkets: state.hasLoadedMarkets,
   isMobile: state.isMobile,
@@ -44,7 +42,7 @@ const markets = [
       formatted: 'Oct 16, 2017 2:36 PM',
       formattedLocal: 'Oct 16, 2017 7:36 AM (UTC -7)',
       full: 'Mon, 16 Oct 2017 14:36:38 GMT',
-      timestamp: 1508164598000
+      timestamp: 1508164598000,
     },
     volume: {
       value: 3000,
@@ -54,20 +52,20 @@ const markets = [
       rounded: '3,000.00',
       minimized: '3,000',
       denomination: ' shares',
-      full: '3,000 shares'
+      full: '3,000 shares',
     },
     category: 'Cryptocurrency',
     tags: [
       'Cryptocurrency',
       'Bitcoin',
-      'Ethereum'
+      'Ethereum',
     ],
     endDate: {
       value: '2018-12-30T08:00:00.000Z',
       formatted: 'Dec 30, 2018 8:00 AM',
       formattedLocal: 'Dec 30, 2018 12:00 AM (UTC -8)',
       full: 'Sun, 30 Dec 2018 08:00:00 GMT',
-      timestamp: 1546156800000
+      timestamp: 1546156800000,
     },
     eventId: '0xee03ff4923cb4fc8f2f2370e0f1d5cffd321342d304e221e566623616f676ba4',
     minValue: '1',
@@ -100,7 +98,7 @@ const markets = [
           rounded: '0.0000',
           minimized: '0',
           denomination: ' ETH Tokens',
-          full: '0 ETH Tokens'
+          full: '0 ETH Tokens',
         },
         lastPricePercent: {
           value: 50,
@@ -110,7 +108,7 @@ const markets = [
           rounded: '50',
           minimized: '50',
           denomination: '%',
-          full: '50.0%'
+          full: '50.0%',
         },
         trade: {
           side: 'buy',
@@ -124,7 +122,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -138,7 +136,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -148,7 +146,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -158,17 +156,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -179,12 +177,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -192,7 +190,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -200,15 +198,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     extraInfo: 'Will Ethereum value overpass Bitcoin by the end of 2018?',
     formattedDescription: 'will_bitcoin_be_surpassed_by_ethereum_by_the_end_of_2018',
@@ -227,7 +225,7 @@ const markets = [
       rounded: '2',
       minimized: '2.5',
       denomination: '%',
-      full: '2.5%'
+      full: '2.5%',
     },
     makerFeePercent: {
       value: 1.25,
@@ -237,7 +235,7 @@ const markets = [
       rounded: '1',
       minimized: '1.2',
       denomination: '%',
-      full: '1.2%'
+      full: '1.2%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -257,7 +255,7 @@ const markets = [
       rounded: '1,000',
       minimized: '1,000',
       denomination: '',
-      full: '1,000'
+      full: '1,000',
     },
     priceTimeSeries: [
 
@@ -265,16 +263,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -286,13 +284,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae84c73772785a666ca272',
@@ -306,7 +304,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -316,19 +314,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -361,7 +359,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -371,7 +369,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -385,7 +383,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -399,7 +397,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -409,7 +407,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -419,17 +417,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -440,12 +438,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -453,7 +451,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -461,15 +459,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -487,7 +485,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -497,7 +495,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -517,7 +515,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -525,16 +523,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -546,13 +544,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b91b6994013cd04d8f28125c3c11c8bae84c73772785a666ca272',
@@ -566,7 +564,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -576,19 +574,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -621,7 +619,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -631,7 +629,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -645,7 +643,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -659,7 +657,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -669,7 +667,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -679,17 +677,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -700,12 +698,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -713,7 +711,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -721,15 +719,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -747,7 +745,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -757,7 +755,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -777,7 +775,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -785,16 +783,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -806,13 +804,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae84c73772785a566ca272',
@@ -826,7 +824,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -836,19 +834,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -881,7 +879,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -891,7 +889,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -905,7 +903,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -919,7 +917,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -929,7 +927,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -939,17 +937,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -960,12 +958,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -973,7 +971,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -981,15 +979,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -1007,7 +1005,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -1017,7 +1015,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -1037,7 +1035,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -1045,16 +1043,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -1066,13 +1064,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae83c73772785a666ca272',
@@ -1086,7 +1084,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -1096,19 +1094,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -1141,7 +1139,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -1151,7 +1149,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -1165,7 +1163,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -1179,7 +1177,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -1189,7 +1187,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -1199,17 +1197,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -1220,12 +1218,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -1233,7 +1231,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -1241,15 +1239,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -1267,7 +1265,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -1277,7 +1275,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -1297,7 +1295,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -1305,16 +1303,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -1326,13 +1324,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d1f28125c3c11c8bae84c73772785a666ca272',
@@ -1346,7 +1344,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -1356,19 +1354,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -1401,7 +1399,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -1411,7 +1409,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -1425,7 +1423,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -1439,7 +1437,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -1449,7 +1447,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -1459,17 +1457,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -1480,12 +1478,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -1493,7 +1491,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -1501,15 +1499,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -1527,7 +1525,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -1537,7 +1535,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -1557,7 +1555,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -1565,16 +1563,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -1586,13 +1584,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b78c5162b95b6994013cd04d8f28125c3c11c8bae84c73772785a666ca272',
@@ -1606,7 +1604,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -1616,19 +1614,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -1661,7 +1659,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -1671,7 +1669,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -1685,7 +1683,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -1699,7 +1697,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -1709,7 +1707,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -1719,17 +1717,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -1740,12 +1738,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -1753,7 +1751,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -1761,15 +1759,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -1787,7 +1785,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -1797,7 +1795,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -1817,7 +1815,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -1825,16 +1823,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -1846,13 +1844,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04c8f28125c3c11c8bae84c73772785a666ca272',
@@ -1866,7 +1864,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -1876,19 +1874,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -1921,7 +1919,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -1931,7 +1929,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -1945,7 +1943,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -1959,7 +1957,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -1969,7 +1967,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -1979,17 +1977,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -2000,12 +1998,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -2013,7 +2011,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -2021,15 +2019,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -2047,7 +2045,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -2057,7 +2055,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -2077,7 +2075,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -2085,16 +2083,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -2106,13 +2104,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae8vc73772785a666ca272',
@@ -2126,7 +2124,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -2136,19 +2134,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -2181,7 +2179,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -2191,7 +2189,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -2205,7 +2203,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -2219,7 +2217,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -2229,7 +2227,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -2239,17 +2237,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -2260,12 +2258,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -2273,7 +2271,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -2281,15 +2279,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -2307,7 +2305,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -2317,7 +2315,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -2337,7 +2335,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -2345,16 +2343,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -2366,13 +2364,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae84c7c772785a666ca272',
@@ -2386,7 +2384,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -2396,19 +2394,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -2441,7 +2439,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -2451,7 +2449,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -2465,7 +2463,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -2479,7 +2477,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -2489,7 +2487,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -2499,17 +2497,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -2520,12 +2518,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -2533,7 +2531,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -2541,15 +2539,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -2567,7 +2565,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -2577,7 +2575,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -2597,7 +2595,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -2605,16 +2603,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -2626,13 +2624,13 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
   {
     id: '0xbb8b7835162b95b6994013cd04d8f28125c3c11c8bae84c73772785a666ya272',
@@ -2646,7 +2644,7 @@ const markets = [
       formatted: 'Oct 13, 2017 9:01 PM',
       formattedLocal: 'Oct 13, 2017 2:01 PM (UTC -7)',
       full: 'Fri, 13 Oct 2017 21:01:36 GMT',
-      timestamp: 1507928496000
+      timestamp: 1507928496000,
     },
     volume: {
       value: 30.5,
@@ -2656,19 +2654,19 @@ const markets = [
       rounded: '30.50',
       minimized: '30.5',
       denomination: ' shares',
-      full: '30.5 shares'
+      full: '30.5 shares',
     },
     category: 'MLB Baseball',
     tags: [
       'MLB Baseball',
-      'Baseball'
+      'Baseball',
     ],
     endDate: {
       value: '2017-11-05T07:00:00.000Z',
       formatted: 'Nov 5, 2017 7:00 AM',
       formattedLocal: 'Nov 5, 2017 12:00 AM (UTC -7)',
       full: 'Sun, 05 Nov 2017 07:00:00 GMT',
-      timestamp: 1509865200000
+      timestamp: 1509865200000,
     },
     eventId: '0x55c24b4a613d57869cfb42a640d744d2d646aaa1f30e0147c6a7da5a6a72eeb8',
     minValue: '1',
@@ -2701,7 +2699,7 @@ const markets = [
           rounded: '0.3000',
           minimized: '0.3',
           denomination: ' ETH Tokens',
-          full: '0.3000 ETH Tokens'
+          full: '0.3000 ETH Tokens',
         },
         lastPricePercent: {
           value: 30,
@@ -2711,7 +2709,7 @@ const markets = [
           rounded: '30',
           minimized: '30',
           denomination: '%',
-          full: '30.0%'
+          full: '30.0%',
         },
         trade: {
           side: 'buy',
@@ -2725,7 +2723,7 @@ const markets = [
             rounded: '0.00',
             minimized: '0',
             denomination: ' shares',
-            full: '0 shares'
+            full: '0 shares',
           },
           potentialEthProfit: null,
           potentialEthLoss: null,
@@ -2739,7 +2737,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           gasFeesRealEth: {
             value: 0,
@@ -2749,7 +2747,7 @@ const markets = [
             rounded: '',
             minimized: '',
             denomination: '',
-            full: ''
+            full: '',
           },
           totalCost: {
             value: 0,
@@ -2759,17 +2757,17 @@ const markets = [
             rounded: '0.0000',
             minimized: '0',
             denomination: ' ETH Tokens',
-            full: '0 ETH Tokens'
+            full: '0 ETH Tokens',
           },
           tradeTypeOptions: [
             {
               label: 'buy',
-              value: 'buy'
+              value: 'buy',
             },
             {
               label: 'sell',
-              value: 'sell'
-            }
+              value: 'sell',
+            },
           ],
           tradeSummary: {
             totalGas: {
@@ -2780,12 +2778,12 @@ const markets = [
               rounded: '0.0000',
               minimized: '0',
               denomination: ' ETH',
-              full: '0 ETH'
+              full: '0 ETH',
             },
             tradeOrders: [
 
-            ]
-          }
+            ],
+          },
         },
         orderBook: {
           bids: [
@@ -2793,7 +2791,7 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         orderBookSeries: {
           bids: [
@@ -2801,15 +2799,15 @@ const markets = [
           ],
           asks: [
 
-          ]
+          ],
         },
         topBid: null,
         topAsk: null,
         position: null,
         userOpenOrders: [
 
-        ]
-      }
+        ],
+      },
     ],
     formattedDescription: 'will_the_yankees_win_the_2017_world_series',
     isBinary: true,
@@ -2827,7 +2825,7 @@ const markets = [
       rounded: '2',
       minimized: '2',
       denomination: '%',
-      full: '2.0%'
+      full: '2.0%',
     },
     makerFeePercent: {
       value: 1,
@@ -2837,7 +2835,7 @@ const markets = [
       rounded: '1',
       minimized: '1',
       denomination: '%',
-      full: '1.0%'
+      full: '1.0%',
     },
     isRequiredToReportByAccount: false,
     isPendingReport: true,
@@ -2857,7 +2855,7 @@ const markets = [
       rounded: '10',
       minimized: '10',
       denomination: '',
-      full: '10'
+      full: '10',
     },
     priceTimeSeries: [
 
@@ -2865,16 +2863,16 @@ const markets = [
     reportableOutcomes: [
       {
         id: '1',
-        name: 'No'
+        name: 'No',
       },
       {
         id: '2',
-        name: 'Yes'
+        name: 'Yes',
       },
       {
         id: '1.5',
-        name: 'Indeterminate'
-      }
+        name: 'Indeterminate',
+      },
     ],
     userOpenOrdersSummary: null,
     tradeSummary: {
@@ -2886,12 +2884,12 @@ const markets = [
         rounded: '0.0000',
         minimized: '0',
         denomination: ' ETH',
-        full: '0 ETH'
+        full: '0 ETH',
       },
       tradeOrders: [
 
       ],
-      hasUserEnoughFunds: false
-    }
+      hasUserEnoughFunds: false,
+    },
   },
 ]

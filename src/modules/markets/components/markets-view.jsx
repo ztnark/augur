@@ -43,7 +43,7 @@ export default class MarketsView extends Component {
       loadMarkets: this.props.loadMarkets,
       loadMarketsByCategory: this.props.loadMarketsByCategory,
       hasLoadedMarkets: this.props.hasLoadedMarkets,
-      hasLoadedCategory: this.props.hasLoadedCategory
+      hasLoadedCategory: this.props.hasLoadedCategory,
     })
   }
 
@@ -60,7 +60,7 @@ export default class MarketsView extends Component {
         loadMarkets: nextProps.loadMarkets,
         loadMarketsByCategory: nextProps.loadMarketsByCategory,
         hasLoadedMarkets: this.props.hasLoadedMarkets,
-        hasLoadedCategory: this.props.hasLoadedCategory
+        hasLoadedCategory: this.props.hasLoadedCategory,
       })
     }
   }
@@ -95,7 +95,6 @@ export default class MarketsView extends Component {
           filteredMarkets={p.filteredMarkets}
           location={p.location}
           history={p.history}
-          scalarShareDenomination={p.scalarShareDenomination}
           toggleFavorite={p.toggleFavorite}
           loadMarketsInfo={p.loadMarketsInfo}
           linkType={TYPE_TRADE}

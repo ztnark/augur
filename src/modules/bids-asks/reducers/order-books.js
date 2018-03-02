@@ -36,8 +36,13 @@ export default function (orderBooks = DEFAULT_STATE, action) {
       const {
         marketId,
         outcome,
+<<<<<<< HEAD
         orderTypeLabel
       } = action.data
+=======
+        orderTypeLabel,
+      } = action
+>>>>>>> seadragon
       const marketOrderBook = orderBooks[marketId] || {}
       const outcomeOrderBook = marketOrderBook[outcome] || {}
       return {
@@ -46,9 +51,9 @@ export default function (orderBooks = DEFAULT_STATE, action) {
           ...marketOrderBook,
           [outcome]: {
             ...outcomeOrderBook,
-            [orderTypeLabel]: {}
-          }
-        }
+            [orderTypeLabel]: {},
+          },
+        },
       }
     }
     case RESET_STATE:

@@ -73,7 +73,7 @@ export const selectMarket = (marketId) => {
     universe,
     orderCancellation,
     smallestPositions,
-    loginAccount
+    loginAccount,
   } = store.getState()
 
   const accountPositions = selectAccountPositions()
@@ -111,7 +111,7 @@ export const selectMarket = (marketId) => {
     orderCancellation,
     (smallestPositions || {})[marketId],
     loginAccount,
-    store.dispatch
+    store.dispatch,
   )
 }
 
@@ -138,7 +138,7 @@ export function assembleMarket(
   orderCancellation,
   smallestPosition,
   loginAccount,
-  dispatch
+  dispatch,
 ) {
 
   if (!assembledMarketsCache[marketId]) {
@@ -163,14 +163,14 @@ export function assembleMarket(
       orderCancellation,
       smallestPosition,
       loginAccount,
-      dispatch
+      dispatch,
     ) => {
 
       const market = {
         ...marketData,
         description: marketData.description || '',
         formattedDescription: listWordsUnderLength(marketData.description || '', 100).map(word => encodeURIComponent(word.toLowerCase())).join('_'),
-        id: marketId
+        id: marketId,
       }
 
       const now = new Date()
@@ -213,11 +213,11 @@ export function assembleMarket(
       market.isReported = market.isRequiredToReportByAccount && !!marketReport.reportedOutcomeId // the user has reported on this market
       market.isReportTabVisible = market.isRequiredToReportByAccount
 
-      market.onSubmitPlaceTrade = outcomeId => dispatch(placeTrade(marketId, outcomeId, marketTradeInProgress[outcomeId]))
+      market.onSubmitPlaceTrade = (outcomeId, callback, onComplete, doNotCreateOrders = false) => dispatch(placeTrade(marketId, outcomeId, marketTradeInProgress[outcomeId], doNotCreateOrders, callback, onComplete))
 
       market.report = {
         ...marketReport,
-        onSubmitReport: (reportedOutcomeId, amountToStake, isIndeterminate, history) => dispatch(submitReport(market, reportedOutcomeId, amountToStake, isIndeterminate, history))
+        onSubmitReport: (reportedOutcomeId, amountToStake, isIndeterminate, history) => dispatch(submitReport(market, reportedOutcomeId, amountToStake, isIndeterminate, history)),
       }
 
       market.outcomes = []
@@ -232,7 +232,7 @@ export function assembleMarket(
           ...outcomeData,
           id: outcomeId,
           marketId,
-          lastPrice: formatEtherTokens(outcomeData.price || 0, { positiveSign: false })
+          lastPrice: formatEtherTokens(outcomeData.price || 0, { positiveSign: false }),
         }
 
         if (market.isScalar) {
@@ -243,7 +243,7 @@ export function assembleMarket(
               decimalsRounded: 1,
               denomination: '',
               positiveSign: false,
-              zeroStyled: true
+              zeroStyled: true,
             })
           } else {
             const midPoint = (new BigNumber(market.minPrice, 10).plus(new BigNumber(market.maxPrice, 10))).dividedBy(2)
@@ -252,7 +252,7 @@ export function assembleMarket(
               decimalsRounded: 1,
               denomination: '',
               positiveSign: false,
-              zeroStyled: true
+              zeroStyled: true,
             })
           }
         } else if (outcome.lastPrice.value) {

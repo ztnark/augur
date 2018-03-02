@@ -14,7 +14,6 @@ export default class MarketPositionsListMobile extends Component {
     outcome: PropTypes.object.isRequired,
     positions: PropTypes.array.isRequired,
     openOrders: PropTypes.array.isRequired,
-    scalarShareDenomination: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -22,7 +21,7 @@ export default class MarketPositionsListMobile extends Component {
 
     this.state = {
       showViewMore: props.openOrders.length > 3,
-      visibleOrders: props.openOrders.length > 3 ? 3 : props.openOrders.length
+      visibleOrders: props.openOrders.length > 3 ? 3 : props.openOrders.length,
     }
   }
 
@@ -58,7 +57,6 @@ export default class MarketPositionsListMobile extends Component {
         }
         <MobileStats
           outcome={p.outcome}
-          scalarShareDenomination={p.scalarShareDenomination}
         />
       </section>
     )

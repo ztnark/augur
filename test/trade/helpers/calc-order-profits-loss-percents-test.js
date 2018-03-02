@@ -18,7 +18,43 @@ describe('modules/trade/helpers/calc-order-profit-loss-percents.js', () => {
       const expected = null
 
       assert.strictEqual(actual, expected, `didn't return the expected value`)
-    }
+    },
+  })
+
+  test({
+    description: `should return null when given a SCALAR market with non numerical minPrice`,
+    assertions: () => {
+      const actual = calcProfits(
+        '10',
+        '1',
+        SELL,
+        '190-242nota valid number',
+        '10',
+        SCALAR,
+      )
+
+      const expected = null
+
+      assert.strictEqual(actual, expected, `didn't return the expected value`)
+    },
+  })
+
+  test({
+    description: `should return null when given a SCALAR market with non numerical maxPrice`,
+    assertions: () => {
+      const actual = calcProfits(
+        '10',
+        '1',
+        SELL,
+        '-1',
+        '10abc this is not a valid number',
+        SCALAR,
+      )
+
+      const expected = null
+
+      assert.strictEqual(actual, expected, `didn't return the expected value`)
+    },
   })
 
   test({
@@ -30,18 +66,20 @@ describe('modules/trade/helpers/calc-order-profit-loss-percents.js', () => {
         BUY,
         '1',
         '2',
-        BINARY
+        BINARY,
+        '10',
+        '4',
       )
 
       const expected = {
         potentialEthProfit: new BigNumber('6'),
         potentialEthLoss: new BigNumber('4'),
         potentialProfitPercent: new BigNumber('150'),
-        potentialLossPercent: new BigNumber('100')
+        potentialLossPercent: new BigNumber('100'),
       }
 
       assert.deepEqual(actual, expected, `didn't return the expected profit and loss values`)
-    }
+    },
   })
 
   test({
@@ -53,18 +91,20 @@ describe('modules/trade/helpers/calc-order-profit-loss-percents.js', () => {
         SELL,
         '1',
         '2',
-        BINARY
+        BINARY,
+        '10',
+        '6',
       )
 
       const expected = {
         potentialEthProfit: new BigNumber('4'),
         potentialEthLoss: new BigNumber('6'),
         potentialProfitPercent: new BigNumber('100'),
-        potentialLossPercent: new BigNumber('150')
+        potentialLossPercent: new BigNumber('150'),
       }
 
       assert.deepEqual(actual, expected, `didn't return the expected profit and loss values`)
-    }
+    },
   })
 
   test({
@@ -76,18 +116,20 @@ describe('modules/trade/helpers/calc-order-profit-loss-percents.js', () => {
         BUY,
         '-5',
         '10',
-        SCALAR
+        SCALAR,
+        '10',
+        '60',
       )
 
       const expected = {
         potentialEthProfit: new BigNumber('90'),
         potentialEthLoss: new BigNumber('60'),
         potentialProfitPercent: new BigNumber('150'),
-        potentialLossPercent: new BigNumber('100')
+        potentialLossPercent: new BigNumber('100'),
       }
 
       assert.deepEqual(actual, expected, `didn't return the expected profit and loss values`)
-    }
+    },
   })
 
   test({
@@ -99,17 +141,19 @@ describe('modules/trade/helpers/calc-order-profit-loss-percents.js', () => {
         SELL,
         '-5',
         '10',
-        SCALAR
+        SCALAR,
+        '10',
+        '90',
       )
 
       const expected = {
         potentialEthProfit: new BigNumber('60'),
         potentialEthLoss: new BigNumber('90'),
         potentialProfitPercent: new BigNumber('100'),
-        potentialLossPercent: new BigNumber('150')
+        potentialLossPercent: new BigNumber('150'),
       }
 
       assert.deepEqual(actual, expected, `didn't return the expected profit and loss values`)
-    }
+    },
   })
 })
