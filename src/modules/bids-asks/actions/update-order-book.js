@@ -16,12 +16,14 @@ export const updateOrderBook = (options) => {
     },
   })
 }
+
 export const clearOrderBook = (marketId, outcome, orderTypeLabel) => (
   {
     type: CLEAR_ORDER_BOOK,
     data: { marketId, outcome, orderTypeLabel },
   }
 )
+
 export const updateIsFirstOrderBookChunkLoaded = (options) => {
   const {
     marketId,

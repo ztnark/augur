@@ -39,9 +39,11 @@ describe('modules/categories/reducers/has-loaded-category.js', () => {
     assertions: () => {
       const actual = hasLoadedCategory({ category: true }, {
         type: UPDATE_HAS_LOADED_CATEGORY,
-        hasLoadedCategory: {
-          category: false,
-          category2: true,
+        data: {
+          hasLoadedCategory: {
+            category: false,
+            category2: true,
+          },
         },
       })
 
