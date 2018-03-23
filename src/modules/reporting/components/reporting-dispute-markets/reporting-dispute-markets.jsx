@@ -51,12 +51,13 @@ export default class ReportingDisputeMarkets extends Component {
             forkEndTime={p.forkEndTime}
             currentTime={p.currentTime}
           />
-          { !p.doesUserHaveRep && !p.forkEndTime &&
-          <ReportDisputeNoRepState
-            btnText="Add Funds"
-            message="You have 0 REP available. Add funds to dispute markets or purchase participation tokens."
-            onClickHandler={p.navigateToAccountDepositHandler}
-          />}
+          { !p.doesUserHaveRep && !parseInt(p.forkEndTime) &&
+            <ReportDisputeNoRepState
+              btnText="Add Funds"
+              message="You have 0 REP available. Add funds to dispute markets or purchase participation tokens."
+              onClickHandler={p.navigateToAccountDepositHandler}
+            />
+          }
         </section>
         { p.marketsCount > 0 &&
             p.markets.map(market =>
