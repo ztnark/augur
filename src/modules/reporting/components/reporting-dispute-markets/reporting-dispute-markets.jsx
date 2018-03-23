@@ -51,7 +51,7 @@ export default class ReportingDisputeMarkets extends Component {
             forkEndTime={p.forkEndTime}
             currentTime={p.currentTime}
           />
-          { !p.doesUserHaveRep && !parseInt(p.forkEndTime) &&
+          { !p.doesUserHaveRep && !parseInt(p.forkEndTime, 10) &&
             <ReportDisputeNoRepState
               btnText="Add Funds"
               message="You have 0 REP available. Add funds to dispute markets or purchase participation tokens."
