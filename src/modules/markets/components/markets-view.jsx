@@ -5,14 +5,9 @@ import { Helmet } from 'react-helmet'
 import MarketsHeader from 'modules/markets/components/markets-header/markets-header'
 import MarketsList from 'modules/markets/components/markets-list'
 
-// import getValue from 'utils/get-value'
 import parseQuery from 'modules/routes/helpers/parse-query'
 import isEqual from 'lodash/isEqual'
 
-// import parsePath from 'modules/routes/helpers/parse-path'
-// import makePath from 'modules/routes/helpers/make-path'
-
-// import { FAVORITES, MARKETS } from 'modules/routes/constants/views'
 import { CATEGORY_PARAM_NAME, FILTER_SEARCH_PARAM, TAGS_PARAM_NAME } from 'modules/filter-sort/constants/param-names'
 import { QUERY_VALUE_DELIMITER } from 'modules/routes/constants/query-value-delimiter'
 import filterByTags from 'modules/filter-sort/helpers/filter-by-tags'
@@ -81,7 +76,7 @@ export default class MarketsView extends Component {
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps) {
     const newTags = decodeURIComponent(parseQuery(nextProps.location.search)[TAGS_PARAM_NAME] || '')
     if (newTags.length) {
       const marketsFilteredByTags = filterByTags(newTags.split(QUERY_VALUE_DELIMITER), nextProps.markets)
@@ -89,11 +84,6 @@ export default class MarketsView extends Component {
         this.props.updateMarketsFilteredSorted(marketsFilteredByTags)
       }
     }
-    // }
-    // if (!isEqual(this.state.markets, nextState.markets)) {
-    //   this.props.updateMarketsFilteredSorted(nextState.markets)
-    //   checkFavoriteMarketsCount(nextState.markets, nextProps.location, nextProps.history)
-    // }
   }
 
   componentWillUnmount() {
