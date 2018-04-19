@@ -16,7 +16,7 @@ export default class Order extends Component {
     isMobile: PropTypes.bool,
     outcomeName: PropTypes.string,
     order: PropTypes.object,
-    pending: PropTypes.bool,
+    pending: PropTypes.string,
   }
 
   constructor(props) {
@@ -115,7 +115,7 @@ export default class Order extends Component {
               </div>
             </div> :
             <div className={Styles['Order__confirm-details']}>
-              <p>Cancel order for { getValue(order, 'unmatchedShares.formatted') } shares of &ldquo;{ outcomeName }&rdquo; at { getValue(order, 'purchasePrice.formatted') } ETH?</p>
+              <p>Cancel order for { getValue(order, 'unmatchedShares.formatted') } shares of &ldquo;{ outcomeName }&rdquo; at { getValue(order, 'avgPrice.formatted') } ETH?</p>
               <div className={Styles['Order__confirm-options']}>
                 <button onClick={(e) => { order.cancelOrder(order.id, order.marketId, order.outcomeId, order.type); this.toggleConfirm() }}>Yes</button>
                 <button onClick={this.toggleConfirm}>No</button>
