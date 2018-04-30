@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { BigNumber, createBigNumber } from 'utils/create-big-number'
 import speedomatic from 'speedomatic'
+import NumericInput from 'react-numeric-input'
 
 import { BINARY, CATEGORICAL, SCALAR } from 'modules/markets/constants/market-types'
 import {
@@ -324,15 +325,17 @@ export default class CreateMarketOutcome extends Component {
               <label htmlFor="cm__input--min">
                 <span>Range Values</span>
               </label>
-              <input
+              <NumericInput
                 id="cm__input--min"
                 type="number"
+                step={newMarket.tickSize}
                 min={s.scalarMin}
                 max={s.scalarMax}
                 value={BigNumber.isBigNumber(newMarket.scalarSmallNum) ? newMarket.scalarSmallNum.toNumber() : newMarket.scalarSmallNum}
                 placeholder="Min Value"
-                onChange={(e) => {
-                  this.validateScalarNum(e.target.value, 'small')
+                style={ false }
+                onChange={(value) => {
+                  this.validateScalarNum(value, 'small')
                 }}
                 onKeyPress={e => keyPressed(e)}
               />
@@ -346,15 +349,17 @@ export default class CreateMarketOutcome extends Component {
               <label htmlFor="cm__input--max">
                 <span>&nbsp;</span>
               </label>
-              <input
+              <NumericInput
                 id="cm__input--max"
                 type="number"
+                step={newMarket.tickSize}
                 min={s.scalarMin}
                 max={s.scalarMax}
                 value={BigNumber.isBigNumber(newMarket.scalarBigNum) ? newMarket.scalarBigNum.toNumber() : newMarket.scalarBigNum}
                 placeholder="Max Value"
-                onChange={(e) => {
-                  this.validateScalarNum(e.target.value, 'big')
+                style={ false }
+                onChange={(value) => {
+                  this.validateScalarNum(value, 'big')
                 }}
                 onKeyPress={e => keyPressed(e)}
               />
